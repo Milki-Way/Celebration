@@ -65,22 +65,22 @@ public class DataEngine {
 		{
 			switch(o.getClass().getName())
 			{
-				case "data.Map":
+				case "entity.Map":
 					query = cadData.getPreparedStatement(mapMapper.upd());
 					cadData.executePreparation(QueryPrepared.updateParameters(query, o));;
 					break;
 					
-				case "data.Route":
+				case "entity.Route":
 					query = cadData.getPreparedStatement(routeMapper.upd());
 					cadData.executePreparation(QueryPrepared.updateParameters(query, o));
 					break;
 					
-				case "data.New":
+				case "entity.New":
 					query = cadData.getPreparedStatement(infoMapper.upd());
 					cadData.executePreparation(QueryPrepared.updateParameters(query, o));
 					break;
 					
-				case "data.Poi":
+				case "entity.Poi":
 					query = cadData.getPreparedStatement(poiMapper.upd());
 					cadData.executePreparation(QueryPrepared.updateParameters(query, o));
 					break;
@@ -95,25 +95,30 @@ public class DataEngine {
 			System.out.println("appel");
 			switch(o.getClass().getName())
 			{
-				case "data.Map":
+				case "entity.Map":
 					query = cadData.getPreparedStatement(mapMapper.add());
 					System.out.println(QueryPrepared.insertParameters(query, o).toString());
 					cadData.executePreparation(QueryPrepared.insertParameters(query, o));
 					break;
 					
-				case "data.Route":
+				case "entity.Route":
 					query = cadData.getPreparedStatement(mapMapper.add());
 					cadData.executePreparation(QueryPrepared.insertParameters(query, o));
 					break;
 					
-				case "data.New":
+				case "entity.New":
 					query = cadData.getPreparedStatement(mapMapper.add());
 					cadData.executePreparation(QueryPrepared.insertParameters(query, o));
 					break;
 					
-				case "data.Poi":
+				case "entity.Poi":
 					query = cadData.getPreparedStatement(mapMapper.add());
 					cadData.executePreparation(QueryPrepared.insertParameters(query, o));
+					break;
+					
+				case "tileengine.Tile":
+					query = cadTiles.getPreparedStatement(tileMapper.add());
+					cadData.executePreparation(QueryPrepared.updateParameters(query, o));
 					break;
 					
 				default:

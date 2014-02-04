@@ -1,7 +1,11 @@
 package data;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javax.imageio.ImageIO;
 
 import tileengine.Tile;
 import entity.DescriptionComplex;
@@ -17,29 +21,29 @@ public class QueryPrepared {
 		{
 			switch(o.getClass().getName())
 			{				
-				case "data.Info":
+				case "entity.Info":
 					Info i = (Info)o;
 					query.setString(1, i.getLibelle());					
 					break;
 					
-				case "data.DescriptionComplex":
+				case "entity.DescriptionComplex":
 					DescriptionComplex d = (DescriptionComplex)o;
 					query.setString(1, d.getDescription());					
 					break;
 					
-				case "data.Poi":
+				case "entity.Poi":
 					Poi p = (Poi)o;
 					query.setString(1, p.getLibelle());
 					query.setInt(2, p.getCoords().getRow());
 					query.setInt(3, p.getCoords().getColumn());					
 					break;
 					
-				case "data.Route":
+				case "entity.Route":
 					Route r = (Route)o;
 					query.setString(1, r.getLibelle());										
 					break;
 					
-				case "data.Tile":
+				case "entity.Tile":
 					Tile t = (Tile)o;
 					query.setInt(1, t.getZoom());
 					query.setInt(2, t.getCoords().getColumn());
@@ -63,19 +67,19 @@ public class QueryPrepared {
 		{
 			switch(o.getClass().getName())
 			{				
-				case "data.Info":
+				case "entity.Info":
 					Info i = (Info)o;
 					query.setString(1, i.getLibelle());	
 					query.setInt(2, i.getId());
 					break;
 					
-				case "data.DescriptionComplex":
+				case "entity.DescriptionComplex":
 					DescriptionComplex d = (DescriptionComplex)o;
 					query.setString(1, d.getDescription());		
 					query.setInt(2, d.getId());
 					break;
 					
-				case "data.Poi":
+				case "entity.Poi":
 					Poi p = (Poi)o;
 					query.setString(1, p.getLibelle());
 					query.setInt(2, p.getCoords().getRow());
@@ -83,10 +87,27 @@ public class QueryPrepared {
 					query.setInt(4, p.getId());
 					break;
 					
-				case "data.Route":
+				case "entity.Route":
 					Route r = (Route)o;
 					query.setString(1, r.getLibelle());		
 					query.setInt(2, r.getId());
+					break;
+					
+				case "tileengine.Tile":
+					Tile t = (Tile)o;
+					query.setInt(1,t.getZoom());
+					query.setInt(2,t.getCoords().getColumn());
+					query.setInt(3,t.getCoords().getRow());
+
+					ByteArrayOutputStream bs = new ByteArrayOutputStream();
+					try {
+						ImageIO.write(t.getTileContent(), "bitmap", bs);
+						query.setBytes(4, bs.toByteArray());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					
 					break;
 			}
 			return query;
