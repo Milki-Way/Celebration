@@ -2,6 +2,7 @@ package data;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -224,18 +225,36 @@ public class DataEngine {
 				rs = cadTiles.getSQL(tileMapper.sel(result[0], result[1], result[2]));
 				if(rs != null)
 				{
-					InputStream imgStream = new ByteArrayInputStream(rs.getBytes("tile_data"));
-					BufferedImage img = ImageIO.read(imgStream); 
-					return new Tile(rs.getInt("zoom_level"), rs.getInt("tile_column"), rs.getInt("tile_row"), img);
+					int zoom = 0;
+					int col = 0;
+					int row = 0;
+					
+					InputStream imgStream = null;
+					BufferedImage img = null;
+					
+					try{
+						zoom = rs.getInt("zoom_level");
+						col = rs.getInt("tile_column");
+						row = rs.getInt("tile_row");
+						
+						imgStream = new ByteArrayInputStream(rs.getBytes("tile_data"));
+						img = ImageIO.read(imgStream);
+						
+					} catch (SQLException e) {
+						zoom = Integer.parseInt(result[0]);
+						col = Integer.parseInt(result[1]);
+						row = Integer.parseInt(result[2]);
+						
+						img = ImageIO.read(new File("data/imgs/error.jpg"));
+					}
+					
+					return new Tile(zoom, col, row, img);
 				}
 				else
 				{
 					System.out.println("Aucune tuile n'a été trouvé pour ce keyCode...");
 					return null;
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-				return null;
 			} catch (IOException e) {
 				e.printStackTrace();
 				return null;
