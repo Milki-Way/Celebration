@@ -11,9 +11,9 @@ public class Coordinate {
 	
 	
 	// CONSTRUCTOR
-	public Coordinate(int row, int column) {
-		this.coords.x = row;
-		this.coords.y = column;
+	public Coordinate(int column, int row) {
+		this.coords.x = column;
+		this.coords.y = row;
 	}
 	
 	public Coordinate(double x, double y) {
@@ -55,6 +55,6 @@ public class Coordinate {
     }
     
     public String toString() {
-        return "Coordinate[" + coords.y + ", " + coords.x + "]";
+        return "Coordinate[" + coords.x + ", " + coords.y + "]";
     }
 }

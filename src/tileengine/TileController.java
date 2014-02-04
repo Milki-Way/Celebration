@@ -1,8 +1,10 @@
 package tileengine;
 
-import data.DataEngine;
+import java.awt.Point;
+
 import tileengine.MapController.MapMoveEvent;
 import tools.Coordinate;
+import data.DataEngine;
 
 public class TileController {
 	
@@ -14,23 +16,24 @@ public class TileController {
 		this.tileCache = TileCache.getInstance();
 	}
 	
-	public void initCache(){ 										// remplissage au lancement du programme
+	public void initCache(){
+		// remplissage au lancement du programme
 		Coordinate p = this.map.getMapPosition();
 		int hMaxTiles = this.map.gethMaxTiles();
 		int wMaxTiles = this.map.getwMaxTiles();
-		Tile[][] tmpCacheContent = this.tileCache.getCacheContent();
+		int zoom = this.map.getZoom();
 		
-		for(int i=0; i<=hMaxTiles+1; i++){
-			for(int j=0; j<=wMaxTiles+1; j++){
-				tmpCacheContent[i][j] = DataEngine.getInstance().LoadTile(
-						this.map.getZoom()
-						+"/"+(p.getRow()+i)
-						+"/"+(p.getColumn()+j)
-						);
+		for(int i=0; i<=wMaxTiles+1; i++){
+			for(int j=0; j<=hMaxTiles+1; j++){
+				this.tileCache.addTile(
+						DataEngine.getInstance().LoadTile(
+								zoom+6
+								+"/"+(p.getColumn()*zoom-1+i)
+								+"/"+(p.getRow()*zoom-1+j)), 
+						new Point(i,j));
+				System.out.println(this.tileCache.getCacheContent()[i][j].getKeyTile());
 			}
 		}
-		
-		this.tileCache.setCacheContent(tmpCacheContent);
 	}
 	
 	public void updateCache(MapMoveEvent e){ 						//Méthode appellée par le MapController
@@ -42,13 +45,8 @@ public class TileController {
 		
 		if(e == MapMoveEvent.RIGHT) {
 			
-			for(int i=0; i<tmpCacheContent.length-1; i++){			// on décale toutes les tiles vers la gauche
-				for(int j=0; i<tmpCacheContent[i].length; j++){
-					
-					tmpCacheContent[i][j] = tmpCacheContent[i+1][j];
-				}
-			}
-			
+			System.arraycopy(this.tileCache.getCacheContent(), 0, this.tileCache.getCacheContent(), 1, this.tileCache.getCacheContent().length - 1);
+
 			for(int i=0; i<tmpCacheContent[i].length; i++){			// on précharge les tiles de la dernière colonne
 				tmpCacheContent[tmpCacheContent.length][i] = 
 						DataEngine.getInstance().LoadTile(
@@ -60,7 +58,8 @@ public class TileController {
 			
 		} else if(e == MapMoveEvent.LEFT) {
 			
-			
+			System.arraycopy(this.tileCache.getCacheContent(), 1, this.tileCache.getCacheContent(), 0, this.tileCache.getCacheContent().length-1);
+
 			
 		} else if(e == MapMoveEvent.UP) {
 

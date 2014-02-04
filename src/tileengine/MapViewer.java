@@ -12,7 +12,7 @@ import tools.Coordinate;
 public class MapViewer extends JPanel{
 	
 	public static final int MAX_ZOOM = 14;
-    public static final int MIN_ZOOM = 8;
+    public static final int MIN_ZOOM = 7;
     
     private int hMaxTiles = 2;
     private int wMaxTiles = 2;
@@ -25,8 +25,8 @@ public class MapViewer extends JPanel{
 	
 	private TileCache tileCache;
 	private TileController tileController;
-	private Coordinate mapPosition = new Coordinate(new Point(85,63));
-	private int zoom = 8;
+	private Coordinate mapPosition = new Coordinate(new Point(63,85));
+	private int zoom = 2;
 	
 	public MapViewer(){		
 		this.setFocusable(true);
@@ -68,6 +68,7 @@ public class MapViewer extends JPanel{
 	
 	public void drawTile(Graphics2D g2, Tile tile,int x, int y){
 		g2.drawImage(tile.getTileContent(), null, x, y);
+		g2.drawString(tile.getCoords().toString(), x+10, y+30);
 	}
 	
 	public void updateMaxTiles(){
