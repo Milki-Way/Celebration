@@ -1,5 +1,6 @@
-//package data;
-package tools; 
+package entity;
+
+
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -93,3 +94,4 @@ public class DescriptionComplex {
 		imageList.add(nouveauImage);
 	}
 }
+

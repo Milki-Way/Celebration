@@ -1,15 +1,17 @@
-package display;
+package entity;
 
-import tools.DescriptionComplex;
 import geography.IDrawable;
 import geography.IReferenceable;
+
+import java.awt.Graphics;
+
+import tools.Coordinate;
 
 public class Poi implements IReferenceable, IDrawable{
 	
 	private DescriptionComplex description;
 	private String libelle;	
-	private int x;
-	private int y;
+	private Coordinate coords;
 	private int id;
 		
 	//Constructeur
@@ -18,18 +20,16 @@ public class Poi implements IReferenceable, IDrawable{
 		}
 	
 	//Constructeur Param
-	public Poi(int id, String libelle, int x, int y, DescriptionComplex description){
+	public Poi(int id, String libelle, Coordinate coords, DescriptionComplex description){
 		this.id = id;
 		this.libelle = libelle;
-		this.x = x;
-		this.y = y;
+		this.coords.setRow(coords.getRow());
+		this.coords.setColumn(coords.getColumn());
 		this.description = description; 
 	}
 	
-	public void displayPoi(){
-		description.displayDescription(); 
-		description.displayLink(); 
-		description.displayImage(); 
+	public Poi(int id, String libelle, int x, int y, DescriptionComplex description){
+		this(id, libelle, new Coordinate(x,y), description);
 	}
 	
 	/**
@@ -56,31 +56,16 @@ public class Poi implements IReferenceable, IDrawable{
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	/**
-	 * @return the x
-	 */
-	public int getX() {
-		return x;
-	}
-	/**
-	 * @param x the x to set
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-	/**
-	 * @return the y
-	 */
-	public int getY() {
-		return y;
-	}
-	/**
-	 * @param y the y to set
-	 */
-	public void setY(int y) {
-		this.y = y;
+
+	@Override
+	public void paint(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	
-	
+	@Override
+	public Coordinate getCoords() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
