@@ -12,8 +12,9 @@ public class MpgTile implements Mappable {
 		return "";
 	}
 
-	public String sel(String zoom, String column, String row) {
-		return String.format("SELECT * FROM tiles WHERE zoom_level = %s AND tile_column = %s AND tile_row = %s", zoom, column, row);
+	@Override
+	public String sel() {
+		return "SELECT * FROM tiles WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?";
 	}
 
 	@Override
@@ -24,11 +25,6 @@ public class MpgTile implements Mappable {
 	@Override
 	public String getAll() {
 		return "SELECT * FROM tiles";
-	}
-
-	@Override
-	public String sel() {
-		return "";
 	}
 
 }

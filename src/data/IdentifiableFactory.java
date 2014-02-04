@@ -1,11 +1,13 @@
 package data;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.ResultSet;
+
 import data.mapper.MapperEnum;
 import entity.Identifiable;
+import entity.Poi;
 
 public class IdentifiableFactory {
 	public static ArrayList<Identifiable> createIdentifiable(MapperEnum type, ResultSet data)

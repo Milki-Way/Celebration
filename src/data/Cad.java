@@ -1,18 +1,21 @@
 package data;
 
 
-import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.ResultSet;
+import com.mysql.jdbc.Statement;
 
 /// CAD is a singleton
 public class Cad {
 	private static Connection connexion;
 	private static Statement state;
 	private String url;
+	private final String user="root";
+	private final String mdp="cmlRdvCcmlFdvP34614773";
 	
 	//local constructor
 	public Cad(String url)
@@ -37,8 +40,8 @@ public class Cad {
 	private void connect()
 	{
 		try {
-			Class.forName("org.sqlite.JDBC");
-			Cad.connexion = (Connection) DriverManager.getConnection(url);
+			Class.forName("com.mysql.jdbc.Driver");
+			Cad.connexion = (Connection) DriverManager.getConnection(url, user, mdp);
 			Cad.state = (Statement) Cad.connexion.createStatement();
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC : connection error!");

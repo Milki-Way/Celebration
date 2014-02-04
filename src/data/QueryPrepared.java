@@ -1,14 +1,19 @@
 package data;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-import tileengine.Tile;
 import entity.DescriptionComplex;
 import entity.Identifiable;
 import entity.Info;
 import entity.Poi;
 import entity.Route;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.SQLException;
+
+import tileengine.Tile;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class QueryPrepared {
 	public static PreparedStatement insertParameters(PreparedStatement query, Object o)
