@@ -22,7 +22,7 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 	
     public MapController(MapViewer map) {
     	this.map = map;
-    	
+
         map.addMouseListener((MouseListener) this);
         map.addMouseWheelListener((MouseWheelListener) this);
         map.addMouseMotionListener((MouseMotionListener) this);
@@ -31,6 +31,8 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 
     @Override
     public void mouseClicked(MouseEvent e) {
+    	map.requestFocusInWindow();
+    	map.requestFocus();
     }
     
     @Override
@@ -63,7 +65,6 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("MapController : "+e.getKeyChar());
 		
 		Point p = this.map.getLocation();
 		
@@ -86,7 +87,7 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 		  		this.map.getTileController().updateCache(MapMoveEvent.DOWN);
 			    break;
 		  default:
-		    return;             
+			  return;
 		}
 	}
 

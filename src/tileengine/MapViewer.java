@@ -28,7 +28,10 @@ public class MapViewer extends JPanel{
 	private Coordinate mapPosition = new Coordinate(new Point(85,63));
 	private int zoom = 8;
 	
-	public MapViewer(){
+	public MapViewer(){		
+		this.setFocusable(true);
+    	this.requestFocus();
+		
 		new MapController(this);
 		this.tileCache = TileCache.getInstance();
 		this.tileController = new TileController(this);

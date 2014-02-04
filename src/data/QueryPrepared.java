@@ -30,8 +30,8 @@ public class QueryPrepared {
 				case "data.Poi":
 					Poi p = (Poi)o;
 					query.setString(1, p.getLibelle());
-					query.setInt(2, p.getX());
-					query.setInt(3, p.getY());					
+					query.setInt(2, p.getCoords().getRow());
+					query.setInt(3, p.getCoords().getColumn());					
 					break;
 					
 				case "data.Route":
@@ -42,8 +42,8 @@ public class QueryPrepared {
 				case "data.Tile":
 					Tile t = (Tile)o;
 					query.setInt(1, t.getZoom());
-					query.setInt(2, t.getCoord().getColumn());
-					query.setInt(3, t.getCoord().getRow());
+					query.setInt(2, t.getCoords().getColumn());
+					query.setInt(3, t.getCoords().getRow());
 					
 					break;
 			}
@@ -78,8 +78,8 @@ public class QueryPrepared {
 				case "data.Poi":
 					Poi p = (Poi)o;
 					query.setString(1, p.getLibelle());
-					query.setInt(2, p.getX());
-					query.setInt(3, p.getY());
+					query.setInt(2, p.getCoords().getRow());
+					query.setInt(3, p.getCoords().getColumn());
 					query.setInt(4, p.getId());
 					break;
 					
