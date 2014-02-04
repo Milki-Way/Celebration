@@ -14,88 +14,13 @@ public class Tile {
 	private String keyTile;
 	private BufferedImage tileContent;
 	
-	
-	/**
-	 * @return the coord
-	 */
-	public Coordinate getCoord() {
-		return coord;
-	}
-
-	/**
-	 * @param coord the coord to set
-	 */
-	public void setCoord(Coordinate coord) {
-		this.coord = coord;
-	}
-
-	/**
-	 * @return the zoom
-	 */
-	public int getZoom() {
-		return zoom;
-	}
-
-	/**
-	 * @param zoom the zoom to set
-	 */
-	public void setZoom(int zoom) {
-		this.zoom = zoom;
-	}
-
-	/**
-	 * @return the keyTile
-	 */
-	public String getKeyTile() {
-		return keyTile;
-	}
-
-	/**
-	 * @param keyTile the keyTile to set
-	 */
-	public void setKeyTile(String keyTile) {
-		this.keyTile = keyTile;
-	}
-
-	/**
-	 * @return the tileContent
-	 */
-	public BufferedImage getTileContent() {
-		return tileContent;
-	}
-
-	/**
-	 * @param tileContent the tileContent to set
-	 */
-	public void setTileContent(BufferedImage tileContent) {
-		this.tileContent = tileContent;
-	}
-
-	
 	//Constructors
-	public Tile(int zoom, int lat, int lon)
+	public Tile(int zoom, int column, int row, BufferedImage content)
 	{
-		coord = new Coordinate(lat, lon);
 		this.zoom = zoom;
-		loadImg();
-	}
-	
-	
-	public Tile(String keyCode)
-	{
-		String result[] = keyCode.split("/");
-		if(result.length < 3)
-		{
-			System.out.println("Error in Keycode : Number of values doesn't match (3 expected)");
-			zoom = 0;
-			coord = new Coordinate(-666,666);
-		}
-		else
-		{
-			zoom = Integer.parseInt(result[0]);
-			coord = new Coordinate(Double.parseDouble(result[1]), Double.parseDouble(result[2]));
-			loadImg();
-		}
+		this.coord = new Coordinate(row, column);
+		this.tileContent = content;
+		this.keyTile = "";
 	}
 	
 	//load image from file with attributes
@@ -134,5 +59,68 @@ public class Tile {
 	public String KeyCode()
 	{
 		return String.format("%s/%s/%s", zoom, coord.getRow(), coord.getColumn());
+	}
+	
+	public void buildKeyCode()
+	{
+		this.keyTile = String.format("%s/%s/%s", this.zoom, this.coord.getColumn(), this.coord.getRow()); 
+	}
+
+	/**
+	 * @return the coord
+	 */
+	public Coordinate getCoord() {
+		return coord;
+	}
+
+	/**
+	 * @param coord the coord to set
+	 */
+	public void setCoord(Coordinate coord) {
+		this.coord = coord;
+	}
+
+	/**
+	 * @return the zoom
+	 */
+	public int getZoom() {
+		return zoom;
+	}
+
+	/**
+	 * @param zoom the zoom to set
+	 */
+	public void setZoom(int zoom) {
+		this.zoom = zoom;
+	}
+
+	/**
+	 * @return the keyTile
+	 */
+	public String getKeyTile() {
+		if(keyTile.length() < 1)
+			this.buildKeyCode();
+		return keyTile;
+	}
+
+	/**
+	 * @param keyTile the keyTile to set
+	 */
+	public void setKeyTile(String keyTile) {
+		this.keyTile = keyTile;
+	}
+
+	/**
+	 * @return the tileContent
+	 */
+	public BufferedImage getTileContent() {
+		return tileContent;
+	}
+
+	/**
+	 * @param tileContent the tileContent to set
+	 */
+	public void setTileContent(BufferedImage tileContent) {
+		this.tileContent = tileContent;
 	}
 }
