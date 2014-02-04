@@ -1,10 +1,17 @@
 package data;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSet;
+import javax.imageio.ImageIO;
 
+import tileengine.Tile;
 import data.mapper.MapperEnum;
 import data.mapper.MpgInfos;
 import data.mapper.MpgMap;
@@ -34,8 +41,8 @@ public class DataEngine {
 		poiMapper = new MpgPoi();
 		routeMapper = new MpgRoute();
 		tileMapper = new MpgTile();
-		cadData = new Cad("jdbc:mysql://localhost/minisigdb");
-		cadTiles = new Cad("");
+		cadData = new Cad("jdbc:sqlite:data/db/map.mbtiles");
+		cadTiles = new Cad("jdbc:sqlite:data/db/map.mbtiles");
 	}
 	
 	//Get dataengine instance
@@ -59,7 +66,7 @@ public class DataEngine {
 			{
 				case "data.Map":
 					query = cadData.getPreparedStatement(mapMapper.upd());
-					cadData.executePreparation(QueryPrepared.updateParameters(query, o));
+					cadData.executePreparation(QueryPrepared.updateParameters(query, o));;
 					break;
 					
 				case "data.Route":
@@ -195,9 +202,6 @@ public class DataEngine {
 			case PARCOURS:
 				rs = cadData.getSQL(routeMapper.getAll());
 				break;
-			case TILE:
-				rs = cadData.getSQL(tileMapper.getAll());
-				break;
 			default:
 				rs = null;
 				break;
@@ -207,6 +211,41 @@ public class DataEngine {
 			return IdentifiableFactory.createIdentifiable(table, rs);
 		else
 			return null;
+		
+	}
+	
+	public Tile LoadTile(String keyCode)
+	{
+		ResultSet rs;
+		String result[] = keyCode.split("/");
+		if(result.length == 3)
+		{
+			try {
+				rs = cadTiles.getSQL(tileMapper.sel(result[0], result[1], result[2]));
+				if(rs != null)
+				{
+					InputStream imgStream = new ByteArrayInputStream(rs.getBytes("tile_data"));
+					BufferedImage img = ImageIO.read(imgStream); 
+					return new Tile(rs.getInt("zoom_level"), rs.getInt("tile_column"), rs.getInt("tile_row"), img);
+				}
+				else
+				{
+					System.out.println("Aucune tuile n'a été trouvé pour ce keyCode...");
+					return null;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		else
+		{
+			System.out.println("Error in Key code for TileLoad (DataEngine)");
+			return null;
+		}
 		
 	}
 }
