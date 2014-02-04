@@ -1,24 +1,35 @@
-package entity;
+package display;
 
-public class Poi {
-	//this class is a fake POI CLASS
+import tools.DescriptionComplex;
+import geography.IDrawable;
+import geography.IReferenceable;
+
+public class Poi implements IReferenceable, IDrawable{
+	
+	private DescriptionComplex description;
 	private String libelle;	
 	private int x;
 	private int y;
 	private int id;
-	
-	//Constructeur
-	public Poi () {
-		id =-1;
-	}
 		
+	//Constructeur
+	public Poi() {
+			id =-1;
+		}
+	
 	//Constructeur Param
-	public Poi (String libelle, int x, int y, int id) {
+	public Poi(int id, String libelle, int x, int y, DescriptionComplex description){
 		this.id = id;
 		this.libelle = libelle;
 		this.x = x;
 		this.y = y;
-		
+		this.description = description; 
+	}
+	
+	public void displayPoi(){
+		description.displayDescription(); 
+		description.displayLink(); 
+		description.displayImage(); 
 	}
 	
 	/**
