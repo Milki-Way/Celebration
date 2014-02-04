@@ -33,6 +33,11 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
     public void mouseClicked(MouseEvent e) {
     	map.requestFocusInWindow();
     	map.requestFocus();
+    	
+    	if (e.getClickCount() == 2) {
+    		if(this.map.getZoom() < MapViewer.MAX_ZOOM-6)
+        		this.map.setZoom(this.map.getZoom()+1);
+    	  }
     }
     
     @Override

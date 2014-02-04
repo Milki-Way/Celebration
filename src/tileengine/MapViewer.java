@@ -63,7 +63,7 @@ public class MapViewer extends JPanel{
 			}
 		}
 		
-		g2.drawString("fps:"+framesInLastSecond+" - MaxTiles["+wMaxTiles+"]["+hMaxTiles+"]", 10, 10);
+		g2.drawString("fps:"+framesInLastSecond+" - MaxTiles["+wMaxTiles+"]["+hMaxTiles+"] - Zoom:"+this.zoom, 10, 10);
 	}
 	
 	public void drawTile(Graphics2D g2, Tile tile,int x, int y){
@@ -100,5 +100,7 @@ public class MapViewer extends JPanel{
 		return zoom;
 	}	
 	
-	
+	public void setZoom(int zoom){
+		this.zoom = zoom;
+	}
 }
