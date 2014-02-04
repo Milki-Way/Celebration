@@ -4,11 +4,11 @@ Celebration
 Hum les petits chocolats !
 
 
-Taches : 
+Taches à faire: 
 
-  Florence :  SidePanel / DescriptionComplexe
+  Florence :  Mode édition
   
-  Maxime :    TopBar / Parcours
+  Maxime :    Mode édition
   
   Aurélien :  Historique
   
