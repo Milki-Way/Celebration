@@ -10,7 +10,7 @@ Taches :
   
   Maxime :    TopBar / Parcours
   
-  Aurélien :  Historique / Requetes
+  Aurélien :  Historique
   
   Sorian :    DataEngine
   
