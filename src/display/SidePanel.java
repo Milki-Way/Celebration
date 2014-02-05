@@ -14,6 +14,9 @@ import javax.swing.ListSelectionModel;
 import entity.Info;
 import entity.Poi;
 import entity.Route;
+import event.SidePanelHistoricEvent;
+import event.SidePanelInfoEvent;
+import event.SidePanelRouteEvent;
 
 @SuppressWarnings("serial")
 public class SidePanel extends JPanel{
@@ -64,5 +67,21 @@ public class SidePanel extends JPanel{
 		super.paintComponent(g2);
 	}
 	
+	//Add info in InfoList
+	public void addInfo(Info i)
+	{
+		((DefaultListModel<SpeInfo>)newsList.getModel()).addElement(new SpeInfo(new SidePanelInfoEvent(), i));
+	}
 	
+	//Add info in InfoList
+	public void addRoute(Route r)
+	{
+		((DefaultListModel<SpeRoute>)routeList.getModel()).addElement(new SpeRoute(new SidePanelRouteEvent(), r));
+	}
+		
+	//Add info in InfoList
+	public void addHistoricPoi(Poi p)
+	{
+		((DefaultListModel<SpeHistoric>)historicList.getModel()).addElement(new SpeHistoric(new SidePanelHistoricEvent(), p));
+	}
 }
