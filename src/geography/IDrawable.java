@@ -10,6 +10,8 @@ public interface IDrawable {
 	public void paint(Graphics g);
 	
 	public Coordinate getCoords();
+	
+	public void setCoords(Coordinate coords);
 
 	public String getLibelle();
 }

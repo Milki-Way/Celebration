@@ -2,14 +2,14 @@ package tileengine;
 
 import java.awt.Point;
 
-public class TileCache {
+public class TileCache{
 
 	private static TileCache instance;
 	
 	private Tile[][] cacheContent;
 	
 	private TileCache(){
-		cacheContent = new Tile[50][50];
+		cacheContent = new Tile[100][100];
 	}
 	
 	public static TileCache getInstance(){
@@ -55,5 +55,16 @@ public class TileCache {
 
 	public void setCacheContent(Tile[][] cacheContent) {
 		this.cacheContent = cacheContent;
+	}
+	
+	public void printCacheState(){
+		System.out.println("\tTileCache STATE");
+		System.out.println("----------------------------------");
+		for(int i=0; i<=2+1; i++){
+			for(int j=0; j<=2+1; j++){
+				System.out.print("|"+this.getCacheContent()[i][2+1-j].getKeyTile()+"|");
+			}
+			System.out.println("\n----------------------------------");
+		}
 	}
 }

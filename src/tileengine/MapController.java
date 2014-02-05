@@ -1,6 +1,6 @@
 package tileengine;
 
-import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+
+import tools.Coordinate;
 
 public class MapController implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 	
@@ -18,10 +20,17 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 		  DOWN;
 		}
 	
-	protected MapViewer map;
+	private MapViewer map;
+	private TileController tileController;
+
+	private Rectangle[][] zoneList;
 	
-    public MapController(MapViewer map) {
+	private int realZoom = 1;
+	
+    public MapController(MapViewer map, TileController tileController) {
     	this.map = map;
+    	this.tileController = tileController;
+    	this.zoneList = new Rectangle[100][100];
 
         map.addMouseListener((MouseListener) this);
         map.addMouseWheelListener((MouseWheelListener) this);
@@ -35,9 +44,31 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
     	map.requestFocus();
     	
     	if (e.getClickCount() == 2) {
-    		if(this.map.getZoom() < MapViewer.MAX_ZOOM-6)
-        		this.map.setZoom(this.map.getZoom()+1);
-    	  }
+    		if(this.map.getZoom() < MapViewer.MAX_ZOOM){
+    			this.map.updateMapMarkerBounds();
+    			if((this.map.gethMaxTiles() != this.zoneList.length) && (this.map.getwMaxTiles() != this.zoneList[0].length))
+        			this.updateClickZones();
+    			
+    			int h = this.map.gethMaxTiles();
+    			int w = this.map.getwMaxTiles();
+    			
+    			for(int i=0; i<w; i++){
+    				for(int j=0; j<h; j++){
+    					if(this.zoneList[i][j].contains(e.getPoint())){
+    						System.out.println("Zone["+i+"]["+j+"] clicked");
+    						this.map.setCoords(
+    								new Coordinate(
+    										this.map.getCoords().getColumnDouble()+1.0*i/realZoom,
+    										this.map.getCoords().getRowDouble()+1.0*j/realZoom));
+    						
+    						this.map.setZoom(this.map.getZoom()+1);
+    		        		this.realZoom*=2;
+    		    			this.tileController.initCache(this.realZoom);
+    					}
+    				}
+    			}
+    		}
+    	}
     }
     
     @Override
@@ -71,29 +102,31 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		Point p = this.map.getLocation();
+		Coordinate p = this.map.getCoords();
 		
 		switch (e.getKeyCode())
 		{
 		  case (KeyEvent.VK_RIGHT):
-			  	this.map.setLocation(new Point((int)p.getX()+1, (int)p.getY()));
+			  	this.map.setCoords(new Coordinate(p.getColumnDouble()+(1.0/realZoom), p.getRowDouble()));
 		  		this.map.getTileController().updateCache(MapMoveEvent.RIGHT);
 		  		break;
 		  case (KeyEvent.VK_LEFT):
-			  	this.map.setLocation(new Point((int)p.getX()-1, (int)p.getY()));
+			  	this.map.setCoords(new Coordinate(p.getColumnDouble()-(1.0/realZoom), p.getRowDouble()));
 		  		this.map.getTileController().updateCache(MapMoveEvent.LEFT);
 		  		break;
 		  case (KeyEvent.VK_UP):
-			  	this.map.setLocation(new Point((int)p.getX(), (int)p.getY()+1));
+			  	this.map.setCoords(new Coordinate(p.getColumnDouble(), p.getRowDouble()+(1.0/realZoom)));
 		  		this.map.getTileController().updateCache(MapMoveEvent.UP);
 			    break;
 		  case (KeyEvent.VK_DOWN):
-			  	this.map.setLocation(new Point((int)p.getX(), (int)p.getY()-1));
+			  	this.map.setCoords(new Coordinate(p.getColumnDouble(), p.getRowDouble()-(1.0/realZoom)));
 		  		this.map.getTileController().updateCache(MapMoveEvent.DOWN);
 			    break;
 		  default:
 			  return;
 		}
+		this.tileController.initCache(realZoom);
+		this.map.updateMapMarkerBounds();
 	}
 
 	@Override
@@ -102,5 +135,24 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+	}
+
+	public int getRealZoom() {
+		return realZoom;
+	}
+	
+	public void updateClickZones(){
+		this.zoneList = new Rectangle[100][100];
+		
+		this.map.updateMaxTiles();
+		int h = this.map.gethMaxTiles();
+		int w = this.map.getwMaxTiles();
+		
+		for(int i=0; i<w; i++){
+			for(int j=0; j<h; j++){
+				this.zoneList[i][j] = new Rectangle(i*Tile.TILE_HEIGHT,(w-j-1)*Tile.TILE_WIDTH, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
+				System.out.println(this.zoneList[i][j].toString());
+			}
+		}
 	}
 }

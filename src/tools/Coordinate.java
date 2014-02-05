@@ -2,26 +2,27 @@ package tools;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 
 public class Coordinate {
 	
 	
 	// ATTRIBUTE
-	private Point coords = new Point();
+	private Point2D.Double coords = new Point2D.Double();
 	
 	
 	// CONSTRUCTOR
-	public Coordinate(int column, int row) {
+	public Coordinate(double column, double row) {
 		this.coords.x = column;
 		this.coords.y = row;
 	}
 	
-	public Coordinate(double x, double y) {
-		this((int)x, (int)y);
+	public Coordinate(int x, int y) {
+		this((double) x, (double)y);
 	}
 	
 	public Coordinate(float x, float y) {
-		this((int)x, (int)y);
+		this((double)x, (double)y);
 	}
 	
 	public Coordinate(Point p) {
@@ -39,7 +40,7 @@ public class Coordinate {
 	
 	// SETTER - GETTER
 	public int getRow() {
-        return coords.y;
+        return (int)coords.y;
     }
 
     public void setRow(int row) {
@@ -47,10 +48,26 @@ public class Coordinate {
     }
 
     public int getColumn() {
-        return coords.x;
+        return (int)coords.x;
     }
 
     public void setColumn(int column) {
+    	coords.x = column;
+    }
+    
+    public double getRowDouble() {
+        return coords.y;
+    }
+
+    public void setRowDouble(double row) {
+    	coords.y = row;
+    }
+
+    public double getColumnDouble() {
+        return coords.x;
+    }
+
+    public void setColumnDouble(double column) {
     	coords.x = column;
     }
     
