@@ -108,11 +108,17 @@ public class MapViewer extends JPanel{
 			g2.setColor(Color.gray);
 			g2.drawLine(0, i*Tile.TILE_HEIGHT, this.getHeight(), i*Tile.TILE_HEIGHT);
 		}
-		g2.setColor(Color.red);
-		g2.drawRect((int)test.getBounds().getX(), (int)test.getBounds().getY(), 1, 1);
+		
 		
 		for(int i=0; i<mapMarkerList.size(); i++){	// On dessine les marqueurs
-			mapMarkerList.get(i).repaint();;
+			if(mapMarkerList.get(i).isDrawLibelle()){
+				mapMarkerList.get(i).setText(mapMarkerList.get(i).getPoi().getLibelle());
+			} else {
+				mapMarkerList.get(i).setText("");
+			}
+			
+			mapMarkerList.get(i).repaint();
+			mapMarkerList.get(i).drawPoint(g2);
 		}
 		
 		g2.setColor(Color.gray);
@@ -135,6 +141,7 @@ public class MapViewer extends JPanel{
 			MapMarker cur = mapMarkerList.get(i);
 			
 			Dimension size = cur.getPreferredSize();
+			size = new Dimension(100, 25);
 			
 			cur.setBounds(
 						(int)(	    	//   X

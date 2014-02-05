@@ -22,10 +22,12 @@ public class MapMarkerController implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
+		this.mapMarker.setDrawLibelle(true);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
+		this.mapMarker.setDrawLibelle(false);
 	}
 
 	@Override
