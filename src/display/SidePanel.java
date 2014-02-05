@@ -11,43 +11,41 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 
+import entity.Info;
+import entity.Poi;
+import entity.Route;
+
 @SuppressWarnings("serial")
 public class SidePanel extends JPanel{
 	
 	private JLabel newsLabel;
 	private JLabel routeLabel;
 	private JLabel historicLabel;
-	private JList<String> historicList;
-	private JList<String> routeList;
-	private JList<String> newsList;
+	private JList<SpeHistoric> historicList;
+	private JList<SpeRoute> routeList;
+	private JList<SpeInfo> newsList;
 	
 	public SidePanel(){
+		//properties
 		this.setMinimumSize(new Dimension(0, 1000));
 		this.setPreferredSize(new Dimension(200, 1000));
 		this.setMaximumSize(new Dimension(200, 1000));
-		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		newsLabel = new JLabel("News");
-		
-		routeLabel = new JLabel("Parcours");
-		
+		//Labels
+		newsLabel = new JLabel("Vos derniers ajouts");
+		routeLabel = new JLabel("Vos parcours");
 		historicLabel = new JLabel("Historique");
 		
-		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		listModel.addElement("Jane Doe");
-		listModel.addElement("John Smith");
-		listModel.addElement("Kathy Green");
-		
-		historicList = new JList<String>(listModel);
+		//Lists
+		historicList = new JList<SpeHistoric>( new DefaultListModel<SpeHistoric>());
+		newsList = new JList<SpeInfo>(new DefaultListModel<SpeInfo>());
+		routeList = new JList<SpeRoute>(new DefaultListModel<SpeRoute>());
 		historicList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		newsList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		routeList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		historicList.setLayoutOrientation(JList.VERTICAL);
-		
-		routeList = new JList<String>(listModel);
-		routeList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		routeList.setLayoutOrientation(JList.VERTICAL);
-		
-		newsList = new JList<String>(listModel);
-		routeList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		newsList.setLayoutOrientation(JList.VERTICAL);
 		routeList.setLayoutOrientation(JList.VERTICAL);
 		
 		this.add(newsLabel);
@@ -64,7 +62,7 @@ public class SidePanel extends JPanel{
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D)g;
 		super.paintComponent(g2);
-		
-		//faites ce que vous voulez.
 	}
+	
+	
 }
