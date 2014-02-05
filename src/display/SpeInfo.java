@@ -26,4 +26,9 @@ public class SpeInfo extends SidePanelElement{
 		this.info = info;
 	}
 
+	@Override
+	public String printOject() {
+		return this.info.getLibelle();
+	}
+
 }

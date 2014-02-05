@@ -25,5 +25,10 @@ public class SpeRoute extends SidePanelElement{
 	public void setRoute(Route route) {
 		this.route = route;
 	}
+
+	@Override
+	public String printOject() {
+		return this.route.getLibelle();
+	}
 	
 }

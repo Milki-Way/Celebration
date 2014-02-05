@@ -59,6 +59,10 @@ public class SidePanel extends JPanel{
 		
 		this.add(historicLabel);
 		this.add(newsList);
+
+		newsList.setCellRenderer(new SpListeRender());
+		routeList.setCellRenderer(new SpListeRender());
+		historicList.setCellRenderer(new SpListeRender());
 	}
 	
 	@Override

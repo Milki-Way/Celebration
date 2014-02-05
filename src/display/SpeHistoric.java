@@ -1,6 +1,10 @@
 package display;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseListener;
+
+import javax.swing.JList;
 
 import entity.Poi;
 
@@ -24,6 +28,11 @@ public class SpeHistoric extends SidePanelElement{
 	 */
 	public void setPoi(Poi poi) {
 		this.poi = poi;
+	}
+
+	@Override
+	public String printOject() {
+		return this.poi.getLibelle();
 	}
 	
 }
