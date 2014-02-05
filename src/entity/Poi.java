@@ -23,9 +23,19 @@ public class Poi implements IReferenceable, IDrawable{
 	public Poi(int id, String libelle, Coordinate coords, DescriptionComplex description){
 		this.id = id;
 		this.libelle = libelle;
-		this.coords.setRow(coords.getRow());
-		this.coords.setColumn(coords.getColumn());
+		this.coords = coords;
 		this.description = description; 
+	}
+	
+	public Poi(String libelle, Coordinate coords, DescriptionComplex description){
+		this.id = -1;
+		this.libelle = libelle;
+		this.coords = coords;
+		this.description = description; 
+	}
+	
+	public Poi(String libelle, int x, int y, DescriptionComplex description){
+		this(libelle, new Coordinate(x,y), description);
 	}
 	
 	public Poi(int id, String libelle, int x, int y, DescriptionComplex description){
