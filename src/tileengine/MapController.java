@@ -5,13 +5,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 
 import tools.Coordinate;
 
-public class MapController implements MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
+public class MapController implements MouseListener, KeyListener {
 	
 	public enum MapMoveEvent {
 		  RIGHT,
@@ -33,8 +30,6 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
     	this.zoneList = new Rectangle[100][100];
 
         map.addMouseListener((MouseListener) this);
-        map.addMouseWheelListener((MouseWheelListener) this);
-        map.addMouseMotionListener((MouseMotionListener) this);
         map.addKeyListener((KeyListener) this);
     }
 
@@ -45,7 +40,7 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
     	
     	if (e.getClickCount() == 2) {
     		if(this.map.getZoom() < MapViewer.MAX_ZOOM){
-    			this.map.updateMapMarkerBounds();
+    			
     			if((this.map.gethMaxTiles() != this.zoneList.length) && (this.map.getwMaxTiles() != this.zoneList[0].length))
         			this.updateClickZones();
     			
@@ -67,12 +62,9 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
     					}
     				}
     			}
+    			this.map.updateMapMarkerBounds();
     		}
     	}
-    }
-    
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
     }
     
     @Override
@@ -82,17 +74,9 @@ public class MapController implements MouseListener, MouseMotionListener, MouseW
     @Override
     public void mouseExited(MouseEvent e) {
     }
-    
-    @Override
-	public void mouseMoved(MouseEvent e) {
-    }
 	
     @Override
     public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
     }
 
     @Override

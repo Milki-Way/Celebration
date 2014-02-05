@@ -57,6 +57,7 @@ public class MapViewer extends JPanel{
 		
 		for(int i=0; i<mapMarkerList.size(); i++){
 			this.add(mapMarkerList.get(i));
+			new MapMarkerController(mapMarkerList.get(i));
 		}
 		this.updateMapMarkerBounds();
 	}
@@ -131,20 +132,20 @@ public class MapViewer extends JPanel{
 			Dimension size = cur.getPreferredSize();
 			
 			cur.setBounds(
-					(int)(
-							(cur.getPoi().getCoords().getColumnDouble()-this.coords.getColumnDouble())
-							*Tile.TILE_WIDTH
-							*this.mapController.getRealZoom()
-							), 
-			
-					(int)((this.gethMaxTiles()-1)*Tile.TILE_HEIGHT+
-							(cur.getPoi().getCoords().getRowDouble()-this.coords.getRowDouble())
-							*Tile.TILE_HEIGHT
-							/this.mapController.getRealZoom()
-							),
-					
-			size.width,
-			size.height);
+						(int)(	
+								(cur.getPoi().getCoords().getColumnDouble()-this.coords.getColumnDouble())
+								*Tile.TILE_WIDTH
+								*this.mapController.getRealZoom()
+							 ), 
+				
+						(int)(	
+								(this.gethMaxTiles()-1)*Tile.TILE_HEIGHT+
+								(cur.getPoi().getCoords().getRowDouble()-this.coords.getRowDouble())
+								*Tile.TILE_HEIGHT
+								*this.mapController.getRealZoom()
+							 ),
+						size.width,
+						size.height);
 			System.out.println("MapMarker ["+cur.getBounds().getX()+"]["+cur.getBounds().getY()+"]");
 		}		
 	}
