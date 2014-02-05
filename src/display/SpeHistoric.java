@@ -12,7 +12,6 @@ public class SpeHistoric extends SidePanelElement{
 	private Poi poi;
 	
 	public SpeHistoric(MouseListener mouseEvent, Poi poi) {
-		super(mouseEvent);
 		this.poi = poi;
 	}
 

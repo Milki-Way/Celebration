@@ -8,7 +8,6 @@ public class SpeInfo extends SidePanelElement{
 	private Info info;
 	
 	public SpeInfo(MouseListener mouseEvent, Info i) {
-		super(mouseEvent);
 		this.info = i;
 	}
 

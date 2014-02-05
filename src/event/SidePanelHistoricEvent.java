@@ -3,14 +3,18 @@ package event;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JList;
+
 import display.SpeHistoric;
+import display.SpeInfo;
 
 public class SidePanelHistoricEvent implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("An info in SidePanel has been clicked");
-		SpeHistoric spe = (SpeHistoric)arg0.getComponent();
+		System.out.println("An HistoricPoi in SidePanel has been clicked");
+		JList<SpeHistoric> list= (JList<SpeHistoric>)arg0.getComponent();
+		SpeHistoric spe = list.getSelectedValue();
 		//On peut réaliser ici une action avec spe.getPoi().
 	}
 

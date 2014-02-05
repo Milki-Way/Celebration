@@ -3,6 +3,8 @@ package event;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JList;
+
 import display.SidePanelElement;
 import display.SpeInfo;
 import entity.Info;
@@ -12,7 +14,8 @@ public class SidePanelInfoEvent implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		System.out.println("An info in SidePanel has been clicked");
-		SpeInfo spe = (SpeInfo)arg0.getComponent();
+		JList<SpeInfo> list= (JList<SpeInfo>)arg0.getComponent();
+		SpeInfo spe = list.getSelectedValue();
 		//On peut réaliser ici une action avec spe.getInfo().
 	}
 

@@ -41,28 +41,21 @@ public class SidePanel extends JPanel{
 		historicLabel = new JLabel("Historique");
 		
 		//Lists
-		historicList = new JList<SpeHistoric>( new DefaultListModel<SpeHistoric>());
-		newsList = new JList<SpeInfo>(new DefaultListModel<SpeInfo>());
-		routeList = new JList<SpeRoute>(new DefaultListModel<SpeRoute>());
-		historicList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		newsList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		routeList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		historicList.setLayoutOrientation(JList.VERTICAL);
-		newsList.setLayoutOrientation(JList.VERTICAL);
-		routeList.setLayoutOrientation(JList.VERTICAL);
+		historicList = new SpeList<SpeHistoric>( new DefaultListModel<SpeHistoric>());
+		newsList = new SpeList<SpeInfo>(new DefaultListModel<SpeInfo>());
+		routeList = new SpeList<SpeRoute>(new DefaultListModel<SpeRoute>());
+
+		historicList.addMouseListener(new SidePanelHistoricEvent());
+		newsList.addMouseListener(new SidePanelInfoEvent());
+		routeList.addMouseListener(new SidePanelRouteEvent());
 		
+		//Addition to panel
 		this.add(newsLabel);
 		this.add(historicList);
-		
 		this.add(routeLabel);
 		this.add(routeList);
-		
 		this.add(historicLabel);
 		this.add(newsList);
-
-		newsList.setCellRenderer(new SpListeRender());
-		routeList.setCellRenderer(new SpListeRender());
-		historicList.setCellRenderer(new SpListeRender());
 	}
 	
 	@Override

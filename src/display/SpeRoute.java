@@ -8,7 +8,6 @@ public class SpeRoute extends SidePanelElement{
 	private Route route;
 	
 	public SpeRoute(MouseListener mouseEvent, Route r) {
-		super(mouseEvent);
 		route = r;
 	}
 

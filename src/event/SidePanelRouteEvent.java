@@ -3,14 +3,18 @@ package event;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JList;
+
+import display.SpeInfo;
 import display.SpeRoute;
 
 public class SidePanelRouteEvent implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		System.out.println("An info in SidePanel has been clicked");
-		SpeRoute spe = (SpeRoute)arg0.getComponent();
+		System.out.println("A Route in SidePanel has been clicked");
+		JList<SpeRoute> list= (JList<SpeRoute>)arg0.getComponent();
+		SpeRoute spe = list.getSelectedValue();
 		//On peut réaliser ici une action avec spe.getRoute().
 	}
 

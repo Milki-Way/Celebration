@@ -11,12 +11,6 @@ import javax.swing.ListCellRenderer;
 @SuppressWarnings("serial")
 public abstract class SidePanelElement extends JLabel implements ListCellRenderer<Object>{
 	
-	//constructor
-	public SidePanelElement(MouseListener mouseEvent)
-	{
-		this.addMouseListener(mouseEvent);
-	}
-	
 	public abstract String printOject();
 	
 	@Override
