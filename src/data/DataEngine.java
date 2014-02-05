@@ -58,9 +58,7 @@ public class DataEngine {
 	public Boolean persist(Identifiable o)
 	{
 		Boolean r = false;
-		PreparedStatement query;
-		System.out.println(o.getId());
-		System.out.println(o.getId() > 0);
+		PreparedStatement query;	
 		if(o.getId() > 0)
 		{
 			switch(o.getClass().getName())
@@ -144,8 +142,6 @@ public class DataEngine {
 			System.out.println("NEARLY FATAL ERROR !!! : " + ex.getMessage());
 			return false;
 		}
-		
-		
 	}
 	
 	//delete item from db

@@ -2,9 +2,10 @@ package tileengine;
 
 import java.awt.image.BufferedImage;
 
+import entity.Identifiable;
 import tools.Coordinate;
 
-public class Tile {
+public class Tile implements Identifiable{
 	
 	public static final int TILE_HEIGHT = 256;
 	public static final int TILE_WIDTH = 256;
@@ -90,5 +91,10 @@ public class Tile {
 	 */
 	public void setTileContent(BufferedImage tileContent) {
 		this.tileContent = tileContent;
+	}
+
+	@Override
+	public int getId() {
+		return -1;
 	}
 }
