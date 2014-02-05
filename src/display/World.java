@@ -45,16 +45,6 @@ public class World extends JFrame{
 		Poi test2 = new Poi("Poi test", 0, 0, new DescriptionComplex());
 		Poi test3 = new Poi("Poi test", 0, 0, new DescriptionComplex());
 		
-		Route r = new Route("Mon parcours", test1,test2, test3);
-
-		sidePanel.addHistoricPoi(test1);
-		sidePanel.addHistoricPoi(test2);
-		sidePanel.addHistoricPoi(test3);
-		
-
-		sidePanel.addRoute(r);
-		sidePanel.addInfo(new Info("Une news!", -1));
-		
 		
 		getContentPane().add(sidePanel, BorderLayout.EAST);
 		

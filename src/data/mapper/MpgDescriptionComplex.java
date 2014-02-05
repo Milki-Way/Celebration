@@ -1,7 +1,5 @@
 package data.mapper;
 
-
-
 public class MpgDescriptionComplex implements Mappable{
 
 	@Override

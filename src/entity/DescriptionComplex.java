@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 
-public class DescriptionComplex {
+public class DescriptionComplex implements Identifiable {
 	private String description;
 	private int id;
 	private ArrayList<String> linkList = new ArrayList<String>();

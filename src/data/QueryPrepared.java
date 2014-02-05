@@ -15,110 +15,76 @@ import entity.Poi;
 import entity.Route;
 
 public class QueryPrepared {
-	public static PreparedStatement insertParameters(PreparedStatement query, Object o)
+	
+	/** INSERT PREPARATION **/
+	public static PreparedStatement insertParameters(PreparedStatement query, DescriptionComplex d) throws SQLException
 	{
-		try
-		{
-			switch(o.getClass().getName())
-			{				
-				case "entity.Info":
-					Info i = (Info)o;
-					query.setString(1, i.getLibelle());					
-					break;
-					
-				case "entity.DescriptionComplex":
-					DescriptionComplex d = (DescriptionComplex)o;
-					query.setString(1, d.getDescription());					
-					break;
-					
-				case "entity.Poi":
-					Poi p = (Poi)o;
-					query.setString(1, p.getLibelle());
-					query.setInt(2, p.getCoords().getRow());
-					query.setInt(3, p.getCoords().getColumn());					
-					break;
-					
-				case "entity.Route":
-					Route r = (Route)o;
-					query.setString(1, r.getLibelle());										
-					break;
-					
-				case "entity.Tile":
-					Tile t = (Tile)o;
-					query.setInt(1, t.getZoom());
-					query.setInt(2, t.getCoords().getColumn());
-					query.setInt(3, t.getCoords().getRow());
-					
-					break;
-			}
-			return query;
-		}
-		catch(SQLException e)
-		{
-			System.out.println(e.getMessage());
-			return null;
-		}
+		query.setString(1, d.getDescription());		
+		return query;
 	}
-	
-	
-	public static PreparedStatement updateParameters(PreparedStatement query, Object o)
+	public static PreparedStatement insertParameters(PreparedStatement query, Poi p) throws SQLException
 	{
-		try
-		{
-			switch(o.getClass().getName())
-			{				
-				case "entity.Info":
-					Info i = (Info)o;
-					query.setString(1, i.getLibelle());	
-					query.setInt(2, i.getId());
-					break;
-					
-				case "entity.DescriptionComplex":
-					DescriptionComplex d = (DescriptionComplex)o;
-					query.setString(1, d.getDescription());		
-					query.setInt(2, d.getId());
-					break;
-					
-				case "entity.Poi":
-					Poi p = (Poi)o;
-					query.setString(1, p.getLibelle());
-					query.setInt(2, p.getCoords().getRow());
-					query.setInt(3, p.getCoords().getColumn());
-					query.setInt(4, p.getId());
-					break;
-					
-				case "entity.Route":
-					Route r = (Route)o;
-					query.setString(1, r.getLibelle());		
-					query.setInt(2, r.getId());
-					break;
-					
-				case "tileengine.Tile":
-					Tile t = (Tile)o;
-					query.setInt(1,t.getZoom());
-					query.setInt(2,t.getCoords().getColumn());
-					query.setInt(3,t.getCoords().getRow());
+		query.setString(1, p.getLibelle());
+		query.setInt(2, p.getCoords().getRow());
+		query.setInt(3, p.getCoords().getColumn());		
+		return query;
+	}
+	public static PreparedStatement insertParameters(PreparedStatement query, Info i) throws SQLException
+	{
+		query.setString(1, i.getLibelle());
+		return query;
+	}
+	public static PreparedStatement insertParameters(PreparedStatement query, Route r) throws SQLException
+	{
+		query.setString(1, r.getLibelle());		
+		return query;
+	}
+	public static PreparedStatement insertParameters(PreparedStatement query, Tile t) throws SQLException
+	{
+		query.setInt(1,t.getZoom());
+		query.setInt(2,t.getCoords().getColumn());
+		query.setInt(3,t.getCoords().getRow());
 
-					ByteArrayOutputStream bs = new ByteArrayOutputStream();
-					try {
-						ImageIO.write(t.getTileContent(), "bitmap", bs);
-						query.setBytes(4, bs.toByteArray());
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-					
-					break;
-			}
-			return query;
+		ByteArrayOutputStream bs = new ByteArrayOutputStream();
+		try {
+			ImageIO.write(t.getTileContent(), "bitmap", bs);
+			query.setBytes(4, bs.toByteArray());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		catch(SQLException e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return null;
+		return query;
 	}
 	
+	
+	/** UPDATE PREPARATION **/
+	public static PreparedStatement updateParameters(PreparedStatement query, Info i) throws SQLException
+	{
+		query.setString(1, i.getLibelle());	
+		query.setInt(2, i.getId());
+		return query;
+	}
+	public static PreparedStatement updateParameters(PreparedStatement query, DescriptionComplex d) throws SQLException
+	{
+		query.setString(1, d.getDescription());		
+		query.setInt(2, d.getId());
+		return query;
+	}
+	public static PreparedStatement updateParameters(PreparedStatement query, Poi p) throws SQLException
+	{
+		query.setString(1, p.getLibelle());
+		query.setInt(2, p.getCoords().getRow());
+		query.setInt(3, p.getCoords().getColumn());
+		query.setInt(4, p.getId());
+		return query;
+	}
+	public static PreparedStatement updateParameters(PreparedStatement query, Route r) throws SQLException
+	{
+		query.setString(1, r.getLibelle());		
+		query.setInt(2, r.getId());
+		return query;
+	}
+	
+	//DELETE PREPARATION
 	public static PreparedStatement deleteParameters(PreparedStatement query, Identifiable o)
 	{
 		try
@@ -132,12 +98,12 @@ public class QueryPrepared {
 		}
 		return null;
 	}
-	
-	public static PreparedStatement selectParameters(PreparedStatement query, Identifiable o)
+	//SELECT PREPARATION
+	public static PreparedStatement selectParameters(PreparedStatement query, int itemId)
 	{
 		try
 		{
-			query.setInt(1, o.getId());
+			query.setInt(1, itemId);
 			return query;
 		}
 		catch(SQLException e)

@@ -3,10 +3,11 @@ package entity;
 import java.util.ArrayList;
 
 
-public class Route {	
+public class Route implements Identifiable{	
 	private int id;
 	private String libelle;
 	private ArrayList<Poi> poiList;
+	private DescriptionComplex descmplx;
 	
 	//Constructeur
 	public Route () {
@@ -16,38 +17,41 @@ public class Route {
 	}
 
 	//Constructeur Param
-	public Route(int id, String libelle){
+	public Route(int id, String libelle, DescriptionComplex d){
 		this.id = id;
 		this.libelle = libelle;
 		this.poiList = new ArrayList<Poi>();
+		descmplx = d;
 	}
 	
 	//Constructeur Param
-	public Route(int id, String libelle, Poi... pois){
-		this(id, libelle);
+	public Route(int id, String libelle, DescriptionComplex d , Poi... pois){
+		this(id, libelle, d);
 		for(Poi p : pois)
 			addPoi(p);
 	}
 	
-	public Route(String libelle){
+	public Route(String libelle, DescriptionComplex d){
 		this.id = -1;
 		this.libelle = libelle;
 		this.poiList = new ArrayList<Poi>();
+		descmplx = d;
 	}
 	
-	public Route(String libelle, Poi... pois){
-		this(libelle);
+	public Route(String libelle, DescriptionComplex d, Poi... pois){
+		this(libelle, d);
 		for(Poi p : pois)
 			addPoi(p);
+		
 	}
 	
-	public Route(String libelle, ArrayList<Poi> pois){
-		this(libelle);
+	public Route(String libelle, ArrayList<Poi> pois, DescriptionComplex d){
+		this(libelle, d);
 		this.poiList = pois;
 	}
 	
-	public Route(int id, String libelle, ArrayList<Poi> pois){
-		this(id, libelle);
+	public Route(int id, String libelle, ArrayList<Poi> pois, DescriptionComplex d){
+		this(id, libelle, d);
 		this.poiList = pois;
 	}
 	
@@ -98,6 +102,20 @@ public class Route {
 	 */
 	public void setPoiList(ArrayList<Poi> poiList) {
 		this.poiList = poiList;
+	}
+
+	/**
+	 * @return the descmplx
+	 */
+	public DescriptionComplex getDescmplx() {
+		return descmplx;
+	}
+
+	/**
+	 * @param descmplx the descmplx to set
+	 */
+	public void setDescmplx(DescriptionComplex descmplx) {
+		this.descmplx = descmplx;
 	}
 
 	
