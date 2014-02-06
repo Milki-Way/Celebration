@@ -22,9 +22,7 @@ public class MpgPoi implements Mappable{
 
 	@Override
 	public String upd() {
-		 return "UPDATE poi SET libellepoi = ?, xpoi = ?, ypoi = ? WHERE poi.idpoi = ?";
-		
-		
+		 return "UPDATE poi SET libellepoi = ?, xpoi = ?, ypoi = ? WHERE poi.idpoi = ?";		
 	}
 
 	@Override

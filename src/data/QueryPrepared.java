@@ -19,6 +19,8 @@ public class QueryPrepared {
 	/** INSERT PREPARATION **/
 	public static PreparedStatement insertParameters(PreparedStatement query, DescriptionComplex d) throws SQLException
 	{
+		if(query == null)
+			System.out.println(d.getDescription());
 		query.setString(1, d.getDescription());		
 		return query;
 	}
@@ -103,6 +105,8 @@ public class QueryPrepared {
 	{
 		try
 		{
+			if(query == null)
+				return null;
 			query.setInt(1, itemId);
 			return query;
 		}

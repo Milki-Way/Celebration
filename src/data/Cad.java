@@ -127,6 +127,8 @@ public class Cad {
 	//Select using a preparedStatement
 	public ResultSet selectPreparation(PreparedStatement q)
 	{
+		if(q == null)
+			return null;
 		try{
 			return (ResultSet)q.executeQuery();
 		}

@@ -18,7 +18,7 @@ public class MpgInfos implements Mappable{
 	@Override
 	public String sel() {
 		
-		return "SELECT * FROM news WHERE libellenews = ?";
+		return "SELECT * FROM news WHERE idnews = ?";
 	}
 
 	@Override

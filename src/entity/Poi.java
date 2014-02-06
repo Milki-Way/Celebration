@@ -72,10 +72,8 @@ public class Poi implements IDrawable, IEntity{
 		
 	}
 
-	@Override
 	public Coordinate getCoords() {
-		// TODO Auto-generated method stub
-		return null;
+		return coords;
 	}
 
 	/**

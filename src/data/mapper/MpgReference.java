@@ -22,7 +22,8 @@ public class MpgReference implements Mappable{
 
 	@Override
 	public String sel() {
-		return "Renvois toutes les lignes de Reference contenant l'id de la description.";
+		return "";
+		//Renvois toutes les lignes de Reference contenant l'id de la description
 	}
 
 	@Override

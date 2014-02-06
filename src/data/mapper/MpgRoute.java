@@ -22,7 +22,7 @@ public class MpgRoute implements Mappable {
 	@Override
 	public String upd() {
 		
-		return "UPDATE parcours SET libelleparcours = ? WHERE route.idparcours = ?";
+		return "UPDATE parcours SET libelleparcours = ? WHERE parcours.idparcours = ?";
 	}
 
 	@Override
