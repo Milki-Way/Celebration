@@ -47,7 +47,6 @@ public class World extends JFrame{
 		getContentPane().add(sidePanel, BorderLayout.EAST);
 		
 		mapPanel = new MapViewer(new Coordinate(63,85));
-		mapPanel.setSize(512, 512);
 		getContentPane().add(mapPanel, BorderLayout.CENTER);
 		
 		this.setSize(750, 600);

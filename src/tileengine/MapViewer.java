@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import display.MarkerPanel;
 import tools.Coordinate;
 import entity.DescriptionComplex;
 import entity.MapMarker;
@@ -31,22 +31,26 @@ public class MapViewer extends JPanel{
 	private int framesInLastSecond = 0;
 	private int framesInCurrentSecond = 0;
 	
-	
 	private TileCache tileCache;
 	private TileController tileController;
 	private MapController mapController;
 	private Coordinate coords;
+	private Coordinate initialCoords;
 	private int zoom = 7;
+	private int initialZoom;
 	
 	private ArrayList<MapMarker> mapMarkerList = new ArrayList<MapMarker>();
-	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.6, 85.6), new DescriptionComplex("Aucune description pour le moment", 1));
+	private ArrayList<MarkerPanel> markerPanelList = new ArrayList<MarkerPanel>();
+	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.7, 85.6), new DescriptionComplex("Aucune description pour le moment", 1));
 	private MapMarker test = new MapMarker(testPoi);
 	
 	public MapViewer(Coordinate coords){
 		this.setFocusable(true);
     	this.requestFocus();
-    	
+    	this.setSize(512, 512);
     	this.coords = coords;
+    	this.initialCoords = coords;
+    	this.initialZoom = this.zoom;
     	
     	this.tileCache = TileCache.getInstance();
 		this.tileController = new TileController(this);
@@ -56,11 +60,12 @@ public class MapViewer extends JPanel{
 		
 		this.setLayout(null);
 		
-		mapMarkerList.add(test);	// a remplacer par la recuperation des marqueurs par le DataEngine
-		
+		mapMarkerList.add(test);
+				
 		for(int i=0; i<mapMarkerList.size(); i++){	// On ajoute les marqueurs à la map
 			this.add(mapMarkerList.get(i));
-			new MapMarkerController(mapMarkerList.get(i));
+			mapMarkerList.get(i).setMarkerPanel(new MarkerPanel(mapMarkerList.get(i), this));
+			new MapMarkerController(mapMarkerList.get(i), this);
 		}
 		this.updateMapMarkerBounds();
 	}
@@ -169,6 +174,10 @@ public class MapViewer extends JPanel{
 	public Coordinate getCoords() {
 		return coords;
 	}
+	
+	public Coordinate getInitialCoords() {
+		return initialCoords;
+	}
 
 	public void setCoords(Coordinate mapPosition) {
 		this.coords = mapPosition;
@@ -176,6 +185,10 @@ public class MapViewer extends JPanel{
 
 	public TileController getTileController() {
 		return tileController;
+	}
+	
+	public MapController getMapController() {
+		return this.mapController;
 	}
 
 	public int gethMaxTiles() {
@@ -192,5 +205,19 @@ public class MapViewer extends JPanel{
 	
 	public void setZoom(int zoom){
 		this.zoom = zoom;
+	}
+	
+	public int getInitialZoom() {
+		return initialZoom;
+	}	
+	
+	
+	public ArrayList<MarkerPanel> getMapPanelList(){
+		return this.markerPanelList;
+	}
+	
+	public void setMapPanelList(ArrayList<MarkerPanel> markerPanelList){
+		this.markerPanelList = markerPanelList;
+		this.add(markerPanelList.get(0));
 	}
 }

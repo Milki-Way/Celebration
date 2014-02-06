@@ -20,9 +20,8 @@ public class MapController implements MouseListener, KeyListener {
 	private MapViewer map;
 	private TileController tileController;
 
-	private Rectangle[][] zoneList;
-	
 	private int realZoom = 1;
+	private Rectangle[][] zoneList;
 	
     public MapController(MapViewer map, TileController tileController) {
     	this.map = map;
@@ -38,7 +37,10 @@ public class MapController implements MouseListener, KeyListener {
     	map.requestFocusInWindow();
     	map.requestFocus();
     	
-    	if (e.getClickCount() == 2) {
+    	if(this.map.getMapPanelList().size() > 0)
+    		this.map.remove(this.map.getMapPanelList().get(0));
+    	
+    	if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
     		if(this.map.getZoom() < MapViewer.MAX_ZOOM){
     			
     			if((this.map.gethMaxTiles() != this.zoneList.length) && (this.map.getwMaxTiles() != this.zoneList[0].length))
@@ -62,6 +64,24 @@ public class MapController implements MouseListener, KeyListener {
     					}
     				}
     			}
+    			this.map.updateMapMarkerBounds();
+    		}
+    	}
+    	if (e.getButton() == MouseEvent.BUTTON3 && e.getClickCount() == 2) {
+    		if(this.map.getZoom() > MapViewer.MIN_ZOOM){
+    			
+    			if((this.map.gethMaxTiles() != this.zoneList.length) && (this.map.getwMaxTiles() != this.zoneList[0].length))
+        			this.updateClickZones();
+    			
+    			this.map.setCoords(
+    					new Coordinate(
+    							this.map.getInitialCoords().getColumnDouble(),
+    							this.map.getInitialCoords().getRowDouble()));
+    						
+    			this.map.setZoom(this.map.getInitialZoom());
+    		    this.realZoom=1;
+    		    this.tileController.initCache(this.realZoom);
+
     			this.map.updateMapMarkerBounds();
     		}
     	}

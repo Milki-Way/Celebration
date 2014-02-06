@@ -2,15 +2,19 @@ package tileengine;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
+import display.MarkerPanel;
 import entity.MapMarker;
 
 public class MapMarkerController implements MouseListener{
 	
 	private MapMarker mapMarker;
+	private MapViewer map;
 	
-	public MapMarkerController(MapMarker mapMarker){
+	public MapMarkerController(MapMarker mapMarker, MapViewer map){
 		this.mapMarker = mapMarker;
+		this.map = map;
 		
 		mapMarker.addMouseListener(this);
 	}
@@ -18,6 +22,10 @@ public class MapMarkerController implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		System.out.println("MapMarker "+this.mapMarker.getPoi().getLibelle()+" get clicked !");
+		
+		ArrayList<MarkerPanel> a = new ArrayList<MarkerPanel>();
+		a.add(this.mapMarker.getMarkerPanel());
+		this.map.setMapPanelList(a);
 	}
 
 	@Override

@@ -16,10 +16,6 @@ public class MapMarker extends JLabel {
 	public MapMarker(Poi poi){
 		super(poi.getLibelle());
 		this.poi = poi;
-		this.descriptionPanel = new MarkerPanel();
-		
-		this.descriptionPanel.getLibelleLabel().setText(this.poi.getLibelle());
-		this.descriptionPanel.getDescriptionTextPane().setText(this.poi.getDescriptionComplex().getDescription());
 	}
 
 	public Poi getPoi() {
@@ -43,5 +39,12 @@ public class MapMarker extends JLabel {
 		this.drawLibelle = drawLibelle;
 	}
 	
+	public MarkerPanel getMarkerPanel(){
+		return this.descriptionPanel;
+	}
+	
+	public void setMarkerPanel(MarkerPanel mp){
+		this.descriptionPanel = mp;
+	}
 	
 }
