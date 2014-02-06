@@ -10,7 +10,6 @@ import entity.IEntity;
 import entity.Info;
 import entity.Poi;
 import entity.Route;
-import geography.IReferenceable;
 
 public class EntityFactory {
 	public static ArrayList<IEntity> createIdentifiable(MapperEnum type, ResultSet data)
