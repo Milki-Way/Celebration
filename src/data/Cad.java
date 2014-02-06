@@ -83,13 +83,6 @@ public class Cad {
 	public ResultSet getSQL(String query)
 	{
 		try {
-			
-			ResultSet r = this.state.executeQuery("SELECT * FROM poi");
-			while(r.next())
-				System.out.println(r.getString("libellepoi"));
-			
-			
-			System.out.println(query);
 			return state.executeQuery(query);
 		} catch (SQLException e) {
 			e.printStackTrace();
