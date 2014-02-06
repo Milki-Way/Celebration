@@ -2,8 +2,6 @@ package entity;
 
 
 
-import geography.IReferenceable;
-
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -14,8 +12,6 @@ public class DescriptionComplex implements IEntity {
 	private int id;
 	private ArrayList<String> linkList = new ArrayList<String>();
 	private ArrayList<BufferedImage> imageList = new ArrayList<BufferedImage>();
-	private String nouveauLink;
-	private BufferedImage nouveauImage;
 	private ArrayList<IEntity> refs;
 	
 	//Constructeur
@@ -95,12 +91,6 @@ public class DescriptionComplex implements IEntity {
 		for (int i = 0; i<imageList.size(); i++){
 			System.out.println(this.imageList.get(i));
 		} 
-	}
-	public void addLink(String newLink){
-		linkList.add(nouveauLink);	
-	}
-	public void addImage(BufferedImage newImage){
-		imageList.add(nouveauImage);
 	}
 }
 

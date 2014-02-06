@@ -1,6 +1,5 @@
 package entity;
 
-import geography.IReferenceable;
 
 import java.util.ArrayList;
 
