@@ -2,10 +2,10 @@ package tileengine;
 
 import java.awt.image.BufferedImage;
 
-import entity.Identifiable;
+import entity.IEntity;
 import tools.Coordinate;
 
-public class Tile implements Identifiable{
+public class Tile implements IEntity{
 	
 	public static final int TILE_HEIGHT = 256;
 	public static final int TILE_WIDTH = 256;
@@ -16,7 +16,7 @@ public class Tile implements Identifiable{
 	private BufferedImage tileContent;
 	
 	//Constructors
-	public Tile(int zoom, int column, int row, BufferedImage content)
+	public Tile(int zoom, Double column, Double row, BufferedImage content)
 	{
 		this.zoom = zoom;
 		this.coord = new Coordinate(row, column);

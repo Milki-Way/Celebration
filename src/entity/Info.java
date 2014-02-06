@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 
 
-public class Info implements Identifiable{
+public class Info implements IEntity{
 	//this class is a fake Infos CLASS
 	private String libelle;
 	private DescriptionComplex descplx;
-	private IReferenceable ref;
 	private int id;
 	
 	//Constructeur
@@ -19,20 +18,18 @@ public class Info implements Identifiable{
 		}
 
 	// constructeur param	
-	public Info(int id, String libelle, DescriptionComplex d, IReferenceable r) {
+	public Info(int id, String libelle, DescriptionComplex d) {
 	
 		this.id = id;
 		this.libelle = libelle;
 		descplx = d;
-		ref =r;
 	}
 	
-	public Info(String libelle, DescriptionComplex d, IReferenceable r)
+	public Info(String libelle, DescriptionComplex d)
 	{
 		this();
 		this.libelle = libelle;
 		this.descplx = d;
-		ref = r;
 	}
 	
 		

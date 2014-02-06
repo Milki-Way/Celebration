@@ -6,5 +6,8 @@ public enum MapperEnum {
 	PARCOURS,
 	INFO,
 	DESCRIPTIONCOMPLEX,
-	TILE
+	TILE,
+	INTER,
+	LINKS,
+	IMAGESD
 }

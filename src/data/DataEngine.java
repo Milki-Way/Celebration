@@ -11,22 +11,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.management.Query;
 
 import tileengine.Tile;
 import data.mapper.MapperEnum;
 import data.mapper.MpgDescriptionComplex;
 import data.mapper.MpgImageDesc;
 import data.mapper.MpgInfos;
+import data.mapper.MpgInterParcPoi;
 import data.mapper.MpgLiensDesc;
 import data.mapper.MpgMap;
 import data.mapper.MpgPoi;
 import data.mapper.MpgRoute;
 import data.mapper.MpgTile;
 import entity.DescriptionComplex;
-import entity.Identifiable;
+import entity.IEntity;
 import entity.Info;
 import entity.Poi;
 import entity.Route;
+import geography.IReferenceable;
 
 
 public class DataEngine {
@@ -42,6 +45,7 @@ public class DataEngine {
 	private MpgDescriptionComplex descMapper;
 	private MpgImageDesc imageDescriptionMapper;
 	private MpgLiensDesc lienDescriptionMapper;
+	private MpgInterParcPoi interParcPoiMapper;
 	
 	//Private constructor
 	private DataEngine()
@@ -53,6 +57,7 @@ public class DataEngine {
 		imageDescriptionMapper = new MpgImageDesc();
 		descMapper = new MpgDescriptionComplex();
 		lienDescriptionMapper = new MpgLiensDesc();
+		interParcPoiMapper = new MpgInterParcPoi();
 		cadData = new Cad("jdbc:sqlite:data/db/map.mbtiles");
 		cadTiles = new Cad("jdbc:sqlite:data/db/map.mbtiles");
 	}
@@ -102,6 +107,7 @@ public class DataEngine {
 			{
 				query = cadData.getPreparedStatement(infoMapper.upd());
 				cadData.executePreparation(QueryPrepared.updateParameters(query, i));
+				this.persist(i.getDescplx());
 				result = true;
 			}
 			else
@@ -126,6 +132,7 @@ public class DataEngine {
 			{
 				query = cadData.getPreparedStatement(poiMapper.upd());
 				cadData.executePreparation(QueryPrepared.updateParameters(query, p));
+				this.persist(p.getDescription());
 				result = true;
 			}
 			else
@@ -182,11 +189,13 @@ public class DataEngine {
 	public Boolean delete(Route r)
 	{
 		PreparedStatement query = cadData.getPreparedStatement(routeMapper.del());
+		this.delete(r.getDescmplx());
 		return this.delete(r, query);
 	}
 	public Boolean delete(Poi p)
 	{
 		PreparedStatement query = cadData.getPreparedStatement(poiMapper.del());
+		this.delete(p.getDescription());
 		return this.delete(p, query);
 	}
 	public Boolean delete(DescriptionComplex d)
@@ -197,9 +206,10 @@ public class DataEngine {
 	public Boolean delete(Info i)
 	{
 		PreparedStatement query = cadData.getPreparedStatement(infoMapper.del());
+		this.delete(i.getDescplx());
 		return this.delete(i, query);
 	}
-	private Boolean delete(Identifiable o, PreparedStatement query)
+	private Boolean delete(IEntity o, PreparedStatement query)
 	{
 		try
 		{
@@ -214,7 +224,7 @@ public class DataEngine {
 	}
 		
 	//get all instance from db
-	public ArrayList<Identifiable> Load(MapperEnum table)
+	public ArrayList<IEntity> Load(MapperEnum table)
 	{
 		ResultSet rs;
 		switch(table)
@@ -233,7 +243,7 @@ public class DataEngine {
 				break;
 		}
 		if(rs != null)
-			return IdentifiableFactory.createIdentifiable(table, rs);
+			return EntityFactory.createIdentifiable(table, rs);
 		else
 			return null;
 		
@@ -249,8 +259,8 @@ public class DataEngine {
 				if(rs != null)
 				{
 					int zoom = 0;
-					int col = 0;
-					int row = 0;
+					double col = 0;
+					double row = 0;
 					
 					InputStream imgStream = null;
 					BufferedImage img = null;
@@ -263,8 +273,8 @@ public class DataEngine {
 						
 					} catch (SQLException e) {
 						zoom = Integer.parseInt(result[0]);
-						col = Integer.parseInt(result[1]);
-						row = Integer.parseInt(result[2]);
+						col = Double.parseDouble(result[1]);
+						row = Double.parseDouble(result[2]);
 						img = ImageIO.read(new File("data/imgs/error.jpg"));
 					}
 					
@@ -288,9 +298,9 @@ public class DataEngine {
 	}
 	
 	//select one instance from db with id
-	public Identifiable select(MapperEnum type, int id)
+	public IEntity select(MapperEnum type, int id)
 	{
-		PreparedStatement query;
+		PreparedStatement query = null;
 		switch(type)
 		{
 			case POI:
@@ -298,14 +308,19 @@ public class DataEngine {
 				break;
 			case PARCOURS:
 				query = cadData.getPreparedStatement(routeMapper.sel());
-				
 				break;
 			case DESCRIPTIONCOMPLEX:
 				query = cadData.getPreparedStatement(descMapper.sel());
-				
 				break;
 			case INFO:
 				query = cadData.getPreparedStatement(infoMapper.sel());
+				break;
+			case INTER:
+				break;
+			case LINKS:
+				query = cadData.getPreparedStatement(lienDescriptionMapper.sel());
+				break;
+			case IMAGESD:
 				break;
 			default:
 				query = null;
@@ -315,6 +330,72 @@ public class DataEngine {
 			return null;
 		
 		ResultSet data = cadData.selectPreparation(QueryPrepared.selectParameters(query, id));
-		return IdentifiableFactory.getOneIdentifiable(type, data);
+		return EntityFactory.getOneIdentifiable(type, data);
+	}
+	public ArrayList<IEntity> loadPoiOfRoute(int idRoute)
+	{
+		PreparedStatement query = cadData.getPreparedStatement(interParcPoiMapper.sel());
+		ResultSet data = cadData.selectPreparation(QueryPrepared.selectParameters(query, idRoute));
+		return EntityFactory.createIdentifiable(MapperEnum.POI, data);
+	}
+	public ArrayList<BufferedImage> loadInfoImg(int idInfo)
+	{
+		ArrayList<BufferedImage> imgList = new ArrayList<BufferedImage>();
+		PreparedStatement query = cadData.getPreparedStatement(imageDescriptionMapper.sel());
+		ResultSet data = cadData.selectPreparation(QueryPrepared.selectParameters(query, idInfo));
+		try {
+		while(data.next())
+			imgList.add(ImageIO.read(new ByteArrayInputStream(data.getBytes("contenudescription"))));
+		} catch (IOException e) {
+			System.out.println("Erreur de lecture : DataEngine //" + e.getMessage());
+		} catch (SQLException e) {
+			System.out.println("Erreur SQL : DataEngine LoadInfoImg" + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return imgList;
+	}
+	public ArrayList<IEntity> loadReference(int idDescription)
+	{
+		ArrayList<IEntity> refList = new ArrayList<IEntity>();
+		PreparedStatement query = cadData.getPreparedStatement(imageDescriptionMapper.sel());
+		ResultSet data = cadData.selectPreparation(QueryPrepared.selectParameters(query, idDescription));
+		try {
+			while(data.next())
+			{
+				int id = data.getInt("idrefpoi");
+				if(id > 0)
+					refList.add(DataEngine.getInstance().select(MapperEnum.POI, id));
+				id = data.getInt("idrefmap");
+				if(id > 0)
+					refList.add(DataEngine.getInstance().select(MapperEnum.MAP, id));
+				id = data.getInt("idrefparcours");
+				if(id > 0)
+					refList.add(DataEngine.getInstance().select(MapperEnum.PARCOURS, id));
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur SQL : DataEngine LoadInfoImg" + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return refList;
+	}
+	public ArrayList<String> loadInfoLinks(int idInfo)
+	{
+		ArrayList<String> links = new ArrayList<String>();
+		PreparedStatement query = cadData.getPreparedStatement(lienDescriptionMapper.sel());
+		ResultSet data = cadData.selectPreparation(QueryPrepared.selectParameters(query, idInfo));
+		
+		try
+		{
+			while(data.next())
+				links.add(data.getString("libellelien"));
+		}
+		catch(SQLException e)
+		{
+			System.out.println("SQLException in DataEngine loadInfoLinks :" +e.getMessage());
+		}
+		
+		return links;
 	}
 }

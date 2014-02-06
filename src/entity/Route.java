@@ -3,7 +3,7 @@ package entity;
 import java.util.ArrayList;
 
 
-public class Route implements Identifiable{	
+public class Route implements IEntity{	
 	private int id;
 	private String libelle;
 	private ArrayList<Poi> poiList;

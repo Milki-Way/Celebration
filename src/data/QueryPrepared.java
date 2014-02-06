@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 import tileengine.Tile;
 import entity.DescriptionComplex;
-import entity.Identifiable;
+import entity.IEntity;
 import entity.Info;
 import entity.Poi;
 import entity.Route;
@@ -85,7 +85,7 @@ public class QueryPrepared {
 	}
 	
 	//DELETE PREPARATION
-	public static PreparedStatement deleteParameters(PreparedStatement query, Identifiable o)
+	public static PreparedStatement deleteParameters(PreparedStatement query, IEntity o)
 	{
 		try
 		{

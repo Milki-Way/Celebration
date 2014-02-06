@@ -22,8 +22,7 @@ public class MpgImageDesc implements Mappable{
 
 	@Override
 	public String sel() {
-		// TODO Auto-generated method stub
-		return null;
+		return "renvois une requête SQL qui sélectionne toutes les images avec l'id d'une description complexe";
 	}
 
 	@Override

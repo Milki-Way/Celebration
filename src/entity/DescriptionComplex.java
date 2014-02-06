@@ -2,30 +2,40 @@ package entity;
 
 
 
+import geography.IReferenceable;
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
 
-public class DescriptionComplex implements Identifiable {
+public class DescriptionComplex implements IEntity {
 	private String description;
 	private int id;
 	private ArrayList<String> linkList = new ArrayList<String>();
 	private ArrayList<BufferedImage> imageList = new ArrayList<BufferedImage>();
 	private String nouveauLink;
-	private BufferedImage nouveauImage; 
+	private BufferedImage nouveauImage;
+	private ArrayList<IEntity> refs;
 	
 	//Constructeur
-		public DescriptionComplex () {
+		public DescriptionComplex (String description, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs) {
 			id =-1;
+			this.description = description;
+			this.imageList = imageList;
+			this.linkList = linkList;
+			this.refs = refs;
 		}
 		
-	
 	// Constructeur param
-		public DescriptionComplex (String description, int id){
+		public DescriptionComplex (String description, int id, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs){
 			this.id = id;
 			this.description = description;
+			this.imageList = imageList;
+			this.linkList = linkList;
+			this.refs = refs;
 		}
+		
 	/**
 	 * @return the id
 	 */
@@ -86,7 +96,6 @@ public class DescriptionComplex implements Identifiable {
 			System.out.println(this.imageList.get(i));
 		} 
 	}
-	
 	public void addLink(String newLink){
 		linkList.add(nouveauLink);	
 	}

@@ -41,9 +41,6 @@ public class World extends JFrame{
 		getContentPane().add(topPanel, BorderLayout.NORTH);
 		
 		SidePanel sidePanel = new SidePanel();
-		Poi test1 = new Poi("Poi test", 0, 0, new DescriptionComplex());
-		Poi test2 = new Poi("Poi test", 0, 0, new DescriptionComplex());
-		Poi test3 = new Poi("Poi test", 0, 0, new DescriptionComplex());
 		
 		
 		getContentPane().add(sidePanel, BorderLayout.EAST);

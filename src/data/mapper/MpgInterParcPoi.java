@@ -1,6 +1,6 @@
 package data.mapper;
 
-public class MpgLiensDesc implements Mappable{
+public class MpgInterParcPoi implements Mappable{
 
 	@Override
 	public String getAll() {
@@ -22,7 +22,7 @@ public class MpgLiensDesc implements Mappable{
 
 	@Override
 	public String sel() {
-		return "une requête SQL qui sélectionne les entrées de la table Liens pour id";
+		return "Une requete SQL qui renvois tous les POI de la table POI via la table Inter avec INNER JOIN et WHERE idparcours = ? pour sélectionner dans la table inter.";
 	}
 
 	@Override

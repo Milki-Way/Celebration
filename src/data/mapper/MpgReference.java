@@ -1,6 +1,6 @@
 package data.mapper;
 
-public class MpgLiensDesc implements Mappable{
+public class MpgReference implements Mappable{
 
 	@Override
 	public String getAll() {
@@ -22,7 +22,7 @@ public class MpgLiensDesc implements Mappable{
 
 	@Override
 	public String sel() {
-		return "une requête SQL qui sélectionne les entrées de la table Liens pour id";
+		return "Renvois toutes les lignes de Reference contenant l'id de la description.";
 	}
 
 	@Override
