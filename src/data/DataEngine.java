@@ -57,7 +57,7 @@ public class DataEngine {
 		descMapper = new MpgDescriptionComplex();
 		lienDescriptionMapper = new MpgLiensDesc();
 		interParcPoiMapper = new MpgInterParcPoi();
-		cadData = new Cad("jdbc:sqlite:data/db/map.mbtiles");
+		cadData = new Cad("jdbc:sqlite:data/db/minisigdb.sqlite");
 		cadTiles = new Cad("jdbc:sqlite:data/db/map.mbtiles");
 	}
 	
