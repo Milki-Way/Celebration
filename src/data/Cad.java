@@ -10,8 +10,8 @@ import java.sql.Statement;
 
 /// CAD is a singleton
 public class Cad {
-	private static Connection connexion;
-	private static Statement state;
+	private Connection connexion;
+	private Statement state;
 	private String url;
 	
 	//local constructor
@@ -38,8 +38,8 @@ public class Cad {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			Cad.connexion = (Connection) DriverManager.getConnection(url);
-			Cad.state = (Statement) Cad.connexion.createStatement();
+			connexion = (Connection)DriverManager.getConnection(url);
+			state = connexion.createStatement();
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBC : connection error!");
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class Cad {
 	public Boolean doSQL(String query)
 	{
 		try {
-			Cad.state.executeUpdate(query);
+			state.executeUpdate(query);
 			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -63,7 +63,7 @@ public class Cad {
 	{
 		try {
 			
-			PreparedStatement rqPrep = (PreparedStatement) Cad.connexion.prepareStatement(query);
+			PreparedStatement rqPrep = (PreparedStatement) connexion.prepareStatement(query);
 			int maxParams = countParam(query);
 			if(params.length > maxParams)
 				System.out.println("WARNING : You have extra args for this query : \n" + query +"\n");
@@ -83,8 +83,16 @@ public class Cad {
 	public ResultSet getSQL(String query)
 	{
 		try {
-			return (ResultSet)Cad.state.executeQuery(query);
+			
+			ResultSet r = this.state.executeQuery("SELECT * FROM poi");
+			while(r.next())
+				System.out.println(r.getString("libellepoi"));
+			
+			
+			System.out.println(query);
+			return state.executeQuery(query);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println(e.getMessage());
 		}
 		return null;
@@ -93,8 +101,7 @@ public class Cad {
 	public ResultSet getSQL(String query, String... params)
 	{
 		try {
-			
-			PreparedStatement rqPrep = (PreparedStatement) Cad.connexion.prepareStatement(query);
+			PreparedStatement rqPrep = (PreparedStatement) connexion.prepareStatement(query);
 			int maxParams = countParam(query);
 			if(params.length > maxParams)
 				System.out.println("WARNING : You have extra args for this query : \n" + query +"\n");
@@ -141,8 +148,8 @@ public class Cad {
 	//Disconnection
 	public void disconnect(){
 		try {
-			Cad.state.close();
-			Cad.connexion.close();
+			state.close();
+			connexion.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} catch (Throwable e) {
