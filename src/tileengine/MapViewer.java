@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import tools.Coordinate;
+import entity.DescriptionComplex;
 import entity.MapMarker;
 import entity.Poi;
 
@@ -38,7 +39,7 @@ public class MapViewer extends JPanel{
 	private int zoom = 7;
 	
 	private ArrayList<MapMarker> mapMarkerList = new ArrayList<MapMarker>();
-	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.6, 85.6), null);
+	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.6, 85.6), new DescriptionComplex("Aucune description pour le moment", 1));
 	private MapMarker test = new MapMarker(testPoi);
 	
 	public MapViewer(Coordinate coords){
@@ -120,7 +121,7 @@ public class MapViewer extends JPanel{
 			mapMarkerList.get(i).repaint();
 			mapMarkerList.get(i).drawPoint(g2);
 		}
-		
+		this.updateMapMarkerBounds();
 		g2.setColor(Color.gray);
 		g2.drawString("fps:"+framesInLastSecond+" - MaxTiles["+wMaxTiles+"]["+hMaxTiles+"] - Zoom:"+this.zoom, 10, 10);
 	}
@@ -140,6 +141,9 @@ public class MapViewer extends JPanel{
 		for(int i=0; i<mapMarkerList.size(); i++){
 			MapMarker cur = mapMarkerList.get(i);
 			
+			if(cur == null)
+				continue;
+			
 			Dimension size = cur.getPreferredSize();
 			size = new Dimension(100, 25);
 			
@@ -151,15 +155,15 @@ public class MapViewer extends JPanel{
 							 ), 
 				
 						(int)(	   		//   Y
-								(this.gethMaxTiles()-1)*Tile.TILE_HEIGHT+ // on déplace l'axe des ordonnées en haut a gauche de la tile la plus basse
-								(cur.getPoi().getCoords().getRowDouble()-this.coords.getRowDouble())// différence coordonnée marker - map
+								(this.gethMaxTiles())*Tile.TILE_HEIGHT+ // on déplace l'axe des ordonnées en haut a gauche de la tile la plus basse
+								(this.coords.getRowDouble()-cur.getPoi().getCoords().getRowDouble())// différence coordonnée marker - map
 								*Tile.TILE_HEIGHT													//on converti cette différence en pixel
 								*this.mapController.getRealZoom()									//on adapte le tout au zoom actuel
 							 ),
 						size.width,
 						size.height);
-			System.out.println("MapMarker ["+cur.getBounds().getX()+"]["+cur.getBounds().getY()+"]");
-		}		
+			//System.out.println("MapMarker ["+cur.getBounds().getX()+"]["+cur.getBounds().getY()+"]");
+		}
 	}
 
 	public Coordinate getCoords() {
