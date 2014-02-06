@@ -22,7 +22,8 @@ public class MpgLiensDesc implements Mappable{
 
 	@Override
 	public String sel() {
-		return "une requête SQL qui sélectionne les entrées de la table Liens pour id";
+		return "SELECT * FROM liens WHERE id = ?";
+				//"une requête SQL qui sélectionne les entrées de la table Liens pour id";
 	}
 
 	@Override

@@ -22,8 +22,9 @@ public class MpgImageDesc implements Mappable{
 
 	@Override
 	public String sel() {
-		return "renvois une requête SQL qui sélectionne toutes les images avec l'id d'une description complexe";
-	}
+		return "SELECT * FROM images INNER JOIN descriptioncomplexe ON descriptioncomplex.id = images.descriptioncomplex.id WHERE descriptioncompex.id = ?";
+				//renvois une requête SQL qui sélectionne toutes les images avec l'id d'une description complexe";
+	}			
 
 	@Override
 	public String upd() {
