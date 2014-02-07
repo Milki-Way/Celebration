@@ -1,7 +1,6 @@
 package tileengine;
 
 import java.awt.Point;
-import java.util.Arrays;
 
 import tileengine.MapController.MapMoveEvent;
 import tools.Coordinate;

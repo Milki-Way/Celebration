@@ -19,7 +19,6 @@ public class MapController implements MouseListener, KeyListener {
 	
 	private MapViewer map;
 	private TileController tileController;
-
 	private int realZoom = 1;
 	private Rectangle[][] zoneList;
 	
@@ -85,6 +84,8 @@ public class MapController implements MouseListener, KeyListener {
     			this.map.updateMapMarkerBounds();
     		}
     	}
+    	
+    	this.map.repaint();
     }
     
     @Override
@@ -131,6 +132,7 @@ public class MapController implements MouseListener, KeyListener {
 		}
 		this.tileController.initCache(realZoom);
 		this.map.updateMapMarkerBounds();
+		this.map.repaint();
 	}
 
 	@Override
@@ -143,6 +145,10 @@ public class MapController implements MouseListener, KeyListener {
 
 	public int getRealZoom() {
 		return realZoom;
+	}
+	
+	public void setRealZoom(int realZoom) {
+		this.realZoom = realZoom;
 	}
 	
 	public void updateClickZones(){

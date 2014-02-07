@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import display.MarkerPanel;
 import tools.Coordinate;
-import entity.DescriptionComplex;
+import data.DataEngine;
+import data.mapper.MapperEnum;
+import display.MarkerPanel;
+import entity.IEntity;
 import entity.MapMarker;
 import entity.Poi;
 
@@ -41,8 +43,6 @@ public class MapViewer extends JPanel{
 	
 	private ArrayList<MapMarker> mapMarkerList = new ArrayList<MapMarker>();
 	private ArrayList<MarkerPanel> markerPanelList = new ArrayList<MarkerPanel>();
-	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.7, 85.6), new DescriptionComplex("Aucune description pour le moment", 1, null, null, null));
-	private MapMarker test = new MapMarker(testPoi);
 	
 	public MapViewer(Coordinate coords){
 		this.setFocusable(true);
@@ -60,13 +60,20 @@ public class MapViewer extends JPanel{
 		
 		this.setLayout(null);
 		
-		mapMarkerList.add(test);
-				
+		/*
+		ArrayList<IEntity> poiList = DataEngine.getInstance().Load(MapperEnum.POI);
+		
+		for(int i=0; i<poiList.size(); i++){
+			MapMarker cur = new MapMarker((Poi) poiList.get(i));
+			mapMarkerList.add(cur);
+		}
+		
 		for(int i=0; i<mapMarkerList.size(); i++){	// On ajoute les marqueurs à la map
 			this.add(mapMarkerList.get(i));
 			mapMarkerList.get(i).setMarkerPanel(new MarkerPanel(mapMarkerList.get(i), this));
 			new MapMarkerController(mapMarkerList.get(i), this);
 		}
+		*/
 		this.updateMapMarkerBounds();
 	}
 	
@@ -116,7 +123,7 @@ public class MapViewer extends JPanel{
 		}
 		
 		
-		for(int i=0; i<mapMarkerList.size(); i++){	// On dessine les marqueurs
+		for(int i=0; i<mapMarkerList.size(); i++){	// On met a jour le libelle du marqueur
 			if(mapMarkerList.get(i).isDrawLibelle()){
 				mapMarkerList.get(i).setText(mapMarkerList.get(i).getPoi().getLibelle());
 			} else {

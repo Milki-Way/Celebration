@@ -1,8 +1,14 @@
 package display;
 
+import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -62,6 +68,24 @@ public class MarkerPanel extends RoundedPanel{
 		
 		this.linkJList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		this.linkJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		linkJList.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        if (evt.getClickCount() == 2) {
+		            int index = list.locationToIndex(evt.getPoint());
+		            String url = (String) list.getModel().getElementAt(index);
+		            try {
+						Desktop.getDesktop().browse(new URI(url));
+					} catch (IOException | URISyntaxException e) {
+						System.out.println("Lien incorrect");
+					}
+		        } else if (evt.getClickCount() == 3) {   // Triple-click
+		            int index = list.locationToIndex(evt.getPoint());
+
+		        }
+		    }
+		});
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
