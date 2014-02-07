@@ -1,14 +1,17 @@
 package display;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import tileengine.MapViewer;
-import entity.DescriptionComplex;
-import entity.Info;
-import entity.Poi;
-import entity.Route;
+import tools.Coordinate;
 
 @SuppressWarnings("serial")
 public class World extends JFrame{
@@ -41,16 +44,12 @@ public class World extends JFrame{
 		getContentPane().add(topPanel, BorderLayout.NORTH);
 		
 		SidePanel sidePanel = new SidePanel();
-		
-		
 		getContentPane().add(sidePanel, BorderLayout.EAST);
 		
-		mapPanel = new MapViewer();
-		mapPanel.setSize(512, 512);
+		mapPanel = new MapViewer(new Coordinate(63,85));
 		getContentPane().add(mapPanel, BorderLayout.CENTER);
 		
 		this.setSize(750, 600);
-		this.setResizable(false);
 		this.setVisible(true);
 		
 		this.revalidate();

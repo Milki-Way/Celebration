@@ -1,25 +1,31 @@
 package entity;
 
-import java.util.ArrayList;
 
+<<<<<<< HEAD
 
 public class Route implements IEntity{	
 	private int id;
 	private String libelle;
 	private ArrayList<Poi> poiList;
 	private DescriptionComplex descmplx;
+=======
+public class Route {
+	//this class is a fake Route CLASS
+	
+	private int id;
+	private String libelle;
+>>>>>>> Map-Engine
 	
 	//Constructeur
 	public Route () {
 		id =-1;
-		libelle="Nouveau parcours(vide)";
-		poiList = new ArrayList<Poi>();
 	}
 
 	//Constructeur Param
 	public Route(int id, String libelle, DescriptionComplex d){
 		this.id = id;
 		this.libelle = libelle;
+<<<<<<< HEAD
 		this.poiList = new ArrayList<Poi>();
 		descmplx = d;
 	}
@@ -53,15 +59,10 @@ public class Route implements IEntity{
 	public Route(int id, String libelle, ArrayList<Poi> pois, DescriptionComplex d){
 		this(id, libelle, d);
 		this.poiList = pois;
+=======
+	
+>>>>>>> Map-Engine
 	}
-	
-	
-	//Add a poi into poiList
-	public void addPoi(Poi p)
-	{
-		this.poiList.add(p);
-	}
-	
 	/**
 	 * @return the id
 	 */
@@ -90,6 +91,7 @@ public class Route implements IEntity{
 		this.libelle = libelle;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @return the poiList
 	 */
@@ -118,5 +120,7 @@ public class Route implements IEntity{
 		this.descmplx = descmplx;
 	}
 
+=======
+>>>>>>> Map-Engine
 	
 }

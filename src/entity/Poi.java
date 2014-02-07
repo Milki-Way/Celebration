@@ -6,7 +6,11 @@ import java.awt.Graphics;
 
 import tools.Coordinate;
 
+<<<<<<< HEAD
 public class Poi implements IDrawable, IEntity{
+=======
+public class Poi implements IReferenceable, IDrawable, Identifiable{
+>>>>>>> Map-Engine
 	
 	private DescriptionComplex description;
 	private String libelle;	
@@ -67,13 +71,15 @@ public class Poi implements IDrawable, IEntity{
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	public void paint(Graphics g) {		
 	}
 
 	public Coordinate getCoords() {
+<<<<<<< HEAD
 		return coords;
+=======
+		return this.coords;
+>>>>>>> Map-Engine
 	}
 
 	/**
@@ -95,5 +101,12 @@ public class Poi implements IDrawable, IEntity{
 	 */
 	public void setCoords(Coordinate coords) {
 		this.coords = coords;
+<<<<<<< HEAD
+=======
+	}
+	
+	public DescriptionComplex getDescriptionComplex(){
+		return this.description;
+>>>>>>> Map-Engine
 	}
 }
