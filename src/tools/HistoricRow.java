@@ -2,14 +2,26 @@ package tools;
 
 public class HistoricRow {
 
+	private String poiLibelle;
 	private Coordinate mapPosition;
 	private int zoom;
 	private int realZoom;
 	
-	public HistoricRow(Coordinate mapPosition, int zoom, int realZoom){
+	public HistoricRow(String poiLibelle, Coordinate mapPosition, int zoom, int realZoom){
+		this.poiLibelle = poiLibelle;
 		this.mapPosition = mapPosition;
 		this.zoom = zoom;
 		this.realZoom = realZoom;
+	}
+	
+	
+
+	public String getPoiLibelle() {
+		return poiLibelle;
+	}
+
+	public void setPoiLibelle(String poiLibelle) {
+		this.poiLibelle = poiLibelle;
 	}
 
 	public Coordinate getMapPosition() {

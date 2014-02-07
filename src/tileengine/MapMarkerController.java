@@ -26,7 +26,7 @@ public class MapMarkerController implements MouseListener{
 		ArrayList<MarkerPanel> a = new ArrayList<MarkerPanel>();
 		a.add(this.mapMarker.getMarkerPanel());
 		this.map.setMapPanelList(a);
-		Historic.getInstance().getHistoricList().add(new HistoricRow(this.map.getCoords(), this.map.getZoom(), this.map.getMapController().getRealZoom()));
+		Historic.getInstance().getHistoricList().add(new HistoricRow(this.mapMarker.getPoi().getLibelle(),this.map.getCoords(), this.map.getZoom(), this.map.getMapController().getRealZoom()));
 	}
 
 	@Override

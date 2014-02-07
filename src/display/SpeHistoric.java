@@ -1,37 +1,33 @@
 package display;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.MouseListener;
 
-import javax.swing.JList;
-
+import tools.HistoricRow;
 import entity.Poi;
 
 public class SpeHistoric extends SidePanelElement{
-	private Poi poi;
+	private HistoricRow historyEntry;
 	
-	public SpeHistoric(MouseListener mouseEvent, Poi poi) {
-		this.poi = poi;
+	public SpeHistoric(MouseListener mouseEvent, HistoricRow historyEntry) {
+		this.historyEntry = historyEntry;
 	}
 
 	/**
 	 * @return the poi
 	 */
-	public Poi getPoi() {
-		return poi;
+	public HistoricRow getHistoricRow() {
+		return historyEntry;
 	}
 
 	/**
 	 * @param poi the poi to set
 	 */
-	public void setPoi(Poi poi) {
-		this.poi = poi;
+	public void setHistoricRow(HistoricRow historyEntry) {
+		this.historyEntry = historyEntry;
 	}
 
 	@Override
 	public String printOject() {
-		return this.poi.getLibelle();
+		return this.historyEntry.getPoiLibelle();
 	}
-	
 }
