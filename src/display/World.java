@@ -3,76 +3,85 @@ package display;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import data.DataEngine;
+import display.editmode.EditPanel;
 import tileengine.MapViewer;
-import entity.DescriptionComplex;
-import entity.Info;
-import entity.Poi;
-import entity.Route;
+import tools.Coordinate;
 
 @SuppressWarnings("serial")
 public class World extends JFrame{
+	
+	private static World instance;
+	
+	private MODE displayMode;
+	private JPanel viewModePanel = new JPanel();
+	private EditPanel editModePanel = new EditPanel();
 	private MapViewer mapPanel;
 	
-	//  MAIN
-	public static void main(String[] args){
-		World w = new World();
-		
-		while(true)
-		{
-			w.repaintMap();
-			
-			try{
-				Thread.sleep(1);
-			} catch(Exception e){
-				System.out.println("Error: "+e.getMessage());
-			}
+	public enum MODE {
+		  VIEWMODE,
+		  EDITMODE;
 		}
+	
+	public static void main(String[] args){
+		World.getInstance();
 	}
-	//  /MAIN
 	
 	
-	public World(){
+	private World(){
 		this.setTitle("minisig");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		this.setSize(750, 600);
+		
+		viewModePanel.setLayout(new BorderLayout(0, 0));
 		
 		TopBar topPanel = new TopBar();
-		getContentPane().add(topPanel, BorderLayout.NORTH);
+		viewModePanel.add(topPanel, BorderLayout.NORTH);
 		
 		SidePanel sidePanel = new SidePanel();
-		Poi test1 = new Poi("Poi test", 0, 0, new DescriptionComplex());
-		Poi test2 = new Poi("Poi test", 0, 0, new DescriptionComplex());
-		Poi test3 = new Poi("Poi test", 0, 0, new DescriptionComplex());
+		viewModePanel.add(sidePanel, BorderLayout.EAST);
 		
-		Route r = new Route("Mon parcours", test1,test2, test3);
-
-		sidePanel.addHistoricPoi(test1);
-		sidePanel.addHistoricPoi(test2);
-		sidePanel.addHistoricPoi(test3);
+		mapPanel = new MapViewer(new Coordinate(63,85));
+		viewModePanel.add(mapPanel, BorderLayout.CENTER);
 		
-
-		sidePanel.addRoute(r);
-		sidePanel.addInfo(new Info("Une news!", -1));
+		this.setContentPane(viewModePanel);
+		this.displayMode = MODE.VIEWMODE;
 		
 		
-		getContentPane().add(sidePanel, BorderLayout.EAST);
-		
-		mapPanel = new MapViewer();
-		mapPanel.setSize(512, 512);
-		getContentPane().add(mapPanel, BorderLayout.CENTER);
-		
-		this.setSize(750, 600);
-		this.setResizable(false);
 		this.setVisible(true);
 		
 		this.revalidate();
         this.repaint();
-		
-		mapPanel.requestFocusInWindow();
+	}
+	
+	public static World getInstance()
+	{
+		if(instance == null)
+			instance = new World();
+		return instance;
+	}
+	
+	public void switchMode(){
+		if(this.displayMode == MODE.VIEWMODE){
+			this.setContentPane(this.editModePanel);
+			this.editModePanel.setVisible(true);
+			this.viewModePanel.setVisible(false);
+			this.displayMode = MODE.EDITMODE;
+		} else if (this.displayMode == MODE.EDITMODE) {
+			this.setContentPane(this.viewModePanel);
+			this.editModePanel.setVisible(false);
+			this.viewModePanel.setVisible(true);
+			this.displayMode = MODE.VIEWMODE;
+		}
 	}
 	
 	public void repaintMap(){
 		this.mapPanel.repaint();
+	}
+	
+	public MODE getDisplayMode(){
+		return this.displayMode;
 	}
 }

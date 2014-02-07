@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -59,12 +61,25 @@ public class TopBar extends JPanel{
 		gbc_btnSearch.gridy = 0;
 		this.add(btnSearch, gbc_btnSearch);
 		
-		btnSwithmode = new JButton("SwithMode");
+		btnSwithmode = new JButton("SwitchMode");
 		GridBagConstraints gbc_btnSwithmode = new GridBagConstraints();
 		gbc_btnSwithmode.gridwidth = 3;
 		gbc_btnSwithmode.gridx = 21;
 		gbc_btnSwithmode.gridy = 0;
 		this.add(btnSwithmode, gbc_btnSwithmode);
+		
+		btnSwithmode.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent e) 
+			{
+				World.getInstance().switchMode();
+				System.out.println("Switching to "+World.getInstance().getDisplayMode());
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
 	}
 	
 	@Override
