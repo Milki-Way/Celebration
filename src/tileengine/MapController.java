@@ -147,6 +147,10 @@ public class MapController implements MouseListener, KeyListener {
 		return realZoom;
 	}
 	
+	public void setRealZoom(int realZoom) {
+		this.realZoom = realZoom;
+	}
+	
 	public void updateClickZones(){
 		this.zoneList = new Rectangle[100][100];
 		

@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import tools.Historic;
+import tools.HistoricRow;
 import display.MarkerPanel;
 import entity.MapMarker;
 
@@ -24,6 +26,7 @@ public class MapMarkerController implements MouseListener{
 		ArrayList<MarkerPanel> a = new ArrayList<MarkerPanel>();
 		a.add(this.mapMarker.getMarkerPanel());
 		this.map.setMapPanelList(a);
+		Historic.getInstance().getHistoricList().add(new HistoricRow(this.map.getCoords(), this.map.getZoom(), this.map.getMapController().getRealZoom()));
 	}
 
 	@Override
