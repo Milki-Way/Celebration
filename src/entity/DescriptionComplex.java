@@ -7,11 +7,7 @@ import java.util.ArrayList;
 
 
 
-<<<<<<< HEAD
 public class DescriptionComplex implements IEntity {
-=======
-public class DescriptionComplex implements Identifiable {
->>>>>>> Map-Engine
 	private String description;
 	private int id;
 	private ArrayList<String> linkList = new ArrayList<String>();

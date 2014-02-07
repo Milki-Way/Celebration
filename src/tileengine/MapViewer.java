@@ -41,7 +41,7 @@ public class MapViewer extends JPanel{
 	
 	private ArrayList<MapMarker> mapMarkerList = new ArrayList<MapMarker>();
 	private ArrayList<MarkerPanel> markerPanelList = new ArrayList<MarkerPanel>();
-	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.7, 85.6), new DescriptionComplex("Aucune description pour le moment", 1));
+	private Poi testPoi = new Poi(1, "Imperial Museum", new Coordinate(63.7, 85.6), new DescriptionComplex("Aucune description pour le moment", 1, null, null, null));
 	private MapMarker test = new MapMarker(testPoi);
 	
 	public MapViewer(Coordinate coords){
