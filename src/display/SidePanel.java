@@ -9,8 +9,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
 
+import tileengine.MapViewer;
 import entity.Info;
 import entity.Poi;
 import entity.Route;
@@ -28,12 +28,16 @@ public class SidePanel extends JPanel{
 	private JList<SpeRoute> routeList;
 	private JList<SpeInfo> newsList;
 	
-	public SidePanel(){
+	private MapViewer map;
+	
+	public SidePanel(MapViewer map){
 		//properties
 		this.setMinimumSize(new Dimension(0, 1000));
 		this.setPreferredSize(new Dimension(200, 1000));
 		this.setMaximumSize(new Dimension(200, 1000));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		this.map = map;
 		
 		//Labels
 		newsLabel = new JLabel("Vos derniers ajouts");

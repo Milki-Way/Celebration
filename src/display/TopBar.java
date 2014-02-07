@@ -12,6 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import tileengine.MapViewer;
+import tools.Historic;
+import tools.HistoricRow;
+
 @SuppressWarnings("serial")
 public class TopBar extends JPanel{
 	
@@ -21,8 +25,11 @@ public class TopBar extends JPanel{
 	private JButton btnSearch;
 	private JButton btnSwithmode;
 
-	public TopBar(){
+	private MapViewer map;
+	
+	public TopBar(final MapViewer map){
 		
+		this.map = map;
 		GridBagLayout gbl_topPanel = new GridBagLayout();
 		gbl_topPanel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_topPanel.rowHeights = new int[]{0, 0};
@@ -36,6 +43,24 @@ public class TopBar extends JPanel{
 		gbc_btnPrec.gridx = 0;
 		gbc_btnPrec.gridy = 0;
 		this.add(btnPrec, gbc_btnPrec);
+		btnPrec.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent e) 
+			{
+				HistoricRow prev = Historic.getInstance().previous();
+				if(prev == null)
+					return;
+				System.out.println(prev.toString());
+				map.setCoords(prev.getMapPosition());
+				map.setZoom(prev.getZoom());
+				map.getMapController().setRealZoom(prev.getRealZoom());
+				map.getTileController().initCache(prev.getRealZoom());
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
 		
 		btnSuiv = new JButton("Suiv.");
 		GridBagConstraints gbc_btnSuiv = new GridBagConstraints();
@@ -43,6 +68,24 @@ public class TopBar extends JPanel{
 		gbc_btnSuiv.gridx = 1;
 		gbc_btnSuiv.gridy = 0;
 		this.add(btnSuiv, gbc_btnSuiv);
+		btnSuiv.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent e) 
+			{
+				HistoricRow suiv = Historic.getInstance().next();
+				if(suiv == null)
+					return;
+				System.out.println(suiv.toString());
+				map.setCoords(suiv.getMapPosition());
+				map.setZoom(suiv.getZoom());
+				map.getMapController().setRealZoom(suiv.getRealZoom());
+				map.getTileController().initCache(suiv.getRealZoom());
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
 		
 		searchTextField = new JTextField();
 		GridBagConstraints gbc_searchTextField = new GridBagConstraints();
@@ -67,7 +110,6 @@ public class TopBar extends JPanel{
 		gbc_btnSwithmode.gridx = 21;
 		gbc_btnSwithmode.gridy = 0;
 		this.add(btnSwithmode, gbc_btnSwithmode);
-		
 		btnSwithmode.addMouseListener(new MouseListener()
 		{
 			public void mouseClicked(MouseEvent e) 

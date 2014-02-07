@@ -6,17 +6,27 @@ import entity.Poi;
 
 public class Historic {
 	
-	private ArrayList<Poi> poiList = new ArrayList<Poi>();
+	private static Historic instance;
+	private ArrayList<HistoricRow> historicList;
 	private int index;
 	
+	private Historic(){
+		this.historicList = new ArrayList<HistoricRow>();
+	}
 	
-	public void updateIndex (Poi myPoi) {
-	boolean trouve = false;
+	public static Historic getInstance()
+	{
+		if(instance == null)
+			instance = new Historic();
+		return instance;
+	}
 	
-		for  (int i = 0; i<poiList.size() ; i ++)
+	public void updateIndex (HistoricRow historicEntry) {
+		boolean trouve = false;
+	
+		for  (int i = 0; i<historicList.size() ; i ++)
 		{
-			
-			if (myPoi == poiList.get(i))
+			if (historicEntry == historicList.get(i))
 			{
 				trouve = true;
 				this.index = i;				
@@ -31,15 +41,15 @@ public class Historic {
 	public void resetIndex () {
 		
 		
-		this.index = poiList.size() -1;
+		this.index = historicList.size() -1;
 	}
 	
-	public Poi previous() 
+	public HistoricRow previous() 
 	{
 		
 		if (index > 0)
 		{
-			return this.poiList.get(index);
+			return this.historicList.get(index);
 		}
 		
 		else 
@@ -47,21 +57,16 @@ public class Historic {
 			return null;
 		}
 	}
-		
-		
 	
-	
-	public ArrayList<Poi> List() {
-		return poiList;
+	public ArrayList<HistoricRow> getHistoricList() {
+		return historicList;
 	}
-		
 	
-	
-	public Poi next() {
+	public HistoricRow next() {
 		
 		if (index < 0)
 		{
-			return this.poiList.get(index);
+			return this.historicList.get(index);
 		}
 		
 		else 
