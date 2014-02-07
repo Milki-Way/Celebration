@@ -38,12 +38,12 @@ public class MarkerPanel extends RoundedPanel{
 		imageList.add(image2Label);
 		imageList.add(image3Label);
 		imageList.add(image4Label);
-		this.descriptionTextPane.setText(mm.getPoi().getDescriptionComplex().getDescription());
+		this.descriptionTextPane.setText(mm.getPoi().getDescription().getDescription());
 		
 		//Chargement des images
-		if(mm.getPoi().getDescriptionComplex().getImageList().size() > 0){
-			for(int i=1; i<mm.getPoi().getDescriptionComplex().getImageList().size();i++){
-				this.imageList.get(i).setIcon(new ImageIcon(mm.getPoi().getDescriptionComplex().getImageList().get(i)));
+		if(mm.getPoi().getDescription().getImageList().size() > 0){
+			for(int i=1; i<mm.getPoi().getDescription().getImageList().size();i++){
+				this.imageList.get(i).setIcon(new ImageIcon(mm.getPoi().getDescription().getImageList().get(i)));
 			}
 		}
 		else{
@@ -52,8 +52,8 @@ public class MarkerPanel extends RoundedPanel{
 		
 		
 		//Chargement des liens
-		if(mm.getPoi().getDescriptionComplex().getLinkList().size() >0){
-			this.linkJList = new JList<Object>(mm.getPoi().getDescriptionComplex().getLinkList().toArray());
+		if(mm.getPoi().getDescription().getLinkList().size() >0){
+			this.linkJList = new JList<Object>(mm.getPoi().getDescription().getLinkList().toArray());
 		}else{
 			DefaultListModel listModel = new DefaultListModel();
 			listModel.addElement("Pas de liens");

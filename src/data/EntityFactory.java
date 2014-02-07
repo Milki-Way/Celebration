@@ -25,7 +25,7 @@ public class EntityFactory {
 						while(data.next())
 						{
 							DescriptionComplex desc = (DescriptionComplex)DataEngine.getInstance().select(MapperEnum.DESCRIPTIONCOMPLEX, data.getInt("idrefdescription"));
-							result.add(new Poi(data.getInt("idpoi"), data.getString("libellepoi"), data.getInt("xpoi"),data.getInt("ypoi"), desc));
+							result.add(new Poi(data.getInt("idpoi"), data.getString("libellepoi"), data.getDouble("xpoi"),data.getDouble("ypoi"), desc));
 						}
 					break;
 					case INFO:
@@ -65,7 +65,7 @@ public class EntityFactory {
 					{
 						case POI:
 							DescriptionComplex desc = (DescriptionComplex)DataEngine.getInstance().select(MapperEnum.DESCRIPTIONCOMPLEX, data.getInt("idrefdescription"));
-							return new Poi(data.getInt("idpoi"), data.getString("libellepoi"), data.getInt("xpoi"),data.getInt("ypoi"), desc);
+							return new Poi(data.getInt("idpoi"), data.getString("libellepoi"), data.getDouble("xpoi"),data.getDouble("ypoi"), desc);
 							
 						case DESCRIPTIONCOMPLEX:
 							int dId = data.getInt("iddescription");
