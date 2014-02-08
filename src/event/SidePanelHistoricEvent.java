@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JList;
 
+import tileengine.MapViewer;
 import display.SpeHistoric;
 import display.SpeInfo;
 import display.SpeRoute;
@@ -17,8 +18,8 @@ public class SidePanelHistoricEvent implements MouseListener{
 		System.out.println("An HistoricPoi in SidePanel has been clicked");
 		JList<SpeHistoric> list= (JList<SpeHistoric>)arg0.getComponent();
 		SpeHistoric spe = list.getSelectedValue();
-		//On peut réaliser ici une action avec spe.getPoi().
-		System.out.println(spe.getHistoricRow().toString());
+		
+		MapViewer.getInstance().move(spe.getHistoricRow().getMapPosition(), spe.getHistoricRow().getZoom(), spe.getHistoricRow().getRealZoom());
 	}
 
 	@Override

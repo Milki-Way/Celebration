@@ -4,10 +4,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -20,7 +25,7 @@ import tools.HistoricRow;
 public class TopBar extends JPanel{
 	
 	private JTextField searchTextField;
-	private JButton btnPrec;
+	private RoundButton btnPrec;
 	private JButton btnSuiv;
 	private JButton btnSearch;
 	private JButton btnSwithmode;
@@ -37,7 +42,21 @@ public class TopBar extends JPanel{
 		gbl_topPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		this.setLayout(gbl_topPanel);
 		
-		btnPrec = new JButton("Prec.");
+		Image prec;
+		ImageIcon iPrec;
+		try {
+			prec = (ImageIO.read(new File("data/imgs/prec.png")));
+			iPrec = new ImageIcon(prec);
+		} catch (IOException e1) {
+			prec = null;
+			iPrec = null;
+			e1.printStackTrace();
+		}
+		if(iPrec != null){
+			btnPrec = new RoundButton(iPrec);
+		} else {
+			btnPrec = new RoundButton("Prec.");
+		}	
 		GridBagConstraints gbc_btnPrec = new GridBagConstraints();
 		gbc_btnPrec.insets = new Insets(0, 0, 0, 5);
 		gbc_btnPrec.gridx = 0;
@@ -50,12 +69,7 @@ public class TopBar extends JPanel{
 				HistoricRow prev = Historic.getInstance().previous();
 				if(prev == null)
 					return;
-				System.out.println("Prec Clicked : "+prev.toString());
-				map.setCoords(prev.getMapPosition());
-				map.setZoom(prev.getZoom());
-				map.getMapController().setRealZoom(prev.getRealZoom());
-				map.getTileController().initCache(prev.getRealZoom());
-				map.repaint();
+				map.move(prev.getMapPosition(), prev.getZoom(), prev.getRealZoom());
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}
@@ -63,7 +77,21 @@ public class TopBar extends JPanel{
 			public void mouseExited(MouseEvent e) {}
 		});
 		
-		btnSuiv = new JButton("Suiv.");
+		Image suiv;
+		ImageIcon iSuiv;
+		try {
+			suiv = ImageIO.read(new File("data/imgs/suiv.png"));
+			iSuiv = new ImageIcon(suiv);
+		} catch (IOException e1) {
+			suiv = null;
+			iSuiv = null;
+			e1.printStackTrace();
+		}
+		if(iSuiv != null){
+			btnSuiv = new RoundButton(iSuiv);
+		} else {
+			btnSuiv = new RoundButton("Suiv.");
+		}	
 		GridBagConstraints gbc_btnSuiv = new GridBagConstraints();
 		gbc_btnSuiv.insets = new Insets(0, 0, 0, 5);
 		gbc_btnSuiv.gridx = 1;
@@ -76,12 +104,7 @@ public class TopBar extends JPanel{
 				HistoricRow suiv = Historic.getInstance().next();
 				if(suiv == null)
 					return;
-				System.out.println("Suiv Clicked : "+suiv.toString());
-				map.setCoords(suiv.getMapPosition());
-				map.setZoom(suiv.getZoom());
-				map.getMapController().setRealZoom(suiv.getRealZoom());
-				map.getTileController().initCache(suiv.getRealZoom());
-				map.repaint();
+				map.move(suiv.getMapPosition(), suiv.getZoom(), suiv.getRealZoom());
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import tools.Coordinate;
+import tools.Historic;
 import data.DataEngine;
 import data.mapper.MapperEnum;
 import display.MarkerPanel;
@@ -20,6 +21,8 @@ import entity.Poi;
 
 @SuppressWarnings("serial")
 public class MapViewer extends JPanel{
+	
+	private static MapViewer instance;
 	
 	public static final int MAX_ZOOM = 14;
     public static final int MIN_ZOOM = 7;
@@ -46,7 +49,7 @@ public class MapViewer extends JPanel{
 	private ArrayList<MapMarker> mapMarkerList = new ArrayList<MapMarker>();
 	private ArrayList<MarkerPanel> markerPanelList = new ArrayList<MarkerPanel>();
 	
-	public MapViewer(Coordinate coords){
+	private MapViewer(Coordinate coords){
 		this.setFocusable(true);
     	this.requestFocus();
     	this.setSize(512, 512);
@@ -78,6 +81,13 @@ public class MapViewer extends JPanel{
 		}
 		this.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		this.updateMapMarkerBounds();
+	}
+	
+	public static MapViewer getInstance()
+	{
+		if(instance == null)
+			instance = new MapViewer(new Coordinate(63,85));
+		return instance;
 	}
 	
 	@Override
@@ -185,6 +195,14 @@ public class MapViewer extends JPanel{
 						size.height);
 			//System.out.println("MapMarker ["+cur.getBounds().getX()+"]["+cur.getBounds().getY()+"]");
 		}
+	}
+	
+	public void move(Coordinate mapPosition, int zoom, int realZoom){
+		this.setCoords(mapPosition);
+		this.setZoom(zoom);
+		this.getMapController().setRealZoom(realZoom);
+		this.getTileController().initCache(realZoom);
+		this.repaint();
 	}
 
 	public Coordinate getCoords() {

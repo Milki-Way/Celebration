@@ -2,11 +2,12 @@ package tools;
 
 import java.util.ArrayList;
 
-public class Historic {
+public class Historic implements Observable{
 	
 	private static Historic instance;
+	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	private ArrayList<HistoricRow> historicList;
-	private int index;
+	private int index = 0;
 	
 	private Historic(){
 		this.historicList = new ArrayList<HistoricRow>();
@@ -61,6 +62,7 @@ public class Historic {
 	public void addHistoricRow(HistoricRow h){
 		this.historicList.add(h);
 		this.index++;
+		this.updateObservateur();
 	}
 	
 	public HistoricRow next() {
@@ -73,5 +75,21 @@ public class Historic {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void addObservateur(Observer obs) {
+		this.listObserver.add(obs);
+	}
+
+	@Override
+	public void updateObservateur() {
+		for(Observer obs : this.listObserver )
+		      obs.update();
+	}
+
+	@Override
+	public void delObservateur() {
+		this.listObserver = new ArrayList<Observer>();
 	}
 }

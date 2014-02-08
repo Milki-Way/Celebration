@@ -37,7 +37,7 @@ public class World extends JFrame{
 		
 		viewModePanel.setLayout(new BorderLayout(0, 0));
 		
-		mapPanel = new MapViewer(new Coordinate(63,85));
+		mapPanel = MapViewer.getInstance();
 		viewModePanel.add(mapPanel, BorderLayout.CENTER);
 		
 		TopBar topPanel = new TopBar(mapPanel);
