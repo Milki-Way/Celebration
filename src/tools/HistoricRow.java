@@ -13,8 +13,6 @@ public class HistoricRow {
 		this.zoom = zoom;
 		this.realZoom = realZoom;
 	}
-	
-	
 
 	public String getPoiLibelle() {
 		return poiLibelle;

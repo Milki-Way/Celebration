@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import tools.Historic;
 import tools.HistoricRow;
 import display.MarkerPanel;
-import entity.MapMarker;
 
 public class MapMarkerController implements MouseListener{
 	
@@ -26,9 +25,10 @@ public class MapMarkerController implements MouseListener{
 		ArrayList<MarkerPanel> a = new ArrayList<MarkerPanel>();
 		a.add(this.mapMarker.getMarkerPanel());
 		this.map.setMapPanelList(a);
-		Historic.getInstance().getHistoricList().add(new HistoricRow(this.mapMarker.getPoi().getLibelle(),this.map.getCoords(), this.map.getZoom(), this.map.getMapController().getRealZoom()));
+		Historic.getInstance().addHistoricRow(new HistoricRow(this.mapMarker.getPoi().getLibelle(),this.map.getCoords(), this.map.getZoom(), this.map.getMapController().getRealZoom()));
+		System.out.println(new HistoricRow(this.mapMarker.getPoi().getLibelle(),this.map.getCoords(), this.map.getZoom(), this.map.getMapController().getRealZoom()).toString());
 	}
-
+	
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		this.mapMarker.setDrawLibelle(true);

@@ -37,14 +37,14 @@ public class World extends JFrame{
 		
 		viewModePanel.setLayout(new BorderLayout(0, 0));
 		
-		TopBar topPanel = new TopBar();
-		viewModePanel.add(topPanel, BorderLayout.NORTH);
-		
-		SidePanel sidePanel = new SidePanel();
-		viewModePanel.add(sidePanel, BorderLayout.EAST);
-		
 		mapPanel = new MapViewer(new Coordinate(63,85));
 		viewModePanel.add(mapPanel, BorderLayout.CENTER);
+		
+		TopBar topPanel = new TopBar(mapPanel);
+		viewModePanel.add(topPanel, BorderLayout.NORTH);
+		
+		SidePanel sidePanel = new SidePanel(mapPanel);
+		viewModePanel.add(sidePanel, BorderLayout.EAST);
 		
 		this.setContentPane(viewModePanel);
 		this.displayMode = MODE.VIEWMODE;

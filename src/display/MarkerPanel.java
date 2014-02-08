@@ -18,8 +18,8 @@ import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 
+import tileengine.MapMarker;
 import tileengine.MapViewer;
-import entity.MapMarker;
 
 public class MarkerPanel extends RoundedPanel{
 	

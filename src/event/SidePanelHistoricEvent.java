@@ -18,8 +18,8 @@ public class SidePanelHistoricEvent implements MouseListener{
 		JList<SpeHistoric> list= (JList<SpeHistoric>)arg0.getComponent();
 		SpeHistoric spe = list.getSelectedValue();
 		//On peut réaliser ici une action avec spe.getPoi().
+		System.out.println(spe.getHistoricRow().toString());
 	}
-
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {

@@ -70,13 +70,13 @@ public class EditPanel extends JPanel {
 			} else if(type == ObjPanel.NEWS){
 				curPane = new InfoEditPanel();
 			} else if(type == ObjPanel.PARCOURS){
-				curPane = new PoiEditPanel();
+				curPane = new RouteEditPanel();
 			}
 			editPane.removeAll();
 			editPane.add(menuprincipal, BorderLayout.NORTH);
 			editPane.add(curPane, BorderLayout.CENTER);
 			editPane.repaint();
-			
+			World.getInstance().repaint();
 		}
 		@Override
 		public void mouseEntered(MouseEvent arg0) {}

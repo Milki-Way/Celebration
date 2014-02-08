@@ -11,8 +11,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import tileengine.MapViewer;
+import tools.HistoricRow;
 import entity.Info;
-import entity.Poi;
 import entity.Route;
 import event.SidePanelHistoricEvent;
 import event.SidePanelInfoEvent;
@@ -81,7 +81,7 @@ public class SidePanel extends JPanel{
 	}
 		
 	//Add info in InfoList
-	public void addHistoricPoi(Poi p)
+	public void addHistoricRow(HistoricRow p)
 	{
 		((DefaultListModel<SpeHistoric>)historicList.getModel()).addElement(new SpeHistoric(new SidePanelHistoricEvent(), p));
 	}

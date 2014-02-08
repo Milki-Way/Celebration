@@ -198,7 +198,8 @@ public class PoiEditPanel extends JPanel{
 				
 				for (String line : textAreaImgs.getText().split("\\n")){
 					try {
-						imgList.add(ImageIO.read(new File(line)));
+						if(!line.equals("") && !line.equals(null))	
+							imgList.add(ImageIO.read(new File(line)));
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -218,6 +219,7 @@ public class PoiEditPanel extends JPanel{
 								txtLibelle.getText(), 
 								new Coordinate(Double.parseDouble(txtX.getText()), Double.parseDouble(txtY.getText())), 
 								new DescriptionComplex(txtrDescription.getText(), imgList, linksList, refList)));
+				System.out.println("Poi "+txtLibelle.getText()+" ajouté !");
 			}
 		});
 		this.add(btnAjouter, gbc_btnAjouter);

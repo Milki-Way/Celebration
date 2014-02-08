@@ -2,8 +2,6 @@ package tools;
 
 import java.util.ArrayList;
 
-import entity.Poi;
-
 public class Historic {
 	
 	private static Historic instance;
@@ -44,16 +42,14 @@ public class Historic {
 		this.index = historicList.size() -1;
 	}
 	
-	public HistoricRow previous() 
-	{
+	public HistoricRow previous(){
 		
 		if (index > 0)
 		{
+			this.index--;
+			System.out.println("historic index:"+index);
 			return this.historicList.get(index);
-		}
-		
-		else 
-		{
+		} else {
 			return null;
 		}
 	}
@@ -62,15 +58,19 @@ public class Historic {
 		return historicList;
 	}
 	
+	public void addHistoricRow(HistoricRow h){
+		this.historicList.add(h);
+		this.index++;
+	}
+	
 	public HistoricRow next() {
 		
-		if (index < 0)
+		if (index+1 != this.historicList.size())
 		{
+			this.index++;
+			System.out.println("historic index:"+index+"<"+this.historicList.size());
 			return this.historicList.get(index);
-		}
-		
-		else 
-		{
+		} else {
 			return null;
 		}
 	}

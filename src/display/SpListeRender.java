@@ -2,7 +2,6 @@ package display;
 
 import java.awt.Component;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComponent;
 import javax.swing.JList;

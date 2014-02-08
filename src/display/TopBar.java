@@ -50,11 +50,12 @@ public class TopBar extends JPanel{
 				HistoricRow prev = Historic.getInstance().previous();
 				if(prev == null)
 					return;
-				System.out.println(prev.toString());
+				System.out.println("Prec Clicked : "+prev.toString());
 				map.setCoords(prev.getMapPosition());
 				map.setZoom(prev.getZoom());
 				map.getMapController().setRealZoom(prev.getRealZoom());
 				map.getTileController().initCache(prev.getRealZoom());
+				map.repaint();
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}
@@ -75,11 +76,12 @@ public class TopBar extends JPanel{
 				HistoricRow suiv = Historic.getInstance().next();
 				if(suiv == null)
 					return;
-				System.out.println(suiv.toString());
+				System.out.println("Suiv Clicked : "+suiv.toString());
 				map.setCoords(suiv.getMapPosition());
 				map.setZoom(suiv.getZoom());
 				map.getMapController().setRealZoom(suiv.getRealZoom());
 				map.getTileController().initCache(suiv.getRealZoom());
+				map.repaint();
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}

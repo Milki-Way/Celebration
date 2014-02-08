@@ -2,8 +2,11 @@ package tileengine;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -13,7 +16,6 @@ import data.DataEngine;
 import data.mapper.MapperEnum;
 import display.MarkerPanel;
 import entity.IEntity;
-import entity.MapMarker;
 import entity.Poi;
 
 @SuppressWarnings("serial")
@@ -60,12 +62,13 @@ public class MapViewer extends JPanel{
 		
 		this.setLayout(null);
 		
-		/*
+		
 		ArrayList<IEntity> poiList = DataEngine.getInstance().Load(MapperEnum.POI);
 		
 		for(int i=0; i<poiList.size(); i++){
 			MapMarker cur = new MapMarker((Poi) poiList.get(i));
 			mapMarkerList.add(cur);
+			System.out.println(((Poi) poiList.get(i)).getLibelle()+" "+((Poi) poiList.get(i)).getCoords().toString());
 		}
 		
 		for(int i=0; i<mapMarkerList.size(); i++){	// On ajoute les marqueurs à la map
@@ -73,7 +76,7 @@ public class MapViewer extends JPanel{
 			mapMarkerList.get(i).setMarkerPanel(new MarkerPanel(mapMarkerList.get(i), this));
 			new MapMarkerController(mapMarkerList.get(i), this);
 		}
-		*/
+		this.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		this.updateMapMarkerBounds();
 	}
 	
@@ -157,7 +160,13 @@ public class MapViewer extends JPanel{
 				continue;
 			
 			Dimension size = cur.getPreferredSize();
-			size = new Dimension(100, 25);
+			size = new Dimension(100, 25); 
+	        
+			String text = cur.getPoi().getLibelle();
+			AffineTransform affinetransform = new AffineTransform();     
+			FontRenderContext frc = new FontRenderContext(affinetransform,true,true);     
+			Font font = new Font("Tahoma", Font.PLAIN, 14);
+			int textWidth = (int)(font.getStringBounds(text, frc).getWidth());
 			
 			cur.setBounds(
 						(int)(	    	//   X
@@ -172,7 +181,7 @@ public class MapViewer extends JPanel{
 								*Tile.TILE_HEIGHT													//on converti cette différence en pixel
 								*this.mapController.getRealZoom()									//on adapte le tout au zoom actuel
 							 ),
-						size.width,
+						(int)textWidth,
 						size.height);
 			//System.out.println("MapMarker ["+cur.getBounds().getX()+"]["+cur.getBounds().getY()+"]");
 		}

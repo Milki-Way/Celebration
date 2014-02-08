@@ -12,16 +12,10 @@ public class SpeHistoric extends SidePanelElement{
 		this.historyEntry = historyEntry;
 	}
 
-	/**
-	 * @return the poi
-	 */
 	public HistoricRow getHistoricRow() {
 		return historyEntry;
 	}
 
-	/**
-	 * @param poi the poi to set
-	 */
 	public void setHistoricRow(HistoricRow historyEntry) {
 		this.historyEntry = historyEntry;
 	}
