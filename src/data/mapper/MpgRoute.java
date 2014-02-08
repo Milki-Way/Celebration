@@ -29,5 +29,10 @@ public class MpgRoute implements Mappable {
 	public String getAll() {
 		return "SELECT * FROM parcours";
 	}
+	
+	public String search()
+	{
+		return "SELECT * FROM parcours WHERE libelleparcours LIKE %?%";
+	}
 
 }

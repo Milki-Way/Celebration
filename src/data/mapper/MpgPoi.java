@@ -5,7 +5,7 @@ public class MpgPoi implements Mappable{
 	@Override
 	public String add() {
 		
-		return "INSERT INTO poi VALUES(NULL,?, ?, ?, ?)";
+		return "INSERT INTO poi('xpoi', 'ypoi', 'libellepoi', 'idrefcarte', 'idtypepoi', 'idrefdescription') VALUES(?, ?, ?, ?, ?, ?)";
 	}
 
 	@Override
@@ -29,6 +29,11 @@ public class MpgPoi implements Mappable{
 	public String getAll() {
 		
 		return "SELECT * FROM poi";
+	}
+	
+	public String search()
+	{
+		return "SELECT * FROM poi WHERE libellepoi LIKE %?%";
 	}
 
 }

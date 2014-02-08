@@ -26,5 +26,10 @@ public class MpgDescriptionComplex implements Mappable {
 	public String getAll() {
 		return "SELECT * FROM descriptioncomplexe";
 	}
+	
+	public String search()
+	{
+		return "SELECT * FROM descriptioncomplexe WHERE libelledescription LIKE %?% OR description LIKE %?%";
+	}
 
 }

@@ -106,14 +106,16 @@ public class DataEngine {
 			{
 				query = cadData.getPreparedStatement(infoMapper.upd());
 				cadData.executePreparation(QueryPrepared.updateParameters(query, i));
-				this.persist(i.getDescplx());
+				if(i.getDescplx() != null)
+					this.persist(i.getDescplx());
 				result = true;
 			}
 			else
 			{
 				query = cadData.getPreparedStatement(infoMapper.add());
 				cadData.executePreparation(QueryPrepared.insertParameters(query, i));
-				this.persist(i.getDescplx());
+				if(i.getDescplx() != null)
+					this.persist(i.getDescplx());
 				result = true;
 			}
 		} catch (SQLException e) {
@@ -131,14 +133,16 @@ public class DataEngine {
 			{
 				query = cadData.getPreparedStatement(poiMapper.upd());
 				cadData.executePreparation(QueryPrepared.updateParameters(query, p));
-				this.persist(p.getDescription());
+				if(p.getDescription() != null)
+					this.persist(p.getDescription());
 				result = true;
 			}
 			else
 			{
-				query = cadData.getPreparedStatement(poiMapper.upd());
+				query = cadData.getPreparedStatement(poiMapper.add());
 				cadData.executePreparation(QueryPrepared.insertParameters(query, p));
-				this.persist(p.getDescription());
+				if(p.getDescription() != null)
+					this.persist(p.getDescription());
 				result = true;
 			}
 		} catch (SQLException e) {
@@ -422,4 +426,38 @@ public class DataEngine {
 		
 		return links;
 	}
+	
+	public ArrayList<Poi> searchPoi(String text)
+	{
+		ArrayList<Poi> result = new ArrayList<Poi>();
+		ArrayList<IEntity> enlist;
+		PreparedStatement query = cadData.getPreparedStatement(poiMapper.search());
+		ResultSet data = cadData.selectPreparation(QueryPrepared.searchParameters(query, text));
+		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
+		for(IEntity e :enlist)
+			result.add((Poi)e);
+		/*query = cadData.getPreparedStatement(descMapper.search());
+		data = cadData.selectPreparation(QueryPrepared.searchDescCParameters(query, text));
+		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
+		for(IEntity e :enlist)
+			result.add((Poi)e);*/
+		return result;
+	}
+	public ArrayList<Route> searchRoute(String text)
+	{
+		ArrayList<Route> result = new ArrayList<Route>();
+		ArrayList<IEntity> enlist;
+		PreparedStatement query = cadData.getPreparedStatement(routeMapper.search());
+		ResultSet data = cadData.selectPreparation(QueryPrepared.searchParameters(query, text));
+		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
+		for(IEntity e :enlist)
+			result.add((Route)e);
+		/*query = cadData.getPreparedStatement(descMapper.search());
+		data = cadData.selectPreparation(QueryPrepared.searchDescCParameters(query, text));
+		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
+		for(IEntity e :enlist)
+			result.add((Route)e);*/
+		return result;
+	}
+	
 }
