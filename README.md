@@ -1,17 +1,15 @@
 Celebration
-===========
+====
 
-Hum les petits chocolats !
+Projet Java
 
+Exia Cesi
 
-Taches à faire: 
+Deuxième année
 
-  Florence :  Mode édition
-  
-  Maxime :    Mode édition
-  
-  Aurélien :  Historique
-  
-  Sorian :    DataEngine
-  
-  Victor :    TileEngine
+Groupe 3:
+- Sorian : Chef de projet
+- Aurélien
+- Maxime
+- Florence
+- Victor
