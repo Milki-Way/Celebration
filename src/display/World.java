@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import tileengine.MapViewer;
+import tools.Coordinate;
 import display.editmode.EditPanel;
 
 @SuppressWarnings("serial")
@@ -47,18 +48,21 @@ public class World extends JFrame{
 		this.setContentPane(viewModePanel);
 		this.displayMode = MODE.VIEWMODE;
 		
-		
 		this.setVisible(true);
-		
 		this.revalidate();
         this.repaint();
 	}
 	
 	public static World getInstance()
 	{
-		if(instance == null)
-			instance = new World();
-		return instance;
+		if (World.instance == null) {
+			synchronized(World.class) {
+				if (World.instance == null) {
+					World.instance = new World();
+				}
+			}
+		}
+		return World.instance;
 	}
 	
 	public void switchMode(){
