@@ -5,9 +5,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -42,18 +46,99 @@ public class SidePanel extends JPanel implements Observer{
 	public SidePanel(MapViewer map){
 		//properties
 		this.setMinimumSize(new Dimension(0, 1000));
-		this.setPreferredSize(new Dimension(200, 1000));
-		this.setMaximumSize(new Dimension(200, 1000));
+		this.setPreferredSize(new Dimension(220, 1000));
+		this.setMaximumSize(new Dimension(220, 1000));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		this.map = map;
-		Historic.getInstance().addObservateur(this);
+		Historic.getInstance().addObservateur(this);		
+			
 		
 		//Labels
 		newsLabel = new JLabel("Vos derniers ajouts");
 		routeLabel = new JLabel("Vos parcours");
 		historicLabel = new JLabel("Historique");
 		searchLabel = new JLabel("Résultat de vos recherche");
+		newsLabel.setIcon(getArrowImgs()[1]);
+		newsLabel.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(newsList.isVisible()){
+					newsList.setVisible(false);
+					newsLabel.setIcon(getArrowImgs()[0]);
+				}else{
+					newsList.setVisible(true);
+					newsLabel.setIcon(getArrowImgs()[1]);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+		});
+		
+		routeLabel.setIcon(getArrowImgs()[1]);
+		routeLabel.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(routeList.isVisible()){
+					routeList.setVisible(false);
+					routeLabel.setIcon(getArrowImgs()[0]);
+				}else{
+					routeList.setVisible(true);
+					routeLabel.setIcon(getArrowImgs()[1]);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+		});
+		
+		historicLabel.setIcon(getArrowImgs()[1]);
+		historicLabel.addMouseListener(new MouseListener(){
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(historicList.isVisible()){
+					historicList.setVisible(false);
+					historicLabel.setIcon(getArrowImgs()[0]);
+				} else {
+					historicList.setVisible(true);
+					historicLabel.setIcon(getArrowImgs()[0]);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+		});
 		
 		//Lists
 		historicList = new SpeList<SpeHistoric>( new DefaultListModel<SpeHistoric>());
@@ -101,10 +186,10 @@ public class SidePanel extends JPanel implements Observer{
 		this.add(newsLabel);
 		this.add(newsList);
 		this.add(routeLabel);
-		this.add(searchLabel);
 		this.add(routeList);
 		this.add(historicLabel);
 		this.add(historicList);
+		this.add(searchLabel);
 		this.add(searchList);
 		
 		for(IEntity i : DataEngine.getInstance().Load(MapperEnum.INFO)){
@@ -160,5 +245,21 @@ public class SidePanel extends JPanel implements Observer{
 		}
 	}
 	
-	
+	static public ImageIcon[] getArrowImgs(){
+		ImageIcon[] r= new ImageIcon[2];
+		ImageIcon upArrow;
+		ImageIcon downArrow;
+		
+			try {
+				upArrow = new ImageIcon(ImageIO.read(new File("data/imgs/arrowUp.png")));
+				downArrow = new ImageIcon(ImageIO.read(new File("data/imgs/arrowDown.png")));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				upArrow = null;
+				downArrow = null;
+			}
+		r[0] = upArrow;
+		r[1] = downArrow;
+		return r;
+	}
 }
