@@ -11,10 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import data.DataEngine;
+import data.mapper.MapperEnum;
 import tileengine.MapViewer;
 import tools.Historic;
 import tools.HistoricRow;
 import tools.Observer;
+import entity.IEntity;
 import entity.Info;
 import entity.Route;
 import event.SidePanelHistoricEvent;
@@ -64,6 +67,17 @@ public class SidePanel extends JPanel implements Observer{
 		this.add(routeList);
 		this.add(historicLabel);
 		this.add(historicList);
+		
+		for(IEntity i : DataEngine.getInstance().Load(MapperEnum.INFO)){
+			if(i instanceof Info){
+				this.addInfo((Info)i);
+			}
+		}
+		for(IEntity r : DataEngine.getInstance().Load(MapperEnum.INFO)){
+			if(r instanceof Route){
+				this.addRoute((Route)r);
+			}
+		}
 	}
 	
 	@Override
