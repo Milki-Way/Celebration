@@ -94,7 +94,7 @@ public class PoiEditPanel extends JPanel{
 				
 				DefaultListModel listModel = new DefaultListModel();
 				
-				ArrayList<Poi> searchResult = null;//DataEngine.getInstance().search(MapperEnum.POI, txtSearch.getText()); // TODO
+				ArrayList<Poi> searchResult = DataEngine.getInstance().searchPoi(txtSearch.getText()); // TODO
 				
 				for(int index=0; index<searchResult.size(); index++)
 				{

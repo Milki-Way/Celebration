@@ -80,7 +80,7 @@ public class RouteEditPanel extends JPanel{
 				
 				DefaultListModel listModel = new DefaultListModel();
 				
-				ArrayList<Route> searchResult = null; //DataEngine.getInstance().search(MapperEnum.INFO, txtParcoursSearch.getText()); // TODO
+				ArrayList<Route> searchResult = DataEngine.getInstance().searchRoute(txtParcoursSearch.getText()); // TODO
 				
 				for(int index=0; index<searchResult.size(); index++)
 				{
@@ -180,7 +180,7 @@ public class RouteEditPanel extends JPanel{
 		btnSearchPoi.addActionListener(new ActionListener() { // chercher les Poi
 			public void actionPerformed(ActionEvent e) {
 								
-				ArrayList<Route> searchResult = null; //DataEngine.getInstance().search(MapperEnum.POI, textPoiSearch.getText()); // TODO
+				ArrayList<Poi> searchResult = DataEngine.getInstance().searchPoi(textPoiSearch.getText());
 				
 				for(int index=0; index<searchResult.size(); index++)
 				{
