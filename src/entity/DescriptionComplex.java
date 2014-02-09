@@ -12,7 +12,7 @@ public class DescriptionComplex implements IEntity {
 	private int id;
 	private ArrayList<String> linkList = new ArrayList<String>();
 	private ArrayList<BufferedImage> imageList = new ArrayList<BufferedImage>();
-	private ArrayList<IEntity> refs;
+	private ArrayList<IEntity> refs = new ArrayList<IEntity>();
 	
 	//Constructeur
 		public DescriptionComplex (String description, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs) {
@@ -24,7 +24,7 @@ public class DescriptionComplex implements IEntity {
 		}
 		
 	// Constructeur param
-		public DescriptionComplex (String description, int id, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs){
+		public DescriptionComplex (int id, String description, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs){
 			this.id = id;
 			this.description = description;
 			this.imageList = imageList;
@@ -91,6 +91,20 @@ public class DescriptionComplex implements IEntity {
 		for (int i = 0; i<imageList.size(); i++){
 			System.out.println(this.imageList.get(i));
 		} 
+	}
+
+	/**
+	 * @return the refs
+	 */
+	public ArrayList<IEntity> getRefs() {
+		return refs;
+	}
+
+	/**
+	 * @param refs the refs to set
+	 */
+	public void setRefs(ArrayList<IEntity> refs) {
+		this.refs = refs;
 	}
 }
 
