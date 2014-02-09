@@ -59,11 +59,11 @@ public class SidePanel extends JPanel implements Observer{
 		
 		//Addition to panel
 		this.add(newsLabel);
-		this.add(historicList);
+		this.add(newsList);
 		this.add(routeLabel);
 		this.add(routeList);
 		this.add(historicLabel);
-		this.add(newsList);
+		this.add(historicList);
 	}
 	
 	@Override
