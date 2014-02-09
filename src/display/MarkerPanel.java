@@ -32,7 +32,7 @@ public class MarkerPanel extends RoundedPanel{
 	@SuppressWarnings("unchecked")
 	public MarkerPanel(MapMarker mm, MapViewer mv) {
 		
-		this.setSize(350,350);
+		this.setSize(414,415);
 		this.setBounds((int)mv.getWidth()/2-(this.getWidth()/2), (int)mv.getHeight()/2-(this.getHeight()/2), 350, 350);
 
 		
@@ -88,9 +88,9 @@ public class MarkerPanel extends RoundedPanel{
 		});
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -104,7 +104,7 @@ public class MarkerPanel extends RoundedPanel{
 		
 		GridBagConstraints gbc_descriptionTextPane = new GridBagConstraints();
 		gbc_descriptionTextPane.gridheight = 7;
-		gbc_descriptionTextPane.gridwidth = 3;
+		gbc_descriptionTextPane.gridwidth = 5;
 		gbc_descriptionTextPane.insets = new Insets(0, 0, 5, 5);
 		gbc_descriptionTextPane.fill = GridBagConstraints.BOTH;
 		gbc_descriptionTextPane.gridx = 3;
@@ -125,7 +125,7 @@ public class MarkerPanel extends RoundedPanel{
 		gbc_refJList.gridheight = 3;
 		gbc_refJList.insets = new Insets(0, 0, 5, 5);
 		gbc_refJList.fill = GridBagConstraints.BOTH;
-		gbc_refJList.gridx = 6;
+		gbc_refJList.gridx = 8;
 		gbc_refJList.gridy = 6;
 		add(refJList, gbc_refJList);
 		
@@ -149,7 +149,7 @@ public class MarkerPanel extends RoundedPanel{
 		
 		GridBagConstraints gbc_image4Label = new GridBagConstraints();
 		gbc_image4Label.insets = new Insets(0, 0, 0, 5);
-		gbc_image4Label.gridx = 7;
+		gbc_image4Label.gridx = 9;
 		gbc_image4Label.gridy = 9;
 		add(image4Label, gbc_image4Label);
 	}
