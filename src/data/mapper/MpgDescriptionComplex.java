@@ -1,5 +1,11 @@
 package data.mapper;
 
+import java.util.ArrayList;
+
+import entity.IEntity;
+import entity.Poi;
+import entity.Route;
+
 public class MpgDescriptionComplex implements Mappable {
 
 	@Override
@@ -27,9 +33,35 @@ public class MpgDescriptionComplex implements Mappable {
 		return "SELECT * FROM descriptioncomplexe";
 	}
 	
-	public String search()
+	public String searchPoi(ArrayList<IEntity> list)
 	{
-		return "SELECT * FROM descriptioncomplexe WHERE libelledescription LIKE %?% OR description LIKE %?%";
+		int i = 0;
+		String query = "SELECT * FROM descriptioncomplexe WHERE description LIKE ? AND iddescription IN (";
+		for(IEntity e : list)
+		{
+			i++;
+			if(i<list.size())
+				query += ((Poi)e).getDescription().getId() + ",";
+			else
+				query += ((Poi)e).getDescription().getId() + ")";
+		}
+		System.out.println(query);
+		return query;
+	}
+	public String searchRoute(ArrayList<IEntity> list)
+	{
+		int i = 0;
+		String query = "SELECT * FROM descriptioncomplexe WHERE description LIKE ? AND iddescription IN (";
+		for(IEntity e : list)
+		{
+			i++;
+			if(i<list.size())
+				query += ((Route)e).getDescmplx().getId() + ",";
+			else
+				query += ((Route)e).getDescmplx().getId() + ")";
+		}
+		System.out.println(query);
+		return query;
 	}
 
 }

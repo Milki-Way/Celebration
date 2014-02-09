@@ -130,7 +130,7 @@ public class QueryPrepared {
 		{
 			if(query == null)
 				return null;
-			query.setString(1, text);
+			query.setString(1, "%" + text +"%");
 			return query;
 		}
 		catch(SQLException e)
@@ -146,8 +146,7 @@ public class QueryPrepared {
 		{
 			if(query == null)
 				return null;
-			query.setString(1, text);
-			query.setString(2, text);
+			query.setString(1, "%"+text+"%");
 			return query;
 		}
 		catch(SQLException e)
