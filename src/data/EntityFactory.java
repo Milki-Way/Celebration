@@ -17,7 +17,7 @@ public class EntityFactory {
 
 		ArrayList<IEntity> result = new ArrayList<IEntity>();
 		try {
-			if(data != null && data.next())
+			if(data != null)
 			{
 				switch(type)
 				{
@@ -37,6 +37,7 @@ public class EntityFactory {
 					break;
 					
 					case PARCOURS:
+						System.out.println(data.getInt("idparcours"));
 						ArrayList<IEntity> enlist = DataEngine.getInstance().loadPoiOfRoute(data.getInt("idparcours"));
 						ArrayList<Poi> poiList = new ArrayList<Poi>();
 						for(IEntity e : enlist)
@@ -59,7 +60,7 @@ public class EntityFactory {
 	public static IEntity getOneIdentifiable(MapperEnum type, ResultSet data)
 	{
 			try{
-				if(data != null && data.next())
+				if(data != null)
 				{
 					switch(type)
 					{
@@ -70,6 +71,7 @@ public class EntityFactory {
 						case DESCRIPTIONCOMPLEX:
 							int dId = data.getInt("iddescription");
 							return new DescriptionComplex(
+									dId,
 									data.getString("description"), 
 									DataEngine.getInstance().loadInfoImg(dId),
 									DataEngine.getInstance().loadInfoLinks(dId),

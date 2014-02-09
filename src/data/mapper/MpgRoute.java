@@ -1,5 +1,7 @@
 package data.mapper;
 
+import java.util.ArrayList;
+
 public class MpgRoute implements Mappable {
 
 	@Override
@@ -32,7 +34,23 @@ public class MpgRoute implements Mappable {
 	
 	public String search()
 	{
-		return "SELECT * FROM parcours WHERE libelleparcours LIKE %?%";
+		return "SELECT * FROM parcours WHERE libelleparcours LIKE ?";
+	}
+	
+	public String getRouteByDescription(ArrayList<Integer> intList)
+	{
+		int c = 0;
+		String query = "SELECT * FROM parcours WHERE idrefdescription IN (";
+		for(int i : intList)
+		{
+			c++;
+			if(c == intList.size())
+				query+= i + ")";
+			else
+				query += i + ",";
+		}
+		System.out.println(query);
+		return query;
 	}
 
 }
