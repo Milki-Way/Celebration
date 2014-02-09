@@ -39,17 +39,24 @@ public class MpgRoute implements Mappable {
 	
 	public String getRouteByDescription(ArrayList<Integer> intList)
 	{
-		int c = 0;
-		String query = "SELECT * FROM parcours WHERE idrefdescription IN (";
-		for(int i : intList)
+		String query;
+		if(intList.size() > 0)
 		{
-			c++;
-			if(c == intList.size())
-				query+= i + ")";
-			else
-				query += i + ",";
+			int c = 0;
+			query = "SELECT * FROM parcours WHERE idrefdescription IN (";
+			for(int i : intList)
+			{
+				c++;
+				if(c == intList.size())
+					query+= i + ")";
+				else
+					query += i + ",";
+			}
 		}
-		System.out.println(query);
+		else
+		{
+			query = "SELECT * FROM parcours WHERE idrefdescription = -1";
+		}
 		return query;
 	}
 

@@ -37,14 +37,17 @@ public class EntityFactory {
 					break;
 					
 					case PARCOURS:
-						System.out.println(data.getInt("idparcours"));
-						ArrayList<IEntity> enlist = DataEngine.getInstance().loadPoiOfRoute(data.getInt("idparcours"));
-						ArrayList<Poi> poiList = new ArrayList<Poi>();
-						for(IEntity e : enlist)
-							poiList.add((Poi)e);
-						DescriptionComplex descRoute = (DescriptionComplex)DataEngine.getInstance().select(MapperEnum.DESCRIPTIONCOMPLEX, data.getInt("idrefdescription"));
-						result.add(new Route(data.getInt("idparcours"), data.getString("libelleparcours"), poiList, descRoute));
-						break;
+						while(data.next())
+						{
+							System.out.println(data.getInt("idparcours"));
+							ArrayList<IEntity> enlist = DataEngine.getInstance().loadPoiOfRoute(data.getInt("idparcours"));
+							ArrayList<Poi> poiList = new ArrayList<Poi>();
+							for(IEntity e : enlist)
+								poiList.add((Poi)e);
+							DescriptionComplex descRoute = (DescriptionComplex)DataEngine.getInstance().select(MapperEnum.DESCRIPTIONCOMPLEX, data.getInt("idrefdescription"));
+							result.add(new Route(data.getInt("idparcours"), data.getString("libelleparcours"), poiList, descRoute));
+						}
+					break;
 					
 						default:
 							return null;

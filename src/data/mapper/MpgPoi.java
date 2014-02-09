@@ -40,16 +40,22 @@ public class MpgPoi implements Mappable{
 	
 	public String getPoiByDescription(ArrayList<Integer> intList)
 	{
-		int c = 0;
-		String query = "SELECT * FROM poi WHERE idrefdescription IN (";
-		for(int i : intList)
+		String query;
+		if(intList.size() > 0)
 		{
-			c++;
-			if(c == intList.size())
-				query+= i + ")";
-			else
-				query += i + ",";
+			int c = 0;
+			query = "SELECT * FROM poi WHERE idrefdescription IN (";
+			for(int i : intList)
+			{
+				c++;
+				if(c == intList.size())
+					query+= i + ")";
+				else
+					query += i + ",";
+			}
 		}
+		else
+			query="SELECT * FROM poi WHERE idrefdescription = -1";
 		return query;
 	}
 
