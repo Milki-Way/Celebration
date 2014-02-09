@@ -22,7 +22,7 @@ public class MpgReference implements Mappable{
 
 	@Override
 	public String sel() {
-		return "";
+		return "SELECT * FROM reference WHERE idrefdescription = ?";
 		//Renvois toutes les lignes de Reference contenant l'id de la description
 	}
 

@@ -22,6 +22,7 @@ import data.mapper.MpgInterParcPoi;
 import data.mapper.MpgLiensDesc;
 import data.mapper.MpgMap;
 import data.mapper.MpgPoi;
+import data.mapper.MpgReference;
 import data.mapper.MpgRoute;
 import data.mapper.MpgTile;
 import entity.DescriptionComplex;
@@ -45,6 +46,7 @@ public class DataEngine {
 	private MpgImageDesc imageDescriptionMapper;
 	private MpgLiensDesc lienDescriptionMapper;
 	private MpgInterParcPoi interParcPoiMapper;
+	private MpgReference refMapper;
 	
 	//Private constructor
 	private DataEngine()
@@ -57,6 +59,7 @@ public class DataEngine {
 		descMapper = new MpgDescriptionComplex();
 		lienDescriptionMapper = new MpgLiensDesc();
 		interParcPoiMapper = new MpgInterParcPoi();
+		refMapper = new MpgReference();
 		cadData = new Cad("jdbc:sqlite:data/db/minisigdb.sqlite");
 		cadTiles = new Cad("jdbc:sqlite:data/db/map.mbtiles");
 	}
@@ -380,7 +383,7 @@ public class DataEngine {
 	public ArrayList<IEntity> loadReference(int idDescription)
 	{
 		ArrayList<IEntity> refList = new ArrayList<IEntity>();
-		PreparedStatement query = cadData.getPreparedStatement(imageDescriptionMapper.sel());
+		PreparedStatement query = cadData.getPreparedStatement(refMapper.sel());
 		ResultSet data = cadData.selectPreparation(QueryPrepared.selectParameters(query, idDescription));
 		try {
 			if(data != null)
