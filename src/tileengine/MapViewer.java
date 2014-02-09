@@ -209,10 +209,14 @@ public class MapViewer extends JPanel{
 		this.repaint();
 	}
 	
-	public void highLightMapMarker(Poi poi){
+	public void highLightMapMarker(ArrayList<Poi> poiList){
+		for(MapMarker mm : this.mapMarkerList){// all MapMarkers HL false
+			mm.setHighLighted(false);
+		}
 		for(MapMarker mm : this.mapMarkerList){
-			if(mm.getPoi().equals(poi)){
-				mm.setHighLighted(true);
+			for(Poi poi : poiList){
+				if(mm.getPoi().equals(poi))
+					mm.setHighLighted(true);
 			}
 		}
 		this.repaint();

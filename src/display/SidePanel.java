@@ -5,22 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
-import javax.naming.directory.SearchControls;
-import javax.naming.directory.SearchResult;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import data.DataEngine;
-import data.mapper.MapperEnum;
 import tileengine.MapViewer;
 import tools.Historic;
 import tools.HistoricRow;
 import tools.Observer;
+import data.DataEngine;
+import data.mapper.MapperEnum;
 import entity.IEntity;
 import entity.Info;
 import entity.Route;
@@ -109,12 +106,13 @@ public class SidePanel extends JPanel implements Observer{
 		this.add(historicLabel);
 		this.add(historicList);
 		this.add(searchList);
+		
 		for(IEntity i : DataEngine.getInstance().Load(MapperEnum.INFO)){
 			if(i instanceof Info){
 				this.addInfo((Info)i);
 			}
 		}
-		for(IEntity r : DataEngine.getInstance().Load(MapperEnum.INFO)){
+		for(IEntity r : DataEngine.getInstance().Load(MapperEnum.PARCOURS)){
 			if(r instanceof Route){
 				this.addRoute((Route)r);
 			}

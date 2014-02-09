@@ -35,8 +35,8 @@ public class MarkerPanel extends RoundedPanel{
 	@SuppressWarnings("unchecked")
 	public MarkerPanel(MapMarker mm, MapViewer mv) {
 		
-		this.setSize(400,500);
-		this.setBounds((int)mv.getWidth()/2-(this.getWidth()/2), (int)mv.getHeight()/2-(this.getHeight()/2), 400, 500);
+		this.setSize(420,500);
+		this.setBounds((int)mv.getWidth()/2-(this.getWidth()/2), (int)mv.getHeight()/2-(this.getHeight()/2), 420, 500);
 		JLabel image4Label = new JLabel();
 		imageList.add(image4Label);
 		this.descriptionTextPane.setText(mm.getPoi().getDescription().getDescription());
@@ -75,9 +75,9 @@ public class MarkerPanel extends RoundedPanel{
 		}
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -85,7 +85,7 @@ public class MarkerPanel extends RoundedPanel{
 		
 		GridBagConstraints gbc_libelleLabel = new GridBagConstraints();
 		gbc_libelleLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_libelleLabel.gridx = 3;
+		gbc_libelleLabel.gridx = 4;
 		gbc_libelleLabel.gridy = 1;
 		add(libelleLabel, gbc_libelleLabel);
 		
@@ -94,7 +94,7 @@ public class MarkerPanel extends RoundedPanel{
 		gbc_descriptionTextPane.gridwidth = 6;
 		gbc_descriptionTextPane.insets = new Insets(0, 0, 5, 5);
 		gbc_descriptionTextPane.fill = GridBagConstraints.BOTH;
-		gbc_descriptionTextPane.gridx = 1;
+		gbc_descriptionTextPane.gridx = 2;
 		gbc_descriptionTextPane.gridy = 2;
 		add(descriptionTextPane, gbc_descriptionTextPane);
 		
@@ -123,7 +123,7 @@ public class MarkerPanel extends RoundedPanel{
 		gbc_linkJList.insets = new Insets(0, 0, 5, 5);
 		gbc_linkJList.gridheight = 4;
 		gbc_linkJList.fill = GridBagConstraints.BOTH;
-		gbc_linkJList.gridx = 7;
+		gbc_linkJList.gridx = 8;
 		gbc_linkJList.gridy = 2;
 		add(linkJList, gbc_linkJList);
 		
@@ -131,13 +131,13 @@ public class MarkerPanel extends RoundedPanel{
 		gbc_refJList.gridheight = 3;
 		gbc_refJList.insets = new Insets(0, 0, 5, 5);
 		gbc_refJList.fill = GridBagConstraints.BOTH;
-		gbc_refJList.gridx = 7;
+		gbc_refJList.gridx = 8;
 		gbc_refJList.gridy = 6;
 		add(refJList, gbc_refJList);
 		
 		GridBagConstraints gbc_image1Label = new GridBagConstraints();
 		gbc_image1Label.insets = new Insets(0, 0, 0, 5);
-		gbc_image1Label.gridx = 1;
+		gbc_image1Label.gridx = 2;
 		gbc_image1Label.gridy = 9;
 		add(image1Label, gbc_image1Label);
 		JLabel image2Label = new JLabel();
@@ -145,7 +145,7 @@ public class MarkerPanel extends RoundedPanel{
 		
 		GridBagConstraints gbc_image2Label = new GridBagConstraints();
 		gbc_image2Label.insets = new Insets(0, 0, 0, 5);
-		gbc_image2Label.gridx = 3;
+		gbc_image2Label.gridx = 4;
 		gbc_image2Label.gridy = 9;
 		add(image2Label, gbc_image2Label);
 		JLabel image3Label = new JLabel();
@@ -153,13 +153,13 @@ public class MarkerPanel extends RoundedPanel{
 		
 		GridBagConstraints gbc_image3Label = new GridBagConstraints();
 		gbc_image3Label.insets = new Insets(0, 0, 0, 5);
-		gbc_image3Label.gridx = 6;
+		gbc_image3Label.gridx = 7;
 		gbc_image3Label.gridy = 9;
 		add(image3Label, gbc_image3Label);
 		
 		GridBagConstraints gbc_image4Label = new GridBagConstraints();
 		gbc_image4Label.insets = new Insets(0, 0, 0, 5);
-		gbc_image4Label.gridx = 7;
+		gbc_image4Label.gridx = 8;
 		gbc_image4Label.gridy = 9;
 		add(image4Label, gbc_image4Label);
 	}

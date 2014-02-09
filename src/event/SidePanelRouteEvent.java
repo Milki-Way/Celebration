@@ -6,8 +6,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JList;
 
-import display.SpeInfo;
+import tileengine.MapViewer;
 import display.SpeRoute;
+import entity.Poi;
 
 public class SidePanelRouteEvent implements MouseListener{
 
@@ -17,7 +18,8 @@ public class SidePanelRouteEvent implements MouseListener{
 		@SuppressWarnings("unchecked")
 		JList<SpeRoute> list= (JList<SpeRoute>)arg0.getComponent();
 		SpeRoute spe = list.getSelectedValue();
-		//On peut réaliser ici une action avec spe.getRoute().
+
+		MapViewer.getInstance().highLightMapMarker(spe.getRoute().getPoiList());
 	}
 
 	@Override

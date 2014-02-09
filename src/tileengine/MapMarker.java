@@ -30,8 +30,8 @@ public class MapMarker extends JLabel {
 	
 	public void drawPoint(Graphics2D g2){
 		if(highLighted == true){
-			g2.setColor(Color.red);
-			g2.fillOval((int)this.getBounds().getX(), (int)this.getBounds().getY(), 8, 8);
+			g2.setColor(Color.yellow);
+			g2.fillOval((int)this.getBounds().getX()-2, (int)this.getBounds().getY()-2, 10, 10);
 		}
 		g2.setColor(Color.red);
 		g2.fillOval((int)this.getBounds().getX(), (int)this.getBounds().getY(), 6, 6);
