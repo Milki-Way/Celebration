@@ -72,4 +72,8 @@ public class Poi implements IEntity{
 			this.coords = new Coordinate(0,0);
 		return this.coords;
 	}
+	
+	public String toString(){
+		return this.libelle+"["+this.getCoords().getColumnDouble()+","+this.coords.getRowDouble()+"]";
+	}
 }

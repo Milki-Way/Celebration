@@ -92,16 +92,20 @@ public class PoiEditPanel extends JPanel{
 		btnSearch.addActionListener(new ActionListener() { 	// SEARCH POI
 			public void actionPerformed(ActionEvent arg0) {
 				
-				DefaultListModel listModel = new DefaultListModel();
+				DefaultListModel<Poi> listModel = new DefaultListModel<Poi>();
 				
 				ArrayList<Poi> searchResult = DataEngine.getInstance().searchPoi(txtSearch.getText()); // TODO
+				
+				System.out.println("result size: "+searchResult.size());
 				
 				for(int index=0; index<searchResult.size(); index++)
 				{
 				     listModel.addElement(searchResult.get(index));
+				     System.out.println(searchResult.get(index).toString());
 				}
 								
-				listResult = new JList(listModel);
+				listResult = new JList<Poi>(listModel);
+				listResult.repaint();
 			}
 		});
 		this.add(btnSearch, gbc_btnSearch);
