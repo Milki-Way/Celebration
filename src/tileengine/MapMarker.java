@@ -31,10 +31,10 @@ public class MapMarker extends JLabel {
 	public void drawPoint(Graphics2D g2){
 		if(highLighted == true){
 			g2.setColor(Color.red);
-			g2.fillOval((int)this.getBounds().getX(), (int)this.getBounds().getY(), 5, 5);
+			g2.fillOval((int)this.getBounds().getX(), (int)this.getBounds().getY(), 8, 8);
 		}
 		g2.setColor(Color.red);
-		g2.fillRect((int)this.getBounds().getX(), (int)this.getBounds().getY(), 3, 3);
+		g2.fillOval((int)this.getBounds().getX(), (int)this.getBounds().getY(), 6, 6);
 	}
 
 	public boolean isDrawLibelle() {

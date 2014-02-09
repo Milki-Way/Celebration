@@ -28,12 +28,14 @@ public class InfoEditPanel extends JPanel{
         table.setFillsViewportHeight(true); 
         
         for (IEntity z : DataEngine.getInstance().Load(MapperEnum.INFO)) {
-        	Info a = (Info) z;
-        	Object[] o = new Object[5];
-        	o[0] = a.getId();
-        	o[1] = a.getLibelle();
-        	o[2] = a;
-        	model.addRow(o);
+        	if(z instanceof Info){
+        		Info a = (Info) z;
+        		Object[] o = new Object[5];
+        		o[0] = z.getId();
+        		o[1] = a.getLibelle();
+        		o[2] = a;
+        		model.addRow(o);
+        	}
         }
         
         table.getColumnModel().getColumn(2).setMinWidth(0);

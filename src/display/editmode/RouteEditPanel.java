@@ -37,11 +37,11 @@ public class RouteEditPanel extends JPanel{
 	private JTextArea textAreaImgs;
 	private JTextArea txtrLinks;
 	private JTextArea textAreaDescription;
-	private JList listRouteResults;
+	private JList<Route> listRouteResults;
 	private JTextField textPoiSearch;
 	private JButton btnSearchPoi;
-	private JList listPoiResults;
-	private JList listPoiOfRoute;
+	private JList<Poi> listPoiResults;
+	private JList<Poi> listPoiOfRoute;
 	private JButton button;
 	private JButton button_1;
 	private JButton btnAdd;
@@ -78,7 +78,7 @@ public class RouteEditPanel extends JPanel{
 		btnSearchRoute.addActionListener(new ActionListener() { // chercher le parcours
 			public void actionPerformed(ActionEvent e) {
 				
-				DefaultListModel listModel = new DefaultListModel();
+				DefaultListModel<Route> listModel = new DefaultListModel<Route>();
 				
 				ArrayList<Route> searchResult = DataEngine.getInstance().searchRoute(txtParcoursSearch.getText()); // TODO
 				
@@ -87,7 +87,8 @@ public class RouteEditPanel extends JPanel{
 				     listModel.addElement(searchResult.get(index));
 				}
 								
-				listRouteResults = new JList(listModel);
+				listRouteResults.setModel(listModel);
+				listRouteResults.repaint();
 			}
 		});
 		GridBagConstraints gbc_btnSearchRoute = new GridBagConstraints();
@@ -138,7 +139,8 @@ public class RouteEditPanel extends JPanel{
 							listModelPoiOfRouteList.addElement(searchResult.get(index));
 						}
 										
-						listPoiOfRoute = new JList(listModelPoiOfRouteList);
+						listPoiOfRoute.setModel(listModelPoiOfRouteList);
+						listPoiOfRoute.repaint();
 					}
                 	
                 });
@@ -187,7 +189,8 @@ public class RouteEditPanel extends JPanel{
 					listModelPoiSearch.addElement(searchResult.get(index));
 				}
 								
-				listPoiResults = new JList(listModelPoiSearch);
+				listPoiResults.setModel(listModelPoiSearch);
+				listPoiResults.repaint();
 			}
 		});
 		GridBagConstraints gbc_btnSearchPoi = new GridBagConstraints();
@@ -264,6 +267,8 @@ public class RouteEditPanel extends JPanel{
 		gbc_textAreaDescription.gridx = 4;
 		gbc_textAreaDescription.gridy = 5;
 		add(textAreaDescription, gbc_textAreaDescription);
+		textAreaDescription.setLineWrap(true);
+		textAreaDescription.setWrapStyleWord(true);
 		
 		listPoiOfRoute = new JList();									// liste des POI du parcours sélectionné
 		GridBagConstraints gbc_listPoiOfRoute = new GridBagConstraints();

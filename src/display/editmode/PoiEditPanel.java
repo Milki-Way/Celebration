@@ -36,7 +36,7 @@ public class PoiEditPanel extends JPanel{
 	
 	private JPanel panelPoi = new JPanel();
 	private JTextField txtSearch = new JTextField();
-	private JList listResult = new JList();
+	private JList<Poi> listResult = new JList<Poi>();
 	private JButton btnSearch = new JButton("Rechercher");
 	private JTextField txtLibelle = new JTextField();
 	private JTextField txtY = new JTextField();
@@ -104,7 +104,7 @@ public class PoiEditPanel extends JPanel{
 				     System.out.println(searchResult.get(index).toString());
 				}
 								
-				listResult = new JList<Poi>(listModel);
+				listResult.setModel(listModel);
 				listResult.repaint();
 			}
 		});
@@ -144,8 +144,14 @@ public class PoiEditPanel extends JPanel{
 					@Override
 					public void valueChanged(ListSelectionEvent arg0) {
 						currentPoi = (Poi) listResult.getSelectedValue();
+						txtLibelle.setText(currentPoi.getLibelle());
+						txtX.setText(""+currentPoi.getCoords().getColumnDouble());
+						txtY.setText(""+currentPoi.getCoords().getRowDouble());
+						for(String l : currentPoi.getDescription().getLinkList()){
+							textAreaLinks.setText(textAreaLinks.getText()+"\n"+l);
+						}
+						txtrDescription.setText(currentPoi.getDescription().getDescription());
 					}
-                	
                 });
 		listResult.setCellRenderer(new DefaultListCellRenderer() {// n'afficher que le libelle du Poi
             @Override
@@ -166,6 +172,8 @@ public class PoiEditPanel extends JPanel{
 		gbc_txtrDescription.gridy = 2;
 		txtrDescription.setText("Description");
 		add(txtrDescription, gbc_txtrDescription);
+		txtrDescription.setLineWrap(true);
+		txtrDescription.setWrapStyleWord(true);
 		
 		GridBagConstraints gbc_scrollPaneLinks = new GridBagConstraints();
 		gbc_scrollPaneLinks.gridwidth = 3;

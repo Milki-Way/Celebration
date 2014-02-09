@@ -1,5 +1,7 @@
 package display;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -128,6 +131,17 @@ public class TopBar extends JPanel{
 		gbc_btnSearch.gridx = 16;
 		gbc_btnSearch.gridy = 0;
 		this.add(btnSearch, gbc_btnSearch);
+		btnSearch.addMouseListener(new MouseListener()
+		{
+			public void mouseClicked(MouseEvent e) 
+			{
+				//afficher les resultats de la recherche
+			}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});
 		
 		btnSwithmode = new JButton("SwitchMode");
 		GridBagConstraints gbc_btnSwithmode = new GridBagConstraints();
