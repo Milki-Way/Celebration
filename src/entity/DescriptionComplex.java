@@ -5,6 +5,8 @@ package entity;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import data.DataEngine;
+
 
 
 public class DescriptionComplex implements IEntity {
@@ -31,6 +33,11 @@ public class DescriptionComplex implements IEntity {
 			this.linkList = linkList;
 			this.refs = refs;
 		}
+		
+	public void LoadReference()
+	{
+		this.refs = DataEngine.getInstance().loadReference(this.getId());
+	}
 		
 	/**
 	 * @return the id
@@ -97,6 +104,8 @@ public class DescriptionComplex implements IEntity {
 	 * @return the refs
 	 */
 	public ArrayList<IEntity> getRefs() {
+		if(this.refs == null || this.refs.size() > 0)
+			this.LoadReference();
 		return refs;
 	}
 

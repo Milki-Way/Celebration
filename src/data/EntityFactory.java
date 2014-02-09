@@ -78,7 +78,7 @@ public class EntityFactory {
 									data.getString("description"), 
 									DataEngine.getInstance().loadInfoImg(dId),
 									DataEngine.getInstance().loadInfoLinks(dId),
-									DataEngine.getInstance().loadReference(dId));
+									null);
 						case INFO:
 							DescriptionComplex descInfo = (DescriptionComplex)DataEngine.getInstance().select(MapperEnum.DESCRIPTIONCOMPLEX, data.getInt("idrefdescription"));
 							return new Info(data.getInt("idnews"), data.getString("libellenews"), descInfo);

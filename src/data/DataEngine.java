@@ -368,8 +368,13 @@ public class DataEngine {
 		try {
 			if(data != null)
 			{
+				ByteArrayInputStream bs;
 				while(data.next())
-					imgList.add(ImageIO.read(new ByteArrayInputStream(data.getBytes("contenudescription"))));
+				{
+					bs = new ByteArrayInputStream(data.getBytes("contenudescription"));
+					imgList.add(ImageIO.read(bs));
+					bs.close();
+				}
 			}
 		} catch (IOException e) {
 			System.out.println("Erreur de lecture : DataEngine //" + e.getMessage());
