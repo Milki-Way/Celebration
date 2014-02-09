@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Historic implements Observable{
 	
-	private static Historic instance;
+	private static volatile Historic instance;
 	private ArrayList<Observer> listObserver = new ArrayList<Observer>();
 	private ArrayList<HistoricRow> historicList;
 	private int index = 0;
@@ -13,11 +13,16 @@ public class Historic implements Observable{
 		this.historicList = new ArrayList<HistoricRow>();
 	}
 	
-	public static Historic getInstance()
+	public final static Historic getInstance()
 	{
-		if(instance == null)
-			instance = new Historic();
-		return instance;
+		if (Historic.instance == null) {
+			synchronized(Historic.class) {
+				if (Historic.instance == null) {
+					Historic.instance = new Historic();
+				}
+			}
+		}
+		return Historic.instance;
 	}
 	
 	public void updateIndex (HistoricRow historicEntry) {
@@ -47,6 +52,9 @@ public class Historic implements Observable{
 		
 		if (index > 0)
 		{
+			if(this.historicList.size() == 0)
+				return null;
+			
 			this.index--;
 			System.out.println("historic index:"+index);
 			return this.historicList.get(index);
@@ -69,6 +77,9 @@ public class Historic implements Observable{
 		
 		if (index+1 != this.historicList.size())
 		{
+			if(this.historicList.size() == 0)
+				return null;
+			
 			this.index++;
 			System.out.println("historic index:"+index+"<"+this.historicList.size());
 			return this.historicList.get(index);

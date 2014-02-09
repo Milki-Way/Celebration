@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import tools.Coordinate;
-import tools.Historic;
 import data.DataEngine;
 import data.mapper.MapperEnum;
 import display.MarkerPanel;
@@ -22,7 +21,7 @@ import entity.Poi;
 @SuppressWarnings("serial")
 public class MapViewer extends JPanel{
 	
-	private static MapViewer instance;
+	private static volatile MapViewer instance;
 	
 	public static final int MAX_ZOOM = 14;
     public static final int MIN_ZOOM = 7;
@@ -83,11 +82,16 @@ public class MapViewer extends JPanel{
 		this.updateMapMarkerBounds();
 	}
 	
-	public static MapViewer getInstance()
+	public final static MapViewer getInstance()
 	{
-		if(instance == null)
-			instance = new MapViewer(new Coordinate(63,85));
-		return instance;
+		if (MapViewer.instance == null) {
+			synchronized(MapViewer.class) {
+				if (MapViewer.instance == null) {
+					MapViewer.instance = new MapViewer(new Coordinate(63,85));
+				}
+			}
+		}
+		return MapViewer.instance;
 	}
 	
 	@Override
