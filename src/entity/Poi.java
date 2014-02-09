@@ -68,8 +68,6 @@ public class Poi implements IEntity{
 	}
 	
 	public Coordinate getCoords() {
-		if(this.coords == null)
-			this.coords = new Coordinate(0,0);
 		return this.coords;
 	}
 }

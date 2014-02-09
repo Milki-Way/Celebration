@@ -436,23 +436,11 @@ public class DataEngine {
 		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
 		for(IEntity e :enlist)
 			result.add((Poi)e);
-		data = cadData.getSQL(poiMapper.getAll());
-		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
-		query = cadData.getPreparedStatement(descMapper.searchPoi(enlist));
+		/*query = cadData.getPreparedStatement(descMapper.search());
 		data = cadData.selectPreparation(QueryPrepared.searchDescCParameters(query, text));
-		ArrayList<Integer> idDescription = new ArrayList<Integer>();
-		try {
-			while(data.next())
-			{
-				idDescription.add(data.getInt("iddescription"));
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		data = cadData.getSQL(poiMapper.getPoiByDescription(idDescription));
 		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
 		for(IEntity e :enlist)
-			result.add((Poi)e);
+			result.add((Poi)e);*/
 		return result;
 	}
 	public ArrayList<Route> searchRoute(String text)
@@ -461,28 +449,15 @@ public class DataEngine {
 		ArrayList<IEntity> enlist;
 		PreparedStatement query = cadData.getPreparedStatement(routeMapper.search());
 		ResultSet data = cadData.selectPreparation(QueryPrepared.searchParameters(query, text));
-		enlist = EntityFactory.createIdentifiable(MapperEnum.PARCOURS, data);
+		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
 		for(IEntity e :enlist)
 			result.add((Route)e);
-		data = cadData.getSQL(routeMapper.getAll());
-		enlist = EntityFactory.createIdentifiable(MapperEnum.PARCOURS, data);
-		query = cadData.getPreparedStatement(descMapper.searchRoute(enlist));
+		/*query = cadData.getPreparedStatement(descMapper.search());
 		data = cadData.selectPreparation(QueryPrepared.searchDescCParameters(query, text));
-		ArrayList<Integer> idDescription = new ArrayList<Integer>();
-		try {
-			while(data.next())
-			{
-				idDescription.add(data.getInt("iddescription"));
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		data = cadData.getSQL(routeMapper.getRouteByDescription(idDescription));
-		enlist = EntityFactory.createIdentifiable(MapperEnum.PARCOURS, data);
+		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
 		for(IEntity e :enlist)
-			result.add((Route)e);
+			result.add((Route)e);*/
 		return result;
 	}
-	
 	
 }

@@ -24,7 +24,7 @@ public class DescriptionComplex implements IEntity {
 		}
 		
 	// Constructeur param
-		public DescriptionComplex (int id, String description, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs){
+		public DescriptionComplex (String description, int id, ArrayList<BufferedImage> imageList, ArrayList<String> linkList, ArrayList<IEntity> refs){
 			this.id = id;
 			this.description = description;
 			this.imageList = imageList;

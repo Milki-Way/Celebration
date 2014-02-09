@@ -1,7 +1,5 @@
 package data.mapper;
 
-import java.util.ArrayList;
-
 public class MpgPoi implements Mappable{
 
 	@Override
@@ -35,22 +33,7 @@ public class MpgPoi implements Mappable{
 	
 	public String search()
 	{
-		return "SELECT * FROM poi WHERE libellepoi LIKE ?";
-	}
-	
-	public String getPoiByDescription(ArrayList<Integer> intList)
-	{
-		int c = 0;
-		String query = "SELECT * FROM poi WHERE idrefdescription IN (";
-		for(int i : intList)
-		{
-			c++;
-			if(c == intList.size())
-				query+= i + ")";
-			else
-				query += i + ",";
-		}
-		return query;
+		return "SELECT * FROM poi WHERE libellepoi LIKE %?%";
 	}
 
 }
