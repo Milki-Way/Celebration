@@ -76,4 +76,12 @@ public class Poi implements IEntity{
 	public String toString(){
 		return this.libelle+"["+this.getCoords().getColumnDouble()+","+this.coords.getRowDouble()+"]";
 	}
+	
+	public boolean equals(Poi poi){
+		if(this.coords.getColumnDouble() == poi.getCoords().getColumnDouble() && this.coords.getRowDouble() == poi.getCoords().getRowDouble() && this.libelle.equals(poi.libelle)){
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

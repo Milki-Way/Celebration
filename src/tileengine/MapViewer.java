@@ -208,6 +208,15 @@ public class MapViewer extends JPanel{
 		this.getTileController().initCache(realZoom);
 		this.repaint();
 	}
+	
+	public void highLightMapMarker(Poi poi){
+		for(MapMarker mm : this.mapMarkerList){
+			if(mm.getPoi().equals(poi)){
+				mm.setHighLighted(true);
+			}
+		}
+		this.repaint();
+	}
 
 	public Coordinate getCoords() {
 		return coords;
