@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class TileCache{
 
-	private static TileCache instance;
+	private static volatile TileCache instance;
 	
 	private Tile[][] cacheContent;
 	
@@ -12,13 +12,15 @@ public class TileCache{
 		cacheContent = new Tile[100][100];
 	}
 	
-	public static TileCache getInstance(){
-		if(instance != null){
-			return instance;
-		} else {
-			instance = new TileCache();
-			return instance;
+	public final static TileCache getInstance(){
+		if (TileCache.instance == null) {
+			synchronized(TileCache.class) {
+				if (TileCache.instance == null) {
+					TileCache.instance = new TileCache();
+				}
+			}
 		}
+		return TileCache.instance;
 	}
 	
 	public void addTile(Tile tile, Point cachePosition){
