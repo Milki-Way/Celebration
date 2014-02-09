@@ -1,17 +1,17 @@
 package display;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -23,6 +23,9 @@ import javax.swing.JTextField;
 import tileengine.MapViewer;
 import tools.Historic;
 import tools.HistoricRow;
+import data.DataEngine;
+import entity.Poi;
+import entity.Route;
 
 @SuppressWarnings("serial")
 public class TopBar extends JPanel{
@@ -131,16 +134,58 @@ public class TopBar extends JPanel{
 		gbc_btnSearch.gridx = 16;
 		gbc_btnSearch.gridy = 0;
 		this.add(btnSearch, gbc_btnSearch);
-		btnSearch.addMouseListener(new MouseListener()
-		{
-			public void mouseClicked(MouseEvent e) 
-			{
-				//afficher les resultats de la recherche
+		btnSearch.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MarkerPanel rp = new MarkerPanel(null, World.getInstance().getMapPanel());
+				ArrayList<Poi> poiResult = DataEngine.getInstance().searchPoi(searchTextField.getText());
+				ArrayList<Route> routeResult = DataEngine.getInstance().searchRoute(searchTextField.getText());
+				ArrayList<MarkerPanel> a = new ArrayList<MarkerPanel>();
+				for(Poi p : poiResult)
+				{
+					MouseAdapter ms = new MouseAdapter() {
+						public void mouseClicked(MouseEvent e) {
+							System.out.println("Evènement du Result pour un POI : ");
+						}
+					};
+					World.getInstance().getSidePanel().addSearchResult(new ResultItem(p.getLibelle(), p, ms));
+					rp.add(new ResultItem(p.getLibelle(), p, ms));
+				}
+				for(Route r : routeResult)
+				{
+					MouseAdapter ms = new MouseAdapter() {
+						public void mouseClicked(MouseEvent e) {
+							System.out.println("Evènement du Result : ");
+						}
+					};
+					rp.add(new ResultItem(r.getLibelle(), r, ms));
+				}
+			}
 		});
 		
 		btnSwithmode = new JButton("SwitchMode");
@@ -168,6 +213,5 @@ public class TopBar extends JPanel{
 		Graphics2D g2 = (Graphics2D)g;
 		super.paintComponent(g2);
 		
-		//faites ce que vous voulez.
 	}
 }

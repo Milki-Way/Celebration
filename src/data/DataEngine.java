@@ -491,6 +491,24 @@ public class DataEngine {
 			result.add((Route)e);
 		return result;
 	}
-	
+	public ArrayList<Poi> triPoi(ArrayList<Poi> input)
+	{
+		Boolean trouve = false;
+		ArrayList<Poi> comList = input;
+		ArrayList<Poi> result = new ArrayList<Poi>();
+		for(Poi p : input)
+		{
+			for(Poi r : result)
+			{
+				if(r.equals(p))
+					trouve = true;
+			}
+			if(!trouve)
+				result.add(p);
+			else
+				trouve = false;
+		}
+		return result;
+	}
 	
 }

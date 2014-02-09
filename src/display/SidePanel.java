@@ -3,8 +3,12 @@ package display;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
@@ -30,9 +34,11 @@ public class SidePanel extends JPanel implements Observer{
 	private JLabel newsLabel;
 	private JLabel routeLabel;
 	private JLabel historicLabel;
+	private JLabel searchLabel;
 	private JList<SpeHistoric> historicList;
 	private JList<SpeRoute> routeList;
 	private JList<SpeInfo> newsList;
+	private JList<SpeRecherche> searchList;
 	
 	private MapViewer map;
 	
@@ -50,24 +56,59 @@ public class SidePanel extends JPanel implements Observer{
 		newsLabel = new JLabel("Vos derniers ajouts");
 		routeLabel = new JLabel("Vos parcours");
 		historicLabel = new JLabel("Historique");
+		searchLabel = new JLabel("Résultat de vos recherche");
 		
 		//Lists
 		historicList = new SpeList<SpeHistoric>( new DefaultListModel<SpeHistoric>());
 		newsList = new SpeList<SpeInfo>(new DefaultListModel<SpeInfo>());
 		routeList = new SpeList<SpeRoute>(new DefaultListModel<SpeRoute>());
+		searchList = new SpeList<SpeRecherche>(new DefaultListModel<SpeRecherche>());
 
 		historicList.addMouseListener(new SidePanelHistoricEvent());
 		newsList.addMouseListener(new SidePanelInfoEvent());
 		routeList.addMouseListener(new SidePanelRouteEvent());
+		searchList.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Result event");
+				
+			}
+		});
 		
 		//Addition to panel
 		this.add(newsLabel);
 		this.add(newsList);
 		this.add(routeLabel);
+		this.add(searchLabel);
 		this.add(routeList);
 		this.add(historicLabel);
 		this.add(historicList);
-		
+		this.add(searchList);
 		for(IEntity i : DataEngine.getInstance().Load(MapperEnum.INFO)){
 			if(i instanceof Info){
 				this.addInfo((Info)i);
@@ -105,6 +146,12 @@ public class SidePanel extends JPanel implements Observer{
 	{
 		((DefaultListModel<SpeHistoric>)historicList.getModel()).addElement(new SpeHistoric(new SidePanelHistoricEvent(), p));
 		this.repaint();
+	}
+	
+	//add info in SearchList
+	public void addSearchResult(ResultItem s)
+	{
+		((DefaultListModel<SpeRecherche>)searchList.getModel()).addElement(new SpeRecherche(new SidePanelHistoricEvent(), s));
 	}
 
 	@Override

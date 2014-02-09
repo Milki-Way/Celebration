@@ -18,6 +18,7 @@ public class World extends JFrame{
 	private JPanel viewModePanel = new JPanel();
 	private EditPanel editModePanel = new EditPanel();
 	private MapViewer mapPanel;
+	private SidePanel sidePanel;
 	
 	public enum MODE {
 		  VIEWMODE,
@@ -42,7 +43,7 @@ public class World extends JFrame{
 		TopBar topPanel = new TopBar(mapPanel);
 		viewModePanel.add(topPanel, BorderLayout.NORTH);
 		
-		SidePanel sidePanel = new SidePanel(mapPanel);
+		sidePanel = new SidePanel(mapPanel);
 		viewModePanel.add(sidePanel, BorderLayout.EAST);
 		
 		this.setContentPane(viewModePanel);
@@ -85,5 +86,69 @@ public class World extends JFrame{
 	
 	public MODE getDisplayMode(){
 		return this.displayMode;
+	}
+
+
+	/**
+	 * @return the viewModePanel
+	 */
+	public JPanel getViewModePanel() {
+		return viewModePanel;
+	}
+
+
+	/**
+	 * @param viewModePanel the viewModePanel to set
+	 */
+	public void setViewModePanel(JPanel viewModePanel) {
+		this.viewModePanel = viewModePanel;
+	}
+
+
+	/**
+	 * @return the editModePanel
+	 */
+	public EditPanel getEditModePanel() {
+		return editModePanel;
+	}
+
+
+	/**
+	 * @param editModePanel the editModePanel to set
+	 */
+	public void setEditModePanel(EditPanel editModePanel) {
+		this.editModePanel = editModePanel;
+	}
+
+
+	/**
+	 * @return the mapPanel
+	 */
+	public MapViewer getMapPanel() {
+		return mapPanel;
+	}
+
+
+	/**
+	 * @param mapPanel the mapPanel to set
+	 */
+	public void setMapPanel(MapViewer mapPanel) {
+		this.mapPanel = mapPanel;
+	}
+
+
+	/**
+	 * @return the sidePanel
+	 */
+	public SidePanel getSidePanel() {
+		return sidePanel;
+	}
+
+
+	/**
+	 * @param sidePanel the sidePanel to set
+	 */
+	public void setSidePanel(SidePanel sidePanel) {
+		this.sidePanel = sidePanel;
 	}
 }
