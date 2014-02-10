@@ -24,6 +24,7 @@ import data.DataEngine;
 import data.mapper.MapperEnum;
 import entity.IEntity;
 import entity.Info;
+import entity.Poi;
 import entity.Route;
 import event.SidePanelHistoricEvent;
 import event.SidePanelInfoEvent;
@@ -177,8 +178,7 @@ public class SidePanel extends JPanel implements Observer{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Result event");
-				
+				System.out.println("Evènement de la recherche");
 			}
 		});
 		
@@ -236,7 +236,12 @@ public class SidePanel extends JPanel implements Observer{
 	{
 		((DefaultListModel<SpeRecherche>)searchList.getModel()).addElement(new SpeRecherche(new SidePanelHistoricEvent(), s));
 	}
-
+	
+	public void resetResultSearch()
+	{
+		((DefaultListModel<SpeRecherche>)searchList.getModel()).removeAllElements();
+	}
+	
 	@Override
 	public void update() {
 		((DefaultListModel<SpeHistoric>)historicList.getModel()).clear();

@@ -162,28 +162,18 @@ public class TopBar extends JPanel{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MarkerPanel rp = new MarkerPanel(null, World.getInstance().getMapPanel());
 				ArrayList<Poi> poiResult = DataEngine.getInstance().searchPoi(searchTextField.getText());
 				ArrayList<Route> routeResult = DataEngine.getInstance().searchRoute(searchTextField.getText());
-				ArrayList<MarkerPanel> a = new ArrayList<MarkerPanel>();
+				World.getInstance().getSidePanel().resetResultSearch();
 				for(Poi p : poiResult)
 				{
-					MouseAdapter ms = new MouseAdapter() {
-						public void mouseClicked(MouseEvent e) {
-							System.out.println("Evènement du Result pour un POI : ");
-						}
-					};
-					World.getInstance().getSidePanel().addSearchResult(new ResultItem(p.getLibelle(), p, ms));
-					rp.add(new ResultItem(p.getLibelle(), p, ms));
+					
+					World.getInstance().getSidePanel().addSearchResult(new ResultItem("POI :" + p.getLibelle(), p));
+					
 				}
 				for(Route r : routeResult)
 				{
-					MouseAdapter ms = new MouseAdapter() {
-						public void mouseClicked(MouseEvent e) {
-							System.out.println("Evènement du Result : ");
-						}
-					};
-					rp.add(new ResultItem(r.getLibelle(), r, ms));
+					World.getInstance().getSidePanel().addSearchResult(new ResultItem("PARCOURS :" + r.getLibelle(), r));
 				}
 			}
 		});

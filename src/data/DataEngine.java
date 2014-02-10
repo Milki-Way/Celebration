@@ -168,7 +168,7 @@ public class DataEngine {
 				}
 				else
 				{
-					query = cadData.getPreparedStatement(descMapper.upd());
+					query = cadData.getPreparedStatement(descMapper.add());
 					cadData.executePreparation(QueryPrepared.insertParameters(query, d));
 					result = true;
 				}
@@ -461,7 +461,7 @@ public class DataEngine {
 		enlist = EntityFactory.createIdentifiable(MapperEnum.POI, data);
 		for(IEntity e :enlist)
 			result.add((Poi)e);
-		return result;
+		return triPoi(result);
 	}
 	public ArrayList<Route> searchRoute(String text)
 	{
@@ -489,12 +489,11 @@ public class DataEngine {
 		enlist = EntityFactory.createIdentifiable(MapperEnum.PARCOURS, data);
 		for(IEntity e :enlist)
 			result.add((Route)e);
-		return result;
+		return triRoute(result);
 	}
 	public ArrayList<Poi> triPoi(ArrayList<Poi> input)
 	{
 		Boolean trouve = false;
-		ArrayList<Poi> comList = input;
 		ArrayList<Poi> result = new ArrayList<Poi>();
 		for(Poi p : input)
 		{
@@ -514,7 +513,6 @@ public class DataEngine {
 	public ArrayList<Route> triRoute(ArrayList<Route> input)
 	{
 		Boolean trouve = false;
-		ArrayList<Route> comList = input;
 		ArrayList<Route> result = new ArrayList<Route>();
 		for(Route p : input)
 		{

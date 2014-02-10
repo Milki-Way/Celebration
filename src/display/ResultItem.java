@@ -9,10 +9,9 @@ import entity.IEntity;
 
 public class ResultItem extends JLabel implements MouseListener{
 	IEntity item;
-	public ResultItem(String text, IEntity item, MouseListener ms)
+	public ResultItem(String text, IEntity item)
 	{
 		super(text);
-		this.addMouseListener(ms);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -41,6 +40,18 @@ public class ResultItem extends JLabel implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	/**
+	 * @return the item
+	 */
+	public IEntity getItem() {
+		return item;
+	}
+	/**
+	 * @param item the item to set
+	 */
+	public void setItem(IEntity item) {
+		this.item = item;
 	}
 
 }
