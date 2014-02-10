@@ -30,6 +30,7 @@ import tools.Coordinate;
 import data.DataEngine;
 import entity.DescriptionComplex;
 import entity.IEntity;
+import entity.Info;
 import entity.Poi;
 
 public class PoiEditPanel extends JPanel{
@@ -231,6 +232,8 @@ public class PoiEditPanel extends JPanel{
 								txtLibelle.getText(), 
 								new Coordinate(Double.parseDouble(txtX.getText()), Double.parseDouble(txtY.getText())), 
 								new DescriptionComplex(txtrDescription.getText(), imgList, linksList, refList)));
+				
+				DataEngine.getInstance().persist(new Info("Ajout d'un Poi ("+txtLibelle.getText()+")", new DescriptionComplex(txtrDescription.getText(), imgList, linksList, refList)));
 				System.out.println("Poi "+txtLibelle.getText()+" ajouté !");
 			}
 		});
@@ -275,6 +278,8 @@ public class PoiEditPanel extends JPanel{
 				currentPoi.setDescription(curDesc);
 				
 				DataEngine.getInstance().persist(currentPoi);
+				
+				DataEngine.getInstance().persist(new Info("Modification d'un Poi ("+currentPoi.getLibelle()+")", currentPoi.getDescription()));
 			}
 		});
 		this.add(btnModifier, gbc_btnModifier);
@@ -286,6 +291,7 @@ public class PoiEditPanel extends JPanel{
 		btnSupprimer.addActionListener(new ActionListener() { // DEL POI
 			public void actionPerformed(ActionEvent e) {
 				DataEngine.getInstance().delete(currentPoi);
+				DataEngine.getInstance().persist(new Info("Supression d'un Poi ("+currentPoi.getLibelle()+")", currentPoi.getDescription()));
 			}
 		});
 		this.add(btnSupprimer, gbc_btnSupprimer);

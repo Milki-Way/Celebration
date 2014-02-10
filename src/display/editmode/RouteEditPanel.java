@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionListener;
 
 import data.DataEngine;
 import entity.DescriptionComplex;
+import entity.Info;
 import entity.Poi;
 import entity.Route;
 
@@ -354,6 +355,7 @@ public class RouteEditPanel extends JPanel{
 				curRoute.setDescmplx(curDesc);
 				
 				DataEngine.getInstance().persist(curRoute);
+				DataEngine.getInstance().persist(new Info("Ajout d'un Parcours ("+curRoute.getLibelle()+")", curRoute.getDescmplx()));
 			}
 		});
 		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
@@ -402,6 +404,7 @@ public class RouteEditPanel extends JPanel{
 				curRoute.setDescmplx(curDesc);
 				
 				DataEngine.getInstance().persist(curRoute);
+				DataEngine.getInstance().persist(new Info("Modification d'un Parcours ("+curRoute.getLibelle()+")", curRoute.getDescmplx()));
 			}
 		});
 		GridBagConstraints gbc_btnMod = new GridBagConstraints();
@@ -414,6 +417,7 @@ public class RouteEditPanel extends JPanel{
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DataEngine.getInstance().delete(curRoute);
+				DataEngine.getInstance().persist(new Info("Supression d'un Parcours ("+curRoute.getLibelle()+")", curRoute.getDescmplx()));
 			}
 		});
 		GridBagConstraints gbc_btnSupprimer = new GridBagConstraints();
