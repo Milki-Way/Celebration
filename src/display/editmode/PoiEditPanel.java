@@ -95,7 +95,7 @@ public class PoiEditPanel extends JPanel{
 				DefaultListModel<Poi> listModel = new DefaultListModel<Poi>();
 				
 				ArrayList<Poi> searchResult = DataEngine.getInstance().searchPoi(txtSearch.getText()); // TODO
-				
+				searchResult = DataEngine.getInstance().triPoi(searchResult);
 				System.out.println("result size: "+searchResult.size());
 				
 				for(int index=0; index<searchResult.size(); index++)

@@ -81,7 +81,7 @@ public class RouteEditPanel extends JPanel{
 				DefaultListModel<Route> listModel = new DefaultListModel<Route>();
 				
 				ArrayList<Route> searchResult = DataEngine.getInstance().searchRoute(txtParcoursSearch.getText()); // TODO
-				
+				searchResult = DataEngine.getInstance().triRoute(searchResult);
 				for(int index=0; index<searchResult.size(); index++)
 				{
 				     listModel.addElement(searchResult.get(index));
@@ -133,7 +133,7 @@ public class RouteEditPanel extends JPanel{
 						
 						
 						ArrayList<Poi> searchResult = curRoute.getPoiList();
-						
+						searchResult = DataEngine.getInstance().triPoi(searchResult);
 						for(int index=0; index<searchResult.size(); index++)
 						{
 							listModelPoiOfRouteList.addElement(searchResult.get(index));
@@ -183,7 +183,7 @@ public class RouteEditPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 								
 				ArrayList<Poi> searchResult = DataEngine.getInstance().searchPoi(textPoiSearch.getText());
-				
+				searchResult = DataEngine.getInstance().triPoi(searchResult);
 				for(int index=0; index<searchResult.size(); index++)
 				{
 					listModelPoiSearch.addElement(searchResult.get(index));

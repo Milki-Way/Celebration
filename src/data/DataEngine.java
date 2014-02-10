@@ -61,7 +61,7 @@ public class DataEngine {
 		interParcPoiMapper = new MpgInterParcPoi();
 		refMapper = new MpgReference();
 		cadData = new Cad("jdbc:sqlite:data/db/minisigdb.sqlite");
-		cadTiles = new Cad("jdbc:sqlite:data/db/map.mbtiles");
+		cadTiles = new Cad("jdbc:sqlite:data/db/map2.mbtiles");
 	}
 	
 	//Get dataengine instance
@@ -499,6 +499,26 @@ public class DataEngine {
 		for(Poi p : input)
 		{
 			for(Poi r : result)
+			{
+				if(r.equals(p))
+					trouve = true;
+			}
+			if(!trouve)
+				result.add(p);
+			else
+				trouve = false;
+		}
+		return result;
+	}
+	
+	public ArrayList<Route> triRoute(ArrayList<Route> input)
+	{
+		Boolean trouve = false;
+		ArrayList<Route> comList = input;
+		ArrayList<Route> result = new ArrayList<Route>();
+		for(Route p : input)
+		{
+			for(Route r : result)
 			{
 				if(r.equals(p))
 					trouve = true;
